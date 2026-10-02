@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">舊草嶺環狀線可愛景點地圖</title>
+  <desc id="desc">從福隆火車站出發，依序經舊草嶺隧道北口、南口、石城觀景點、萊萊地質區、四角窟觀景台、三貂角燈塔、馬崗與卯澳漁村，再繞回福隆。路線為示意圖，不按比例繪製。</desc>
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.4" fill="#dce5d3"/></pattern>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#365c4d" flood-opacity=".17"/></filter>
+  </defs>
+  <rect width="1200" height="560" rx="20" fill="#fff4d9"/>
+  <rect width="1200" height="560" rx="20" fill="url(#dots)" opacity=".35"/>
+  <!-- 柔和的海岸、山丘與手繪海浪，讓路線圖更像旅遊插畫 -->
+  <circle cx="1085" cy="72" r="38" fill="#ffd779" stroke="#f2bc58" stroke-width="4"/><path d="M1065 69q20-13 40 0m-34 13q14 10 28 0" fill="none" stroke="#fff2be" stroke-width="4" stroke-linecap="round"/>
+  <path d="M700 0h500v560H950q-42-62-14-125 22-49-11-89-33-38-6-91 31-65-24-105T700 0Z" fill="#a9dce8" stroke="#fff8e9" stroke-width="8"/>
+  <path d="M717 18q88 30 138 4t116 18q72 41 163 6m-378 77q82 25 138-1t109 17q73 34 158-1m-342 79q84 24 143-3t104 17q83 39 172-2m-356 77q73 23 145-4t110 16q70 34 158-2m-348 77q80 23 144-5t109 18q79 33 170-3m-349 76q82 25 145-3t109 18q68 32 145-4" fill="none" stroke="#e7fbf6" stroke-width="6" stroke-linecap="round" opacity=".95"/>
+  <path d="M0 210q135-81 254-11 75 44 137 2 96-65 188-4 80 52 157 4 65-41 135-4 64 36 111-3 55-45 113-4v370H0Z" fill="#b9d890" stroke="#f4f1ce" stroke-width="7"/>
+  <path d="M0 320q120-71 230-8 92 53 173 1 94-60 179-5 83 54 165 2 77-48 149 0 69 44 138-4 52-36 118-5v259H0Z" fill="#8fbd79" opacity=".72"/>
+  <path d="M44 149q19-28 39 0 18-26 36 0m690 4q20-26 39 0 18-24 35 0m-725 95q16-22 32 0 16-22 32 0m540 134q19-27 38 0 18-24 36 0" fill="#fffdf3" stroke="#fffdf3" stroke-width="12" stroke-linecap="round"/>
+  <g fill="#4e8b59" stroke="#39744c" stroke-width="2" opacity=".9"><path d="m58 278 18-39 18 39Zm7 18h22v8H65Zm71-26 16-35 17 35Zm6 17h20v8h-20Zm81 73 17-38 18 38Zm7 17h22v8h-22Zm425-141 17-38 18 38Zm7 17h22v8h-22Zm98 63 17-38 18 38Zm7 17h22v8h-22Zm88 100 17-38 18 38Zm7 17h22v8h-22Zm107-77 17-38 18 38Zm7 17h22v8h-22Z"/></g>
+  <path d="M28 426q100-89 202-28 79 48 150-4 72-54 140-22 67 30 125-17 51-41 115-13 59 25 111-16 72-55 133-20 71 40 166-23" fill="none" stroke="#fff9df" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M28 426q100-89 202-28 79 48 150-4 72-54 140-22 67 30 125-17 51-41 115-13 59 25 111-16 72-55 133-20 71 40 166-23" fill="none" stroke="#ec6e83" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M28 426q100-89 202-28 79 48 150-4 72-54 140-22 67 30 125-17 51-41 115-13 59 25 111-16 72-55 133-20 71 40 166-23" fill="none" stroke="#fff7dd" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 15" opacity=".95"/>
+  <g fill="#fff6d9" stroke="#6c9e67" stroke-width="4"><circle cx="133" cy="350" r="42"/><circle cx="277" cy="387" r="38"/><circle cx="418" cy="340" r="38"/><circle cx="524" cy="300" r="36"/><circle cx="640" cy="265" r="36"/><circle cx="742" cy="223" r="36"/><circle cx="844" cy="183" r="36"/><circle cx="966" cy="245" r="40"/><circle cx="1050" cy="345" r="38"/><circle cx="879" cy="418" r="38"/></g>
+  <g fill="#fffaf0" stroke="#c7d7b8" stroke-width="2"><circle cx="133" cy="350" r="38"/><circle cx="277" cy="387" r="34"/><circle cx="418" cy="340" r="34"/><circle cx="524" cy="300" r="32"/><circle cx="640" cy="265" r="32"/><circle cx="742" cy="223" r="32"/><circle cx="844" cy="183" r="32"/><circle cx="966" cy="245" r="36"/><circle cx="1050" cy="345" r="34"/><circle cx="879" cy="418" r="34"/></g>
+  <g font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif" text-anchor="middle">
+    <g filter="url(#shadow)"><circle cx="72" cy="426" r="20" fill="#557a56"/><text x="72" y="433" font-size="20" fill="white" font-weight="700">1</text></g>
+    <text x="135" y="357" font-size="35">🚉</text><text x="135" y="407" font-size="17" fill="#29483c" font-weight="700">福隆火車站</text>
+    <g filter="url(#shadow)"><circle cx="235" cy="399" r="20" fill="#557a56"/><text x="235" y="406" font-size="20" fill="white" font-weight="700">2</text></g>
+    <text x="279" y="393" font-size="32">🚲</text><text x="279" y="439" font-size="15" fill="#29483c" font-weight="700">隧道北口・制天險</text>
+    <g filter="url(#shadow)"><circle cx="373" cy="359" r="20" fill="#557a56"/><text x="373" y="366" font-size="20" fill="white" font-weight="700">3</text></g>
+    <text x="418" y="346" font-size="31">🚇</text><text x="418" y="389" font-size="15" fill="#29483c" font-weight="700">隧道南口・白雲飛處</text>
+    <g filter="url(#shadow)"><circle cx="485" cy="322" r="20" fill="#557a56"/><text x="485" y="329" font-size="20" fill="white" font-weight="700">4</text></g>
+    <text x="524" y="306" font-size="31">🔭</text><text x="524" y="348" font-size="16" fill="#29483c" font-weight="700">石城觀景點</text>
+    <g filter="url(#shadow)"><circle cx="603" cy="282" r="20" fill="#557a56"/><text x="603" y="289" font-size="20" fill="white" font-weight="700">5</text></g>
+    <text x="640" y="271" font-size="31">🪨</text><text x="640" y="310" font-size="16" fill="#29483c" font-weight="700">萊萊地質區</text>
+    <g filter="url(#shadow)"><circle cx="704" cy="240" r="20" fill="#557a56"/><text x="704" y="247" font-size="20" fill="white" font-weight="700">6</text></g>
+    <text x="742" y="229" font-size="31">🌊</text><text x="742" y="270" font-size="16" fill="#29483c" font-weight="700">四角窟觀景台</text>
+    <g filter="url(#shadow)"><circle cx="808" cy="201" r="20" fill="#557a56"/><text x="808" y="208" font-size="20" fill="white" font-weight="700">7</text></g>
+    <text x="844" y="190" font-size="31">🗼</text><text x="844" y="231" font-size="16" fill="#29483c" font-weight="700">三貂角燈塔</text>
+    <g filter="url(#shadow)"><circle cx="923" cy="267" r="20" fill="#557a56"/><text x="923" y="274" font-size="20" fill="white" font-weight="700">8</text></g>
+    <text x="966" y="252" font-size="31">🏘️</text><text x="966" y="295" font-size="15" fill="#29483c" font-weight="700">馬崗社區</text>
+    <g filter="url(#shadow)"><circle cx="1015" cy="363" r="20" fill="#557a56"/><text x="1015" y="370" font-size="20" fill="white" font-weight="700">9</text></g>
+    <text x="1050" y="352" font-size="31">🐟</text><text x="1050" y="393" font-size="16" fill="#29483c" font-weight="700">卯澳漁村</text>
+    <text x="879" y="426" font-size="28">🍱</text><text x="879" y="466" font-size="15" fill="#29483c" font-weight="700">福隆便當・回到起點</text>
+  </g>
+  <g transform="translate(100 42)"><rect width="337" height="74" rx="18" fill="#fffdf5" stroke="#d7e1ca"/><text x="24" y="30" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif" font-size="19" font-weight="700" fill="#365647">騎一圈，收藏山海風景 🌿</text><text x="24" y="55" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif" font-size="14" fill="#74877a">舊草嶺環狀線・約 20 公里路線示意</text></g>
+  <g transform="translate(32 500)"><circle cx="20" cy="20" r="18" fill="#557a56"/><text x="20" y="26" text-anchor="middle" font-family="sans-serif" font-size="17" fill="white" font-weight="700">1</text><text x="50" y="26" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif" font-size="15" fill="#365647">起點／終點：福隆火車站</text><text x="435" y="26" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif" font-size="14" fill="#74877a">路線非按比例繪製，部分路段有坡度，請依體力安排行程。</text></g>
+</svg>

@@ -7,9 +7,10 @@ const root = dirname(fileURLToPath(import.meta.url));
 const assets = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
   ['/index.html', ['index.html', 'text/html; charset=utf-8']],
-  ['/styles.css', ['styles.css', 'text/css; charset=utf-8']],
-  ['/app.mjs', ['app.mjs', 'text/javascript; charset=utf-8']],
-  ['/booking.mjs', ['booking.mjs', 'text/javascript; charset=utf-8']],
+  ['/styles.css', ['public/styles.css', 'text/css; charset=utf-8']],
+  ['/app.mjs', ['public/app.mjs', 'text/javascript; charset=utf-8']],
+  ['/booking.mjs', ['public/booking.mjs', 'text/javascript; charset=utf-8']],
+  ['/old-caoling-loop.svg', ['public/old-caoling-loop.svg', 'image/svg+xml; charset=utf-8']],
 ]);
 
 const server = createServer(async (request, response) => {
