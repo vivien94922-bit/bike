@@ -15,6 +15,11 @@ const assets = new Map([
 
 const server = createServer(async (request, response) => {
   const pathname = new URL(request.url, 'http://localhost').pathname;
+  if (pathname === '/api/bookings' && request.method === 'POST') {
+    response.writeHead(503, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
+    response.end(JSON.stringify({ message: '目前是本機展示模式，尚未連接線上寄信服務，因此需求沒有送出。請使用 Cloudflare Pages 正式網址，或致電 02-2499-1585。' }));
+    return;
+  }
   const asset = assets.get(pathname);
   if (!asset || request.method !== 'GET') {
     response.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });

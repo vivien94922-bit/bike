@@ -27,8 +27,9 @@ export async function onRequestPost({ request, env }) {
   const errors = validateBooking(booking);
   if (errors.length) return json({ message: errors[0], errors }, 400);
 
-  if (!env.RESEND_API_KEY || !env.BOOKING_TO_EMAIL || !env.BOOKING_FROM_EMAIL) {
-    return json({ message: '店家通知尚未完成設定，需求沒有送出。請直接致電店家洽詢。' }, 503);
+  const shopEmail = env.BOOKING_TO_EMAIL || 'vivien94922@gmail.com';
+  if (!env.RESEND_API_KEY || !env.BOOKING_FROM_EMAIL) {
+    return json({ message: '預約郵件服務尚未設定完成，需求沒有送出。請直接致電 02-2499-1585；店家完成郵件設定後即可線上預約。' }, 503);
   }
 
   const requestId = `SR-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
@@ -36,34 +37,50 @@ export async function onRequestPost({ request, env }) {
     `租車需求編號：${requestId}`,
     `稱呼：${booking.name.trim()}`,
     `聯絡電話：${booking.phone.trim()}`,
+    `顧客電子郵件：${booking.email.trim()}`,
     `取車日期：${booking.date}`,
     `取車時段：${booking.time}`,
     '車款與租借時限：',
     ...booking.vehicles.map(({ vehicleId, packageId, quantity }) =>
-      `- ${VEHICLES[vehicleId].name}・${VEHICLES[vehicleId].packages[packageId].label} × ${quantity} 台（預約 8 折單價 NT$ ${getBookingPrice(vehicleId, packageId).toLocaleString('zh-TW')}）`),
+      `- ${VEHICLES[vehicleId].name}・${VEHICLES[vehicleId].packages[packageId].label} × ${quantity} 台（預約優惠單價 NT$ ${getBookingPrice(vehicleId, packageId).toLocaleString('zh-TW')}）`),
     `預估租金（全車種）：NT$ ${estimateRentals(booking.vehicles).toLocaleString('zh-TW')}`,
     `備註：${(booking.note || '').trim() || '（無）'}`,
     '',
     '此需求尚未成立預約，請聯絡客人確認車輛與時段。',
+    '如需取消，請於預約日前一天來電告知；未依規定取消者將列入店家黑名單。',
+  ].join('\n');
+
+  const customerText = [
+    `親愛的 ${booking.name.trim()} 您好：`,
+    '',
+    `我們已收到您的歡樂自行車租車需求（編號：${requestId}）。`,
+    `預計日期與時間：${booking.date} ${booking.time}`,
+    '車款與租借時限：',
+    ...booking.vehicles.map(({ vehicleId, packageId, quantity }) =>
+      `- ${VEHICLES[vehicleId].name}・${VEHICLES[vehicleId].packages[packageId].label} × ${quantity} 台（預約優惠單價 NT$ ${getBookingPrice(vehicleId, packageId).toLocaleString('zh-TW')}）`),
+    `預估租金：NT$ ${estimateRentals(booking.vehicles).toLocaleString('zh-TW')}`,
+    '',
+    '這封信只代表我們收到需求，尚不代表預約成立。店家會再以電話和您確認車輛與時段。',
+    '如需取消，請於預約日前一天來電告知；未依規定取消者將列入店家黑名單。',
+    '歡樂自行車｜02-2499-1585｜每日 08:30–17:30',
   ].join('\n');
 
   try {
-    const response = await fetch('https://api.resend.com/emails', {
+    const sendEmail = (to, subject, body) => fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         authorization: `Bearer ${env.RESEND_API_KEY}`,
         'content-type': 'application/json',
       },
-      body: JSON.stringify({
-        from: env.BOOKING_FROM_EMAIL,
-        to: [env.BOOKING_TO_EMAIL],
-        subject: `單車租借需求｜${requestId}`,
-        text,
-      }),
+      body: JSON.stringify({ from: env.BOOKING_FROM_EMAIL, to: [to], subject, text: body }),
     });
-    if (!response.ok) return json({ message: '暫時無法通知店家，需求沒有送出。請稍後重試或直接來電。' }, 502);
+    const [ownerResponse, customerResponse] = await Promise.all([
+      sendEmail(shopEmail, `單車租借需求｜${requestId}`, text),
+      sendEmail(booking.email.trim(), `已收到您的租車需求｜${requestId}`, customerText),
+    ]);
+    if (!ownerResponse.ok || !customerResponse.ok) return json({ message: '預約通知或顧客確認信寄送失敗，系統未回報預約成功。請來電 02-2499-1585 確認需求狀態。' }, 502);
   } catch {
-    return json({ message: '暫時無法通知店家，需求沒有送出。請稍後重試或直接來電。' }, 502);
+    return json({ message: '預約郵件暫時無法寄送，系統未回報預約成功。請來電 02-2499-1585 確認需求狀態。' }, 502);
   }
 
   return json({ requestId }, 201);

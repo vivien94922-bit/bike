@@ -7,6 +7,13 @@ const modal = document.querySelector('#success-modal');
 const money = (amount) => `NT$ ${amount.toLocaleString('zh-TW')}`;
 const vehicleButtons = [...document.querySelectorAll('[data-vehicle]')];
 const vehicleDetails = document.querySelector('#selected-vehicles');
+const bikeDetailModal = document.querySelector('#bike-detail-modal');
+const bikeIntros = {
+  standard: { icon: '🚲', title: '一般單車', copy: '輕巧好上手，適合沿著海岸慢慢騎。騎訪舊草嶺隧道來回約 4.2 公里，可選 1.5 小時或不限時間方案。', prices: '1.5 小時預約 NT$ 50・不限時間預約 NT$ 80' },
+  child: { icon: '🚲', title: '親子車', copy: '親子一起出遊的選擇，騎乘前可請店家協助調整坐姿與舒適度，先試騎再出發。', prices: '1.5 小時預約 NT$ 80・不限時間預約 NT$ 120' },
+  tandem: { icon: '🚴', title: '協力車', copy: '兩人同騎、一起欣賞海岸風景，適合想並肩探索舊草嶺環狀線的旅伴。', prices: '1.5 小時預約 NT$ 160・不限時間預約 NT$ 200' },
+  electric: { icon: '⚡🚲', title: '電動車', copy: '想輕鬆走遠一點，可選電動車方案。租期 3 小時，預約前請先來電確認車輛。', prices: '3 小時預約 NT$ 300' },
+};
 
 function selectedIds() {
   return vehicleButtons.filter((button) => button.getAttribute('aria-pressed') === 'true').map((button) => button.dataset.vehicle);
@@ -41,7 +48,7 @@ function renderVehicleDetails() {
     for (const [packageId, rentalPackage] of Object.entries(vehicle.packages)) {
       const option = document.createElement('option');
       option.value = packageId;
-      option.textContent = `${rentalPackage.label}・原價 ${money(rentalPackage.price)}・預約 ${money(getBookingPrice(vehicleId, packageId))}（8 折）`;
+      option.textContent = `${rentalPackage.label}・原價 ${money(rentalPackage.price)}・預約優惠 ${money(getBookingPrice(vehicleId, packageId))}`;
       packageSelect.append(option);
     }
     packageLabel.append(packageSelect);
@@ -67,6 +74,24 @@ function refreshEstimate() {
   } catch {
     estimate.textContent = '請先選車';
   }
+}
+
+async function getSubmissionError(response) {
+  const contentType = response.headers.get('content-type') || '';
+  const result = contentType.includes('application/json')
+    ? await response.json().catch(() => ({}))
+    : {};
+  if (result.message) return result.message;
+  if (response.status === 404 || response.status === 405) {
+    return '預約服務尚未部署或目前網址沒有啟用預約 API。請使用店家正式網站重新送出，或致電 02-2499-1585。';
+  }
+  if (response.status === 503) {
+    return '預約寄信服務尚未完成設定，需求沒有送出。請致電 02-2499-1585。';
+  }
+  if (response.status >= 500) {
+    return `預約服務暫時故障（錯誤代碼 ${response.status}），需求沒有送出。請致電 02-2499-1585。`;
+  }
+  return `預約需求未送出（錯誤代碼 ${response.status}）。請檢查資料後重試，或致電 02-2499-1585。`;
 }
 
 vehicleButtons.forEach((button) => {
@@ -104,6 +129,7 @@ form.addEventListener('submit', async (event) => {
       : errors[0].includes('日期') ? '[name="date"]'
         : errors[0].includes('時間') ? '[name="time"]'
           : errors[0].includes('電話') ? '[name="phone"]'
+            : errors[0].includes('電子郵件') ? '[name="email"]'
             : errors[0].includes('車款') ? '[data-vehicle]'
               : errors[0].includes('時限') ? '.rental-package'
                 : errors[0].includes('台數') ? '.rental-quantity' : '[name="name"]';
@@ -120,11 +146,11 @@ form.addEventListener('submit', async (event) => {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data),
     });
-    const result = await response.json();
     if (!response.ok) {
-      errorBox.textContent = result.message || '目前無法送出需求，請稍後再試或直接來電。';
+      errorBox.textContent = await getSubmissionError(response);
       return;
     }
+    const result = await response.json();
 
     const summary = data.vehicles.map(({ vehicleId, packageId, quantity }) =>
       `${VEHICLES[vehicleId].name}・${VEHICLES[vehicleId].packages[packageId].label} × ${quantity} 台`).join('、');
@@ -142,7 +168,9 @@ form.addEventListener('submit', async (event) => {
     refreshEstimate();
     errorBox.textContent = '';
   } catch {
-    errorBox.textContent = '目前無法連線送出需求，請稍後再試或直接來電。';
+    errorBox.textContent = navigator.onLine
+      ? '預約服務目前無法連線，可能尚未部署或暫時故障。需求沒有送出；請致電 02-2499-1585。'
+      : '目前沒有網路連線，需求沒有送出；請連線後重試或致電 02-2499-1585。';
   } finally {
     submitButton.disabled = false;
   }
@@ -162,13 +190,44 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !modal.hidden) closeModal();
 });
 
-document.querySelectorAll('.choose-bike').forEach((button) => {
+function closeBikeDetail() {
+  bikeDetailModal.hidden = true;
+  document.body.classList.remove('bike-detail-open');
+}
+
+function openBikeDetail(vehicleId) {
+  const intro = bikeIntros[vehicleId];
+  if (!intro) return;
+  bikeDetailModal.dataset.vehicle = vehicleId;
+  bikeDetailModal.querySelector('.bike-detail-icon').textContent = intro.icon;
+  bikeDetailModal.querySelector('#bike-detail-title').textContent = intro.title;
+  bikeDetailModal.querySelector('.bike-detail-copy').textContent = intro.copy;
+  bikeDetailModal.querySelector('.bike-detail-price').textContent = intro.prices;
+  bikeDetailModal.hidden = false;
+  document.body.classList.add('bike-detail-open');
+  bikeDetailModal.querySelector('.bike-detail-close').focus();
+}
+
+document.querySelectorAll('[data-bike-details]').forEach((button) => {
   button.addEventListener('click', () => {
-    const toast = document.querySelector('#toast');
-    toast.textContent = `${VEHICLES[button.dataset.selectBike].name} 已加入預約選車`;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 1800);
+    openBikeDetail(button.dataset.bikeDetails);
   });
+});
+
+bikeDetailModal.querySelector('.bike-detail-close').addEventListener('click', closeBikeDetail);
+bikeDetailModal.addEventListener('click', (event) => {
+  if (event.target === bikeDetailModal) closeBikeDetail();
+});
+bikeDetailModal.querySelector('.bike-detail-book').addEventListener('click', () => {
+  const vehicleId = bikeDetailModal.dataset.vehicle;
+  const button = document.querySelector(`[data-vehicle="${vehicleId}"]`);
+  if (button.getAttribute('aria-pressed') !== 'true') button.click();
+  closeBikeDetail();
+  document.querySelector('#booking').scrollIntoView({ behavior: 'smooth' });
+  document.querySelector('#booking-form [name="name"]').focus({ preventScroll: true });
+});
+bikeDetailModal.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeBikeDetail();
 });
 
 const menuToggle = document.querySelector('.menu-toggle');
