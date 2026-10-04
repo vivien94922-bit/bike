@@ -20,7 +20,7 @@ const server = createServer(async (request, response) => {
     response.end(JSON.stringify({ message: '目前是本機展示模式，尚未連接線上寄信服務，因此需求沒有送出。請使用 Cloudflare Pages 正式網址，或致電 02-2499-1585。' }));
     return;
   }
-  const asset = assets.get(pathname);
+  const asset = assets.get(pathname) || (/^\/icons\/[a-z-]+\.svg$/.test(pathname) ? [join('public', pathname.slice(1)), 'image/svg+xml; charset=utf-8'] : null);
   if (!asset || request.method !== 'GET') {
     response.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
     response.end('Not found');

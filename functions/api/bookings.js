@@ -31,6 +31,9 @@ export async function onRequestPost({ request, env }) {
   if (!env.RESEND_API_KEY || !env.BOOKING_FROM_EMAIL) {
     return json({ message: '預約郵件服務尚未設定完成，需求沒有送出。請直接致電 02-2499-1585；店家完成郵件設定後即可線上預約。' }, 503);
   }
+  if (!env.GOOGLE_SHEETS_WEBHOOK_URL || !env.GOOGLE_SHEETS_TOKEN) {
+    return json({ message: 'Google 試算表尚未完成連線設定，需求沒有送出。請致電 02-2499-1585。' }, 503);
+  }
 
   const requestId = `SR-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
   const text = [
@@ -38,6 +41,7 @@ export async function onRequestPost({ request, env }) {
     `稱呼：${booking.name.trim()}`,
     `聯絡電話：${booking.phone.trim()}`,
     `顧客電子郵件：${booking.email.trim()}`,
+    `自駕車牌：${booking.plate?.trim() || '（未提供）'}`,
     `取車日期：${booking.date}`,
     `取車時段：${booking.time}`,
     '車款與租借時限：',
@@ -55,6 +59,7 @@ export async function onRequestPost({ request, env }) {
     '',
     `我們已收到您的歡樂自行車租車需求（編號：${requestId}）。`,
     `預計日期與時間：${booking.date} ${booking.time}`,
+    `自駕車牌：${booking.plate?.trim() || '（未提供）'}`,
     '車款與租借時限：',
     ...booking.vehicles.map(({ vehicleId, packageId, quantity }) =>
       `- ${VEHICLES[vehicleId].name}・${VEHICLES[vehicleId].packages[packageId].label} × ${quantity} 台（預約優惠單價 NT$ ${getBookingPrice(vehicleId, packageId).toLocaleString('zh-TW')}）`),
@@ -81,6 +86,38 @@ export async function onRequestPost({ request, env }) {
     if (!ownerResponse.ok || !customerResponse.ok) return json({ message: '預約通知或顧客確認信寄送失敗，系統未回報預約成功。請來電 02-2499-1585 確認需求狀態。' }, 502);
   } catch {
     return json({ message: '預約郵件暫時無法寄送，系統未回報預約成功。請來電 02-2499-1585 確認需求狀態。' }, 502);
+  }
+
+  const sheetPayload = {
+    token: env.GOOGLE_SHEETS_TOKEN,
+    requestId,
+    name: booking.name.trim(),
+    phone: booking.phone.trim(),
+    email: booking.email.trim(),
+    plate: booking.plate?.trim() || '',
+    date: booking.date,
+    time: booking.time,
+    vehicles: booking.vehicles.map(({ vehicleId, packageId, quantity }) => ({
+      name: VEHICLES[vehicleId].name,
+      package: VEHICLES[vehicleId].packages[packageId].label,
+      quantity: Number(quantity),
+      unitPrice: getBookingPrice(vehicleId, packageId),
+    })),
+    estimatedTotal: estimateRentals(booking.vehicles),
+    note: (booking.note || '').trim(),
+  };
+  try {
+    const sheetResponse = await fetch(env.GOOGLE_SHEETS_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(sheetPayload),
+    });
+    const sheetResult = await sheetResponse.json().catch(() => ({}));
+    if (!sheetResponse.ok || sheetResult.success !== true) {
+      return json({ message: `郵件已寄出，但 Google 試算表未確認寫入（需求編號 ${requestId}）。請不要重複送出，請致電 02-2499-1585 確認。` }, 502);
+    }
+  } catch {
+    return json({ message: `郵件已寄出，但 Google 試算表連線失敗（需求編號 ${requestId}）。請不要重複送出，請致電 02-2499-1585 確認。` }, 502);
   }
 
   return json({ requestId }, 201);
