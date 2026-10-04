@@ -104,6 +104,8 @@ test('內容字級適合長輩閱讀', () => {
   assert.match(css, /--readable-text:18px/);
   assert.match(css, /--readable-small:15px/);
   assert.match(css, /\.booking-form input,\.booking-form select\{font-size:17px/);
+  assert.match(css, /@media\(max-width:620px\)\{[\s\S]*?\.booking-form input,\.booking-form select,\.booking-email-label input\{font-size:16px/);
+  assert.match(css, /\.guide-card p,\.notice-panel li\{font-size:15px;line-height:1\.8\}/);
 });
 
 test('首頁仍標示店家營業時間與預約相關重要規則', () => {

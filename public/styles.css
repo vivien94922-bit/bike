@@ -107,3 +107,44 @@ body{font-size:var(--readable-text)}
 
 .button{font-size:17px}.form-privacy,.cancellation-notice{font-size:15px}.announcement strong{font-size:15px}.faq-list details p{font-size:16px}.about-copy p{font-size:16px}.bike-detail-copy,.bike-detail-price,.success-message,.confirmation-summary{font-size:16px}
 @media(max-width:620px){.hero-actions .button{font-size:15px}.booking-help{font-size:15px}.form-privacy{font-size:14px}.button{font-size:16px}}
+
+/* 手機版字級回到舒適閱讀比例，表單欄位維持 16px 避免 iOS 自動放大 */
+@media(max-width:620px){
+  body{font-size:15px}
+  .announcement{font-size:12px;line-height:1.45}
+  .brand{font-size:19px}
+  .brand-sub{font-size:8px}
+  .header-cta,.inner-page .header-cta{font-size:13px;padding:11px 12px}
+  .page-nav{gap:6px}
+  .page-nav a{font-size:12px}
+  .hero h1,.section-heading h2,.how-heading h2,.about-copy h2,.faq-intro h2{font-size:clamp(34px,9vw,43px);line-height:1.22}
+  .hero-lede,.home-feature p,.guide-hero>p{font-size:16px;line-height:1.8}
+  .hero-note{font-size:12px}
+  .hero-stats strong{font-size:22px}
+  .section-heading p,.bike-info>p,.how-heading>p,.steps p,.about-copy p,.faq-intro>p,.faq-list details p,.visit-card p{font-size:15px;line-height:1.8}
+  .bike-info h3{font-size:18px}
+  .bike-info>p{font-size:14px}
+  .bike-type,.bike-badge{font-size:10px}
+  .bike-price-list span,.bike-price-list b,.bike-price-list del{font-size:13px}
+  .choose-bike,.faq-list summary{font-size:14px}
+  .booking-intro h2{font-size:38px}
+  .booking-intro>p,.booking-help,.booking-perks b{font-size:14px}
+  .booking-perks small,.booking-perks>div>span{font-size:12px}
+  .booking-form label,.full-label{font-size:14px}
+  .booking-form input,.booking-form select,.booking-email-label input{font-size:16px}
+  .vehicle-option span:last-child{font-size:13px}
+  .vehicle-option small,.estimate small,.form-privacy,.form-error{font-size:12px}
+  .estimate>span{font-size:15px}
+  .button,.hero-actions .button,.guide-actions .button{font-size:14px}
+  .fixed-booking-cta span{font-size:15px}
+  .fixed-booking-cta small{font-size:11px}
+  .guide-hero h1{font-size:clamp(34px,9vw,44px)}
+  .guide-heading h2,.notice-panel h2,.review-note h2,.review-contact h2{font-size:27px;line-height:1.4}
+  .guide-heading p,.guide-card p,.notice-panel li{font-size:15px;line-height:1.8}
+  .guide-card h3{font-size:19px}
+  .guide-link{font-size:14px}
+  .review-note p,.review-contact p{font-size:15px}
+  .review-form-card h2{font-size:24px}
+  .review-entry p{font-size:15px}
+  .footer-main>p,.footer-contact,.footer-map,.footer-bottom{font-size:12px}
+}
