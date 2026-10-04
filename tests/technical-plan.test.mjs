@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises';
 const plan = await readFile(new URL('../docs/TECHNICAL_PLAN.md', import.meta.url), 'utf8');
 
 test('技術方案涵蓋首版架構、表單流程與 Electron 評估', () => {
-  for (const section of ['Astro + TypeScript', 'Cloudflare Pages', 'Cloudflare Pages Functions', 'Resend', 'Electron 評估', '上線前需確認']) {
+  for (const section of ['Astro + TypeScript', 'Cloudflare Pages', 'Cloudflare Pages Functions', 'Google Sheets', 'Electron 評估', '上線前需確認']) {
     assert.ok(plan.includes(section), `技術方案缺少：${section}`);
   }
 });

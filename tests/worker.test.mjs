@@ -12,7 +12,7 @@ test('Worker 將網站請求交給靜態資產服務', async () => {
   assert.equal(response, expected);
 });
 
-test('Worker 會將預約 POST 路由到寄信 API，而不是靜態資產', async () => {
+test('Worker 會將預約 POST 路由到 Sheets 預約 API，而不是靜態資產', async () => {
   const request = new Request('https://bike.example.test/api/bookings', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },

@@ -23,24 +23,64 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     const sheet = SpreadsheetApp.openById(spreadsheetId).getSheets()[0];
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['需求編號', '送出時間', '姓名', '電話', '電子郵件', '車牌', '日期', '時間', '車款明細', '預估金額', '備註']);
-    }
-    const ids = sheet.getRange(1, 1, sheet.getLastRow(), 1).getDisplayValues().flat();
+    const columns = ensureBookingColumns(sheet);
+    const idColumn = columns['預約編號'];
+    const ids = sheet.getLastRow() > 1
+      ? sheet.getRange(2, idColumn, sheet.getLastRow() - 1, 1).getDisplayValues().flat()
+      : [];
     if (ids.includes(payload.requestId)) return jsonResponse({ success: true, duplicate: true });
 
-    const vehicleText = (payload.vehicles || []).map((vehicle) =>
+    const vehicles = payload.vehicles || [];
+    const vehicleText = vehicles.map((vehicle) =>
       vehicle.name + '／' + vehicle.package + ' × ' + vehicle.quantity + ' 台（NT$ ' + vehicle.unitPrice + '／台）'
     ).join('；');
-    sheet.appendRow([
-      safeCell(payload.requestId), new Date(), safeCell(payload.name), safeCell(payload.phone),
-      safeCell(payload.email), safeCell(payload.plate), safeCell(payload.date), safeCell(payload.time),
-      safeCell(vehicleText), Number(payload.estimatedTotal) || 0, safeCell(payload.note),
-    ]);
+    const quantities = vehicles.map((vehicle) => vehicle.name + ' × ' + vehicle.quantity + ' 台').join('；');
+    const values = {
+      '預約編號': safeCell(payload.requestId), '姓名': safeCell(payload.name),
+      '電話': safeCell(payload.phone), 'Email': safeCell(payload.email),
+      '預約日期': safeCell(payload.date), '預約時間': safeCell(payload.time),
+      '車種': safeCell(vehicleText), '數量': safeCell(quantities),
+      '備註': safeCell(payload.note), '車牌號碼': safeCell(payload.plate),
+      '系統建立時間': new Date(), '預約狀態': '待確認',
+      '車款明細': safeCell(vehicleText), '預估金額': Number(payload.estimatedTotal) || 0,
+    };
+    const row = Array(sheet.getLastColumn()).fill('');
+    Object.keys(values).forEach((key) => { row[columns[key] - 1] = values[key]; });
+    sheet.appendRow(row);
     return jsonResponse({ success: true });
   } finally {
     lock.releaseLock();
   }
+}
+
+function ensureBookingColumns(sheet) {
+  const aliases = {
+    '預約編號': ['預約編號', '需求編號'], '姓名': ['姓名'], '電話': ['電話'],
+    'Email': ['Email', '電子郵件'], '預約日期': ['預約日期', '日期'],
+    '預約時間': ['預約時間', '時間'], '車種': ['車種'], '數量': ['數量'],
+    '備註': ['備註'], '車牌號碼': ['車牌號碼', '車牌'],
+    '系統建立時間': ['系統建立時間', '送出時間'], '預約狀態': ['預約狀態'],
+    '車款明細': ['車款明細'], '預估金額': ['預估金額'],
+  };
+  const keys = Object.keys(aliases);
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(keys);
+    return Object.fromEntries(keys.map((key, index) => [key, index + 1]));
+  }
+
+  const lastColumn = Math.max(sheet.getLastColumn(), 1);
+  const headers = sheet.getRange(1, 1, 1, lastColumn).getDisplayValues()[0];
+  const columns = {};
+  keys.forEach((key) => {
+    let index = headers.findIndex((header) => aliases[key].includes(header));
+    if (index < 0) {
+      headers.push(key);
+      index = headers.length - 1;
+      sheet.getRange(1, headers.length).setValue(key);
+    }
+    columns[key] = index + 1;
+  });
+  return columns;
 }
 
 function doGet(e) {

@@ -88,7 +88,7 @@ async function getSubmissionError(response) {
     return '預約服務尚未部署或目前網址沒有啟用預約 API。請使用店家正式網站重新送出，或致電 02-2499-1585。';
   }
   if (response.status === 503) {
-    return '預約寄信服務尚未完成設定，需求沒有送出。請致電 02-2499-1585。';
+    return 'Google 試算表連線尚未設定完成，需求沒有送出。請致電 02-2499-1585。';
   }
   if (response.status >= 500) {
     return `預約服務暫時故障（錯誤代碼 ${response.status}），需求沒有送出。請致電 02-2499-1585。`;
@@ -253,7 +253,7 @@ form.addEventListener('submit', async (event) => {
       `${VEHICLES[vehicleId].name}・${VEHICLES[vehicleId].packages[packageId].label} × ${quantity} 台`).join('、');
     modal.querySelector('.confirmation-summary').textContent = `${data.date} ${data.time}｜${summary}｜預估 ${money(estimateRentals(data.vehicles))}`;
     modal.querySelector('.confirmation-ref strong').textContent = result.requestId;
-    modal.querySelector('.success-message').textContent = `需求已送到店家，確認副本會寄到 ${data.email}。這還不是預約成立通知，店家會再以電話確認車輛與時段。`;
+    modal.querySelector('.success-message').textContent = `預約需求已存入 Google 試算表（狀態：${result.status || '待確認'}）。店家會再以電話 ${data.phone} 確認車輛與時段；本網站不會寄送預約郵件。`;
     modal.hidden = false;
     document.body.classList.add('modal-open');
     modal.querySelector('.modal-close').focus();

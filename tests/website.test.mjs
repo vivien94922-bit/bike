@@ -36,7 +36,7 @@ test('租車表單涵蓋聯絡、日期、時段、多車款、各車數量和�
   assert.match(app, /for \(let minutes = 8 \* 60; minutes <= 17 \* 60; minutes \+= 15\)/);
   assert.doesNotMatch(html, /name="pickup"|選擇取車方式/);
   assert.match(html, /送出需求後，店家會再確認車輛與安排/);
-  assert.match(html, /預約需求副本寄到你的電子郵件/);
+  assert.match(html, /預約資料會存入 Google 試算表/);
 });
 
 test('不向旅客顯示虛構庫存或旅客人數，並註明待確認示意資料', () => {
@@ -158,12 +158,18 @@ test('預約需具備 Google Apps Script 設定，且部署說明涵蓋串接流
   assert.match(api, /GOOGLE_SHEETS_WEBHOOK_URL/);
   assert.match(api, /GOOGLE_SHEETS_TOKEN/);
   assert.match(api, /sheetResult\.success !== true/);
-  assert.match(api, /請不要重複送出/);
+  assert.match(api, /status: '待確認'/);
   assert.match(script, /SpreadsheetApp\.openById/);
   assert.match(script, /顧客評論/);
+  assert.match(script, /'預約狀態': '待確認'/);
+  assert.match(script, /ensureBookingColumns/);
+  for (const column of ['預約編號', '姓名', '電話', 'Email', '預約日期', '預約時間', '車種', '數量', '備註', '車牌號碼', '系統建立時間', '預約狀態']) {
+    assert.ok(script.includes(column), `Apps Script 缺少試算表欄位：${column}`);
+  }
   assert.match(script, /Number\(payload\.rating\), safeCell\(payload\.comment\), '公開'/);
-  assert.match(setup, /vivien94922@gmail\.com/);
-  assert.match(setup, /Resend 必須先驗證寄件網域/);
+  assert.match(setup, /初始狀態為「待確認」/);
+  assert.match(setup, /預約不需要 Resend/);
+  assert.match(setup, /只有 Google Apps Script 確認預約已寫入試算表，網站才會顯示送出成功/);
 });
 
 test('車款卡可開啟詳細介紹與直接帶入預約，行動版固定訂車入口可見', () => {
@@ -180,7 +186,7 @@ test('景點頁顯示季節隧道時間與通行規則，首頁保留店家營�
   for (const required of ['6 月至 9 月 08:30–17:30', '10 月至隔年 5 月 08:30–17:00', '特殊節慶及臨時公告可能異動', '平日可步行', '只開放自行車通行', '並排式協力車禁止進入隧道']) {
     assert.ok(attractions.includes(required), `景點頁缺少隧道資訊：${required}`);
   }
-  for (const required of ['營業時間 08:30–17:30', '預約日前一天請來電取消', '列入黑名單', '寄到你的電子郵件']) {
+  for (const required of ['營業時間 08:30–17:30', '預約日前一天請來電取消', '列入黑名單', '存入 Google 試算表']) {
     assert.ok(html.includes(required), `首頁缺少營運資訊：${required}`);
   }
 });
@@ -194,7 +200,7 @@ test('手機車款以較大文字與單欄卡片呈現', () => {
 test('預約 API 未啟用時說明原因並提供下一步', () => {
   assert.match(app, /response\.status === 404 \|\| response\.status === 405/);
   assert.match(app, /預約服務尚未部署或目前網址沒有啟用預約 API/);
-  assert.match(app, /預約寄信服務尚未完成設定/);
+  assert.match(app, /Google 試算表連線尚未設定完成/);
   assert.doesNotMatch(app, /目前無法送出需求，請稍後再試或直接來電/);
 });
 
@@ -203,7 +209,7 @@ test('手機預約分三步確認，錯誤時保留表單並顯示所選車款�
   assert.match(app, /title: '選車與方案'/);
   assert.match(app, /title: '確認需求'/);
   assert.match(app, /function updateBookingReview\(\)/);
-  assert.match(app, /確認副本會寄到 \$\{data\.email\}/);
+  assert.match(app, /預約需求已存入 Google 試算表/);
   assert.match(app, /form\.querySelector\('\.booking-plate-label'\)/);
   assert.match(css, /\.booking-progress/);
 });
