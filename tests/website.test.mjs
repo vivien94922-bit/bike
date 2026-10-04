@@ -57,6 +57,14 @@ test('首頁價格正確，電動車只提供 1.5 小時方案', async () => {
   assert.doesNotMatch(app, /3 小時|solo3h|duo3h/);
 });
 
+test('一般單車提供兒童尺寸與輔助輪，價格沿用一般單車方案', () => {
+  assert.match(html, /一般單車・兒童車/);
+  assert.match(html, /提供兒童可騎車款與輔助輪，價格和一般單車相同/);
+  assert.match(html, /有兒童單車或輔助輪嗎？/);
+  assert.match(html, /各年齡層都歡迎來電詢問適合的車款/);
+  assert.match(app, /title: '一般單車・兒童車'.*輔助輪.*價格和一般單車相同/);
+});
+
 test('景點指南包含環狀線地圖、飲食休息點與隧道注意事項', () => {
   assert.match(attractions, /old-caoling-loop\.svg/);
   assert.match(attractions, /福隆便當/);
