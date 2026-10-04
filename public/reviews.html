@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/reviews.mjs"></script>
   </head>
   <body class="inner-page">
     <div class="announcement"><span class="announcement-dot"></span> 歡樂自行車・旅人評論與回饋</div>
@@ -22,14 +23,34 @@
       <header class="guide-hero reviews-hero">
         <div class="eyebrow"><span class="eyebrow-line"></span> RIDERS' NOTES</div>
         <h1>你的旅程心得，<br />也能幫到下一位旅人。</h1>
-        <p>每一趟福隆海岸小旅行都有自己的風景。想看看旅人分享，或回來後留下實際感受，歡迎到歡樂自行車 Facebook 留言。</p>
-        <a class="button button-dark" href="https://www.facebook.com/profile.php?id=100063473843836" target="_blank" rel="noreferrer">前往 Facebook 看留言或分享心得 <span aria-hidden="true">↗</span></a>
+        <p>每一趟福隆海岸小旅行都有自己的風景。你可以在這裡選星等、寫下留言；店家審核通過後，評論就會顯示在本頁。</p>
+        <a class="button button-dark" href="#review-form">留下星等與心得 <span aria-hidden="true">↓</span></a>
       </header>
-      <section class="review-note">
+      <section class="review-note" aria-labelledby="public-reviews-title">
         <div class="review-mark"><img src="/icons/heart.svg" alt="" /></div>
-        <h2>只呈現真實旅人回饋</h2>
-        <p>目前網站不放未經確認的星等或推薦語。Facebook 上的留言由旅人自行發布；點擊上方按鈕即可查看店家頁面，也可以留下自己的真實體驗。</p>
-        <a class="guide-link" href="/attractions.html">先看看沿線景點與騎乘提醒 ↗</a>
+        <h2 id="public-reviews-title">旅人真實回饋</h2>
+        <p>留言需由店家審核後公開；尚無公開評論時，你可以成為第一位分享的旅人。</p>
+        <div id="review-list" class="review-list" aria-live="polite"><p class="review-empty">正在載入評論…</p></div>
+        <a class="guide-link" href="https://www.facebook.com/profile.php?id=100063473843836" target="_blank" rel="noreferrer">也可以到 Facebook 看留言 ↗</a>
+      </section>
+      <section class="review-form-card" aria-labelledby="review-form-title">
+        <h2 id="review-form-title">寫下你的騎乘心得</h2>
+        <p>分享實際體驗，讓下一位旅人更好安排行程。暱稱可不填，電話和電子郵件都不會收集。</p>
+        <form id="review-form">
+          <fieldset class="star-picker"><legend>這次體驗幾顆星？<span>*</span></legend>
+            <label><input type="radio" name="rating" value="1" required /><span aria-label="1 顆星">★</span></label>
+            <label><input type="radio" name="rating" value="2" /><span aria-label="2 顆星">★★</span></label>
+            <label><input type="radio" name="rating" value="3" /><span aria-label="3 顆星">★★★</span></label>
+            <label><input type="radio" name="rating" value="4" /><span aria-label="4 顆星">★★★★</span></label>
+            <label><input type="radio" name="rating" value="5" /><span aria-label="5 顆星">★★★★★</span></label>
+          </fieldset>
+          <label class="review-name-label">暱稱（選填）<input name="name" maxlength="40" autocomplete="nickname" placeholder="例如：小美" /></label>
+          <label class="review-comment-label">留言內容<span>*</span><textarea name="comment" minlength="5" maxlength="1000" rows="5" required placeholder="可以分享租車、路線或沿途景點的感受"></textarea></label>
+          <label class="review-consent"><input name="consent" type="checkbox" required /><span>我同意店家審核通過後，將本次星等、暱稱與留言公開在網站上。</span></label>
+          <label class="review-honeypot" aria-hidden="true">網站<input name="website" tabindex="-1" autocomplete="off" /></label>
+          <button class="button button-dark" type="submit">送出評論</button>
+          <p id="review-status" class="review-status" role="status" aria-live="polite"></p>
+        </form>
       </section>
       <section class="review-contact">
         <h2>有預約或租車問題嗎？</h2>

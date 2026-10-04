@@ -9,6 +9,7 @@ const app = await readFile(new URL('../public/app.mjs', import.meta.url), 'utf8'
 const server = await readFile(new URL('../serve.mjs', import.meta.url), 'utf8');
 const attractions = await readFile(new URL('../public/attractions.html', import.meta.url), 'utf8').catch(() => '');
 const reviews = await readFile(new URL('../public/reviews.html', import.meta.url), 'utf8').catch(() => '');
+const reviewApp = await readFile(new URL('../public/reviews.mjs', import.meta.url), 'utf8').catch(() => '');
 const astroHome = await readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
 
 test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
@@ -19,8 +20,8 @@ test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
 });
 
 test('Astro 首頁預渲染讀取來源檔，不會依賴尚未產生的 dist/index.html', () => {
-  assert.match(astroHome, /resolve\(process\.cwd\(\), 'index\.html'\)/);
-  assert.doesNotMatch(astroHome, /new URL\('\.\.\/\.\.\/index\.html'/);
+  assert.match(astroHome, /import html from '\.\.\/\.\.\/index\.html\?raw'/);
+  assert.doesNotMatch(astroHome, /readFile|process\.cwd\(\).*index\.html/);
 });
 
 test('租車表單涵蓋聯絡、日期、時段、多車款、各車數量和備註', () => {
@@ -76,10 +77,15 @@ test('景點指南包含環狀線地圖、飲食休息點與隧道注意事項',
   }
 });
 
-test('評論頁提供真實留言入口，不捏造顧客評分或推薦語', () => {
+test('評論頁可選星等和送出文字留言，且只展示審核後的真實回饋', () => {
   assert.match(reviews, /旅人評論/);
+  assert.match(reviews, /name="rating" value="5"/);
+  assert.match(reviews, /textarea name="comment"/);
+  assert.match(reviews, /name="consent" type="checkbox" required/);
   assert.match(reviews, /facebook\.com\/profile\.php\?id=100063473843836/);
-  assert.doesNotMatch(reviews, /★★★★★|5\.0 分|顧客好評|「.+」/);
+  assert.match(reviewApp, /fetch\('\/api\/reviews'/);
+  assert.match(reviewApp, /textContent = review\.comment/);
+  assert.match(reviewApp, /審核通過後就會顯示/);
 });
 
 test('主導覽提供分頁，並在首頁保持立即訂車入口', () => {
@@ -88,6 +94,7 @@ test('主導覽提供分頁，並在首頁保持立即訂車入口', () => {
   assert.match(html, /href="#booking"/);
   assert.ok(server.includes("['/attractions.html'"));
   assert.ok(server.includes("['/reviews.html'"));
+  assert.ok(server.includes("['/reviews.mjs'"));
   assert.doesNotMatch(html, /route-map-frame|id="route-map"|class="visit-section/);
 });
 
@@ -141,6 +148,8 @@ test('預約需具備 Google Apps Script 設定，且部署說明涵蓋串接流
   assert.match(api, /sheetResult\.success !== true/);
   assert.match(api, /請不要重複送出/);
   assert.match(script, /SpreadsheetApp\.openById/);
+  assert.match(script, /顧客評論/);
+  assert.match(script, /待審核/);
   assert.match(setup, /vivien94922@gmail\.com/);
   assert.match(setup, /Resend 必須先驗證寄件網域/);
 });

@@ -11,7 +11,11 @@ function doPost(e) {
   if (!expectedToken || payload.token !== expectedToken) {
     return jsonResponse({ success: false, message: 'Unauthorized' });
   }
-  if (!spreadsheetId || !payload.requestId || !payload.date || !payload.time) {
+  if (!spreadsheetId) {
+    return jsonResponse({ success: false, message: 'Missing spreadsheet configuration' });
+  }
+  if (payload.type === 'review') return saveReview(spreadsheetId, payload);
+  if (!payload.requestId || !payload.date || !payload.time) {
     return jsonResponse({ success: false, message: 'Missing configuration or booking fields' });
   }
 
@@ -32,6 +36,44 @@ function doPost(e) {
       safeCell(payload.requestId), new Date(), safeCell(payload.name), safeCell(payload.phone),
       safeCell(payload.email), safeCell(payload.plate), safeCell(payload.date), safeCell(payload.time),
       safeCell(vehicleText), Number(payload.estimatedTotal) || 0, safeCell(payload.note),
+    ]);
+    return jsonResponse({ success: true });
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function doGet(e) {
+  if (!e || !e.parameter || e.parameter.action !== 'reviews') {
+    return jsonResponse({ success: false, message: 'Unknown action' });
+  }
+  const spreadsheetId = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
+  if (!spreadsheetId) return jsonResponse({ reviews: [] });
+  const sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName('顧客評論');
+  if (!sheet || sheet.getLastRow() < 2) return jsonResponse({ reviews: [] });
+
+  const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, 6).getDisplayValues();
+  const reviews = rows
+    .filter((row) => row[5] === '公開')
+    .map((row) => ({ id: row[0], date: row[1], name: row[2], rating: Number(row[3]), comment: row[4] }));
+  return jsonResponse({ reviews });
+}
+
+function saveReview(spreadsheetId, payload) {
+  if (!payload.reviewId || !payload.rating || !payload.comment) {
+    return jsonResponse({ success: false, message: 'Missing review fields' });
+  }
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const book = SpreadsheetApp.openById(spreadsheetId);
+    const sheet = book.getSheetByName('顧客評論') || book.insertSheet('顧客評論');
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['評論編號', '送出時間', '暱稱', '星等', '留言', '狀態']);
+    }
+    sheet.appendRow([
+      safeCell(payload.reviewId), new Date(), safeCell(payload.name || '匿名旅人'),
+      Number(payload.rating), safeCell(payload.comment), '待審核',
     ]);
     return jsonResponse({ success: true });
   } finally {

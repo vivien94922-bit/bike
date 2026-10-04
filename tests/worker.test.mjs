@@ -33,3 +33,18 @@ test('Worker 不接受非 POST 預約請求', async () => {
   });
   assert.equal(response.status, 405);
 });
+
+test('Worker 將評論讀取和送出交給評論 API', async () => {
+  const getResponse = await worker.fetch(new Request('https://bike.example.test/api/reviews'), {
+    GOOGLE_SHEETS_WEBHOOK_URL: '',
+    GOOGLE_SHEETS_TOKEN: '',
+    ASSETS: { fetch: async () => new Response('asset') },
+  });
+  assert.equal(getResponse.status, 200);
+  assert.deepEqual(await getResponse.json(), { reviews: [] });
+
+  const postResponse = await worker.fetch(new Request('https://bike.example.test/api/reviews', {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ rating: 9 }),
+  }), { ASSETS: { fetch: async () => new Response('asset') } });
+  assert.equal(postResponse.status, 400);
+});
