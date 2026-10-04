@@ -11,12 +11,29 @@ const attractions = await readFile(new URL('../public/attractions.html', import.
 const reviews = await readFile(new URL('../public/reviews.html', import.meta.url), 'utf8').catch(() => '');
 const reviewApp = await readFile(new URL('../public/reviews.mjs', import.meta.url), 'utf8').catch(() => '');
 const astroHome = await readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
+const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
+const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8');
 
 test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
-  assert.match(html, /<title>歡樂自行車/);
+  assert.match(html, /<title>舊草嶺隧道租車/);
   assert.match(html, /name="description"/);
   assert.match(html, /property="og:title"/);
   for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq']) assert.match(html, new RegExp(`id="${sectionId}"`));
+});
+
+test('SEO 頁面使用在地搜尋詞、唯一 canonical 與可解析的店家結構化資料', () => {
+  assert.match(html, /<title>舊草嶺隧道租車・福隆租車｜歡樂自行車<\/title>/);
+  assert.match(html, /找福隆租車、福隆火車站附近租車或舊草嶺隧道租車/);
+  assert.match(attractions, /福隆火車站租車交通方式/);
+  assert.match(reviews, /福隆租車旅人評論/);
+  const structuredData = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert.ok(structuredData, '首頁應有 JSON-LD 店家資料');
+  const graph = JSON.parse(structuredData[1])['@graph'];
+  assert.ok(graph.some((entry) => entry['@type'] === 'BikeStore' && entry.telephone === '+886-2-2499-1585'));
+  for (const path of ['/', '/attractions.html', '/reviews.html']) {
+    assert.ok(sitemap.includes(`https://bike.vivien94922.workers.dev${path}`), `sitemap 缺少 ${path}`);
+  }
+  assert.match(robots, /Allow: \/[\s\S]*Sitemap: https:\/\/bike\.vivien94922\.workers\.dev\/sitemap\.xml/);
 });
 
 test('Astro 首頁預渲染讀取來源檔，不會依賴尚未產生的 dist/index.html', () => {
