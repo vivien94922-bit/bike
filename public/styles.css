@@ -33,3 +33,49 @@
 /* Consistent, illustrated interface icons */
 .sticker-spark{width:23px;height:23px;margin-bottom:3px}.trust-icon{object-fit:contain;padding:5px}.bike-card-icon{width:86px;height:86px;object-fit:contain}.visit-icon{width:39px;height:39px;object-fit:contain;float:right}.step-icon img{width:23px;height:23px;object-fit:contain}.photo-bike img{width:100px;height:100px;object-fit:contain;filter:grayscale(1);opacity:.72}.bike-detail-icon img{width:50px;height:50px;object-fit:contain}.footer-spark{width:15px;height:15px;vertical-align:middle;margin-left:4px}.booking-form select[name="time"]{cursor:pointer}
 @media(max-width:620px){.photo-bike img{width:74px;height:74px}.bike-card-icon{width:64px;height:64px}}
+
+/* Reader-friendly inner pages and larger type for older guests */
+:root{--readable-text:18px;--readable-small:15px}
+body{font-size:var(--readable-text)}
+.announcement{font-size:15px;min-height:40px;height:auto;line-height:1.5;padding:7px 12px}
+.desktop-nav{font-size:16px}.desktop-nav a{font-size:16px}
+.brand{font-size:24px}.brand-sub{font-size:10px}
+.eyebrow{font-size:13px;letter-spacing:.1em}
+.hero-lede{font-size:20px}.hero-note,.hero-stats small{font-size:14px}
+.trust-item b{font-size:15px}.trust-item small{font-size:14px}.trust-quote span{font-size:13px}
+.section-heading p,.bike-info>p,.how-heading>p,.steps p,.about-copy p,.faq-intro>p,.faq-list details p,.visit-card p{font-size:16px;line-height:1.85}
+.bike-type,.bike-badge,.bike-price-list span,.bike-price-list b,.choose-bike,.text-link{font-size:15px}
+.booking-intro>p{font-size:17px;max-width:420px}.booking-help,.booking-perks small,.booking-perks b,.booking-perks>div>span{font-size:15px}
+.booking-form label,.full-label{font-size:16px}.booking-form input,.booking-form select{font-size:17px;height:48px}.vehicle-option span:last-child{font-size:15px}.vehicle-option small,.estimate small,.form-privacy,.form-error{font-size:14px}.estimate>span{font-size:16px}
+.faq-list summary{font-size:17px}.footer-main>p,.footer-contact,.footer-map,.footer-bottom{font-size:14px}
+.page-nav{display:flex;align-items:center;gap:clamp(13px,2vw,28px);font-size:16px;font-weight:700;color:#50645c}
+.page-nav a:hover,.page-nav a[aria-current=page]{color:#83983d}
+.inner-page .site-header{height:auto;min-height:76px;gap:18px}
+.home-feature{display:flex;align-items:center;justify-content:space-between;gap:32px;padding-block:70px;margin-bottom:42px;border-block:1px solid var(--line)}
+.home-feature h2{font-size:clamp(28px,4vw,44px);margin:15px 0 10px;letter-spacing:-.06em}
+.home-feature p{font-size:18px;line-height:1.8;color:#718076;max-width:690px;margin:0}
+.guide-page,.reviews-page{max-width:1120px;margin:0 auto;padding:0 20px 90px}
+.guide-hero{padding:82px 0 68px;max-width:850px}
+.guide-hero h1{font-size:clamp(42px,7vw,76px);line-height:1.25;letter-spacing:-.07em;margin:20px 0}
+.guide-hero>p{font-size:20px;line-height:1.95;color:#64776b;max-width:780px;margin:0 0 28px}
+.guide-block{padding:36px 0 74px}
+.guide-heading h2,.notice-panel h2,.review-note h2,.review-contact h2{font-size:clamp(30px,4.5vw,48px);letter-spacing:-.055em;margin:14px 0}
+.guide-heading p{font-size:18px;line-height:1.8;color:#718076;margin:0 0 25px}
+.guide-map{margin:0 0 34px}.guide-map img{width:100%;max-width:100%;height:auto;display:block}.guide-map .route-map-caption{font-size:15px;line-height:1.8;padding:16px}
+.guide-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.guide-card{position:relative;background:#fff;border:1px solid #e1e7dc;border-radius:7px;padding:27px 28px 25px;min-height:220px}
+.guide-number{display:inline-block;color:#798d4c;font-size:14px;font-weight:800;letter-spacing:.08em;margin-bottom:11px}
+.guide-card h3{font-size:23px;line-height:1.5;margin:0 0 10px;letter-spacing:-.03em}
+.guide-card p{font-size:17px;line-height:1.95;color:#65766c;margin:0}
+.guide-card-green{background:#edf1e6}
+.guide-link{display:inline-block;margin-top:15px;font-size:16px;font-weight:800;color:#47664d;text-decoration:underline;text-underline-offset:4px}
+.notice-panel{background:#edf1e7;border-radius:9px;padding:clamp(25px,5vw,55px);margin:0 0 40px}
+.notice-panel ul{padding-left:1.4em;margin:24px 0 0}.notice-panel li{font-size:17px;line-height:1.9;color:#586e5e;margin:0 0 13px;padding-left:5px}.notice-panel li strong{color:#244b3d}
+.guide-actions{display:flex;align-items:center;flex-wrap:wrap;gap:20px;margin-top:24px}.guide-actions .button{font-size:16px}
+.reviews-page{min-height:65vh}.reviews-hero{max-width:900px;padding-bottom:54px}.reviews-hero .button{font-size:17px}
+.review-note,.review-contact{padding:38px;background:#fff;border:1px solid var(--line);border-radius:9px;margin-bottom:22px}.review-mark{width:54px;height:54px;border-radius:50%;background:#edf1e6;display:grid;place-items:center}.review-mark img{width:28px;height:28px}.review-note p,.review-contact p{font-size:18px;line-height:1.9;color:#65766c;max-width:850px}.review-contact{background:#edf1e6}
+@media(max-width:800px){.page-nav{gap:12px;font-size:14px}.page-nav a{font-size:14px}.home-feature{margin-inline:6.4%;padding-block:48px}.guide-page,.reviews-page{padding-inline:6%}.guide-hero{padding-top:55px}.guide-cards{gap:12px}.guide-card{padding:22px;min-height:0}}
+@media(max-width:620px){.guide-map{overflow-x:auto}.guide-map img{width:860px;max-width:none}.announcement{font-size:14px}.brand{font-size:21px}.inner-page .site-header{position:relative;min-height:0;padding:14px 5%;display:flex;flex-wrap:wrap;gap:11px}.inner-page .brand{flex:1}.inner-page .header-cta{margin:0;font-size:15px}.page-nav{order:3;flex-basis:100%;justify-content:space-between;gap:8px;padding-top:6px}.page-nav a{font-size:14px;white-space:nowrap}.home-feature{display:block;padding-block:39px}.home-feature p{font-size:17px}.home-feature .button{margin-top:20px}.guide-page,.reviews-page{padding:0 5% 55px}.guide-hero{padding:48px 0 40px}.guide-hero h1{font-size:clamp(38px,11vw,54px)}.guide-hero>p{font-size:18px;line-height:1.85}.guide-block{padding:20px 0 48px}.guide-heading h2,.notice-panel h2,.review-note h2,.review-contact h2{font-size:30px;line-height:1.45}.guide-heading p{font-size:17px}.guide-map{margin-inline:-5%;padding:8px;border-radius:0}.guide-map .route-map-caption{font-size:14px}.guide-cards{grid-template-columns:1fr}.guide-card{padding:22px 20px}.guide-card h3{font-size:21px}.guide-card p,.notice-panel li{font-size:16px}.notice-panel{padding:25px 21px}.guide-actions{align-items:flex-start;flex-direction:column;gap:12px}.review-note,.review-contact{padding:25px 21px}.review-note p,.review-contact p{font-size:17px}.reviews-hero .button{font-size:15px;line-height:1.5;padding:14px}.bike-info>p,.section-heading p,.steps p,.about-copy p,.faq-list details p{font-size:16px}.booking-form label{font-size:15px}.booking-form input,.booking-form select{font-size:17px}.vehicle-option span:last-child{font-size:14px}.vehicle-option small{font-size:13px}.bike-price-list span,.bike-price-list b,.bike-price-list del{font-size:14px}.faq-list summary{font-size:16px}}
+
+.button{font-size:17px}.form-privacy,.cancellation-notice{font-size:15px}.announcement strong{font-size:15px}.faq-list details p{font-size:16px}.about-copy p{font-size:16px}.bike-detail-copy,.bike-detail-price,.success-message,.confirmation-summary{font-size:16px}
+@media(max-width:620px){.hero-actions .button{font-size:15px}.booking-help{font-size:15px}.form-privacy{font-size:14px}.button{font-size:16px}}

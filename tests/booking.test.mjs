@@ -11,8 +11,6 @@ test('依車款、租借時限與台數估算費用', () => {
   assert.equal(estimateRental('tandem', 'unlimited', 2), 320);
   assert.equal(estimateRental('electric', 'solo1_5h', 1), 200);
   assert.equal(estimateRental('electric', 'duo1_5h', 1), 300);
-  assert.equal(estimateRental('electric', 'solo3h', 1), 300);
-  assert.equal(estimateRental('electric', 'duo3h', 1), 400);
 });
 
 test('拒絕不存在的車款或超出展示範圍的台數', () => {
@@ -37,7 +35,7 @@ test('非字串欄位會回報驗證錯誤而不拋出執行錯誤', () => {
 test('完整且有效的預約資料可通過檢查', () => {
   assert.deepEqual(validateBooking({
     name: '王小明', phone: '0912-345-678', email: 'rider@example.com', date: '2026-10-12',
-    time: '09:00', vehicles: [{ vehicleId: 'electric', packageId: 'duo3h', quantity: '2' }],
+    time: '09:00', vehicles: [{ vehicleId: 'electric', packageId: 'duo1_5h', quantity: '2' }],
   }), []);
 });
 
@@ -93,9 +91,9 @@ test('多種車款可同筆預約並合計正確預約價', () => {
   const vehicles = [
     { vehicleId: 'standard', packageId: 'unlimited', quantity: '2' },
     { vehicleId: 'child', packageId: 'unlimited', quantity: '1' },
-    { vehicleId: 'electric', packageId: 'duo3h', quantity: '1' },
+    { vehicleId: 'electric', packageId: 'duo1_5h', quantity: '1' },
   ];
-  assert.equal(estimateRentals(vehicles), 80 * 2 + 120 + 400);
+  assert.equal(estimateRentals(vehicles), 80 * 2 + 120 + 300);
   const base = {
     name: '林小姐', phone: '0912345678', email: 'rider@example.com', date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
     time: '09:30', vehicles,
@@ -104,13 +102,12 @@ test('多種車款可同筆預約並合計正確預約價', () => {
   assert.ok(validateBooking({ ...base, vehicles: [...vehicles, vehicles[0]] }).includes('同一車款請合併輸入租借台數'));
 });
 
-test('驗證每個車種和方案的預約優惠價', () => {
+test('驗證所有仍提供車種和方案的預約優惠價', () => {
   for (const [vehicle, packageId, price] of [
     ['standard', 'unlimited', 80],
     ['child', 'unlimited', 120],
     ['tandem', 'unlimited', 160],
     ['electric', 'solo1_5h', 200], ['electric', 'duo1_5h', 300],
-    ['electric', 'solo3h', 300], ['electric', 'duo3h', 400],
   ]) {
     assert.equal(getBookingPrice(vehicle, packageId), price);
     assert.equal(estimateRental(vehicle, packageId, 1), price);
@@ -118,4 +115,5 @@ test('驗證每個車種和方案的預約優惠價', () => {
   assert.deepEqual(Object.keys(VEHICLES.standard.packages), ['unlimited']);
   assert.deepEqual(Object.keys(VEHICLES.child.packages), ['unlimited']);
   assert.deepEqual(Object.keys(VEHICLES.tandem.packages), ['unlimited']);
+  assert.deepEqual(Object.keys(VEHICLES.electric.packages), ['solo1_5h', 'duo1_5h']);
 });

@@ -16,8 +16,6 @@ export const VEHICLES = Object.freeze({
     packages: {
       solo1_5h: { label: '單人・1.5 小時', price: 250, reservationPrice: 200 },
       duo1_5h: { label: '雙人・1.5 小時', price: 350, reservationPrice: 300 },
-      solo3h: { label: '單人・3 小時', price: 350, reservationPrice: 300 },
-      duo3h: { label: '雙人・3 小時', price: 450, reservationPrice: 400 },
     },
   },
 });

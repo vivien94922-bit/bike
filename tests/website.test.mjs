@@ -7,12 +7,14 @@ const routeMap = await readFile(new URL('../public/old-caoling-loop.svg', import
 const css = await readFile(new URL('../public/styles.css', import.meta.url), 'utf8');
 const app = await readFile(new URL('../public/app.mjs', import.meta.url), 'utf8');
 const server = await readFile(new URL('../serve.mjs', import.meta.url), 'utf8');
+const attractions = await readFile(new URL('../public/attractions.html', import.meta.url), 'utf8').catch(() => '');
+const reviews = await readFile(new URL('../public/reviews.html', import.meta.url), 'utf8').catch(() => '');
 
 test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   assert.match(html, /<title>歡樂自行車/);
   assert.match(html, /name="description"/);
   assert.match(html, /property="og:title"/);
-  for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq', 'visit']) assert.match(html, new RegExp(`id="${sectionId}"`));
+  for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq']) assert.match(html, new RegExp(`id="${sectionId}"`));
 });
 
 test('租車表單涵蓋聯絡、日期、時段、多車款、各車數量和備註', () => {
@@ -32,39 +34,80 @@ test('租車表單涵蓋聯絡、日期、時段、多車款、各車數量和�
 
 test('不向旅客顯示虛構庫存或旅客人數，並註明待確認示意資料', () => {
   assert.doesNotMatch(html, /尚有 [0-9]+ 台|今天有 <strong>[0-9]+ 位旅人|目前為示意/);
-  for (const required of ['歡樂自行車', '228 新北市貢寮區', '02-2499-1585', '不限時間', 'NT$ 100', 'NT$ 150', 'NT$ 200', 'NT$ 250', 'NT$ 350', 'NT$ 450', '預約 NT$ 80', '預約 NT$ 120', '預約 NT$ 160', '預約 NT$ 200', '預約 NT$ 300', '預約 NT$ 400', '預約每台折 NT$ 50', 'facebook.com/profile.php?id=100063473843836']) {
+  for (const required of ['歡樂自行車', '228 新北市貢寮區', '02-2499-1585', '不限時間', 'NT$ 100', 'NT$ 150', 'NT$ 200', 'NT$ 250', 'NT$ 350', '預約 NT$ 80', '預約 NT$ 120', '預約 NT$ 160', '預約 NT$ 200', '預約 NT$ 300', '預約每台折 NT$ 50', 'facebook.com/profile.php?id=100063473843836']) {
     assert.ok(html.includes(required), `首頁缺少店家資料：${required}`);
   }
   assert.doesNotMatch(html, /限時 1\.5 小時 <del>|單次 3 小時。/);
 });
 
-test('首頁顯示環狀線地圖與正確預約價格', () => {
-  assert.match(html, /route-map/);
+test('首頁價格正確，電動車只提供 1.5 小時方案', async () => {
   assert.match(html, /一般單車不限時間 NT\$ 100、預約 NT\$ 80/);
   assert.match(html, /親子車 NT\$ 150、預約 NT\$ 120/);
   assert.match(html, /協力車 NT\$ 200、預約 NT\$ 160/);
-  assert.match(html, /電動車依人數與時數計價，預約每台折 NT\$ 50/);
-  assert.match(html, /舊草嶺環狀線/);
+  assert.match(html, /電動車只有 1\.5 小時方案/);
+  assert.doesNotMatch(html, /3 小時/);
+  assert.doesNotMatch((await readFile(new URL('../public/booking.mjs', import.meta.url), 'utf8')), /solo3h|duo3h|3 小時/);
+  assert.doesNotMatch(app, /3 小時|solo3h|duo3h/);
+});
+
+test('景點指南包含環狀線地圖、飲食休息點與隧道注意事項', () => {
+  assert.match(attractions, /old-caoling-loop\.svg/);
+  assert.match(attractions, /福隆便當/);
+  assert.match(attractions, /隧道裡面涼涼/);
+  assert.match(attractions, /九號咖啡石城館/);
+  assert.match(attractions, /灆咖啡/);
+  assert.match(attractions, /龜山島/);
+  assert.match(attractions, /茶裡王/);
+  assert.match(attractions, /雨衣/);
+  assert.match(attractions, /並排式協力車/);
+  assert.match(attractions, /6 月至 9 月/);
+  assert.match(attractions, /10 月至隔年 5 月/);
+  assert.match(attractions, /necoast-nsa\.gov\.tw/);
+  assert.match(attractions, /步行約 30 分鐘/);
+  assert.match(attractions, /協助安排停車位/);
   for (const stop of ['福隆火車站', '制天險', '白雲飛處', '石城觀景點', '萊萊地質區', '四角窟觀景台', '三貂角燈塔', '馬崗社區', '卯澳漁村']) {
     assert.ok(routeMap.includes(stop), `路線圖缺少景點：${stop}`);
   }
-  assert.match(routeMap, /不按比例繪製/);
-  assert.match(routeMap, /#ec6e83/);
-  assert.match(routeMap, /柔和的海岸、山丘與手繪海浪/);
+});
+
+test('評論頁提供真實留言入口，不捏造顧客評分或推薦語', () => {
+  assert.match(reviews, /旅人評論/);
+  assert.match(reviews, /facebook\.com\/profile\.php\?id=100063473843836/);
+  assert.doesNotMatch(reviews, /★★★★★|5\.0 分|顧客好評|「.+」/);
+});
+
+test('主導覽提供分頁，並在首頁保持立即訂車入口', () => {
+  assert.match(html, /href="\/attractions\.html"/);
+  assert.match(html, /href="\/reviews\.html"/);
+  assert.match(html, /href="#booking"/);
+  assert.ok(server.includes("['/attractions.html'"));
+  assert.ok(server.includes("['/reviews.html'"));
+  assert.doesNotMatch(html, /route-map-frame|id="route-map"|class="visit-section/);
+});
+
+test('內容字級適合長輩閱讀', () => {
+  assert.match(css, /--readable-text:18px/);
+  assert.match(css, /--readable-small:15px/);
+  assert.match(css, /\.booking-form input,\.booking-form select\{font-size:17px/);
+});
+
+test('首頁仍標示店家營業時間與預約相關重要規則', () => {
+  assert.match(html, /營業時間 08:30–17:30/);
+  assert.match(html, /預約日前一天請來電取消/);
 });
 
 test('整體文字比例已放大，手機地圖可橫向檢視', () => {
   assert.match(css, /\.desktop-nav\{[^}]*font-size:14\.4px/);
   assert.match(css, /\.route-map-frame img\{width:860px;max-width:none\}/);
-  assert.match(html, /手機可左右滑動看全圖/);
+  assert.match(attractions, /手機可左右滑動查看全圖/);
 });
 
 test('首頁說明火車與自駕交通方式及現場租車付款流程', () => {
-  for (const content of ['福隆火車站', '步行約 30 分鐘', '遮陽的大樹', '協助安排停車位', '調整乘坐舒適度並讓你試騎', '任一張簡單證件暫押', '登記租車開始時間', '依登記時間核算實際騎乘時間', '現金或 LINE Pay']) {
-    assert.ok(html.includes(content), `首頁缺少交通或租車流程資訊：${content}`);
+  for (const content of ['調整乘坐舒適度並讓你試騎', '任一張簡單證件暫押', '登記租車開始時間', '依登記時間核算實際騎乘時間', '現金或 LINE Pay']) {
+    assert.ok(html.includes(content), `首頁缺少租車流程資訊：${content}`);
   }
-  assert.match(html, /travelmode=walking/);
-  assert.match(html, /travelmode=driving/);
+  assert.match(attractions, /travelmode=walking/);
+  assert.match(attractions, /travelmode=driving/);
 });
 
 test('預約區提供團體預約的老闆 LINE 加好友連結', () => {
@@ -76,7 +119,7 @@ test('預約區提供團體預約的老闆 LINE 加好友連結', () => {
 test('介面圖示改用一致的 SVG，不使用手機 Emoji，且本機伺服器可載入圖示', () => {
   assert.doesNotMatch(html, /[\u{1F300}-\u{1FAFF}]/u);
   assert.doesNotMatch(app, /[\u{1F300}-\u{1FAFF}]/u);
-  for (const icon of ['bike', 'family-bike', 'tandem', 'electric-bike', 'train', 'car', 'id-card', 'return', 'sparkle', 'route', 'heart']) {
+  for (const icon of ['bike', 'family-bike', 'tandem', 'electric-bike', 'id-card', 'return', 'sparkle', 'route', 'heart']) {
     assert.match(html, new RegExp(`/icons/${icon}\\.svg`));
   }
   assert.match(app, /\.bike-detail-icon img'\)\.src = intro\.icon/);
@@ -106,8 +149,11 @@ test('車款卡可開啟詳細介紹與直接帶入預約，行動版固定訂�
   assert.match(css, /\.fixed-booking-cta\{position:fixed/);
 });
 
-test('顯示店家及隧道開放時間、徒步規則與取消政策', () => {
-  for (const required of ['營業時間 08:30–17:30', '舊草嶺隧道開放時間為早上 08:30 至下午 17:30', '寒暑假及特殊節慶可能異動', '平日可徒步進入', '假日人潮管制時只能騎單車進入', '預約日前一天請來電取消', '列入黑名單', '寄到你的電子郵件']) {
+test('景點頁顯示季節隧道時間與通行規則，首頁保留店家營業和取消政策', () => {
+  for (const required of ['6 月至 9 月 08:30–17:30', '10 月至隔年 5 月 08:30–17:00', '特殊節慶及臨時公告可能異動', '平日可步行', '只開放自行車通行', '並排式協力車禁止進入隧道']) {
+    assert.ok(attractions.includes(required), `景點頁缺少隧道資訊：${required}`);
+  }
+  for (const required of ['營業時間 08:30–17:30', '預約日前一天請來電取消', '列入黑名單', '寄到你的電子郵件']) {
     assert.ok(html.includes(required), `首頁缺少營運資訊：${required}`);
   }
 });

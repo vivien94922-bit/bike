@@ -6,7 +6,7 @@ const validBooking = {
   name: '王小明', phone: '0912-345-678', email: 'rider@example.com', plate: 'ABC-1234',
   date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
   time: '09:00', vehicles: [
-    { vehicleId: 'electric', packageId: 'duo3h', quantity: '2' },
+    { vehicleId: 'electric', packageId: 'duo1_5h', quantity: '2' },
     { vehicleId: 'standard', packageId: 'unlimited', quantity: '1' },
   ], note: '上午到店',
 };
@@ -69,7 +69,7 @@ test('成功送出後寄送完整需求並回傳需求編號', async () => {
     assert.equal(sentEmails.length, 2);
     assert.equal(sheetRows.length, 1);
     assert.equal(sheetRows[0].name, validBooking.name);
-    assert.equal(sheetRows[0].estimatedTotal, 880);
+    assert.equal(sheetRows[0].estimatedTotal, 680);
     assert.equal(sheetRows[0].vehicles.length, 2);
     assert.equal(sheetRows[0].plate, 'ABC-1234');
     const ownerEmail = sentEmails.find(({ to }) => to.includes(configuredEnv.BOOKING_TO_EMAIL));
@@ -79,10 +79,10 @@ test('成功送出後寄送完整需求並回傳需求編號', async () => {
     assert.match(ownerEmail.text, /0912-345-678/);
     assert.match(ownerEmail.text, /確認車輛與時段/);
     assert.match(ownerEmail.text, /自駕車牌：ABC-1234/);
-    assert.match(ownerEmail.text, /3 小時/);
+    assert.match(ownerEmail.text, /1\.5 小時/);
     assert.match(ownerEmail.text, /一般單車・不限時間 × 1 台/);
-    assert.match(ownerEmail.text, /電動車・雙人・3 小時 × 2 台（預約優惠單價 NT\$ 400）/);
-    assert.match(ownerEmail.text, /NT\$ 880/);
+    assert.match(ownerEmail.text, /電動車・雙人・1\.5 小時 × 2 台（預約優惠單價 NT\$ 300）/);
+    assert.match(ownerEmail.text, /NT\$ 680/);
     assert.match(customerEmail.subject, /已收到您的租車需求/);
     assert.match(customerEmail.text, /尚不代表預約成立/);
     assert.match(customerEmail.text, /自駕車牌：ABC-1234/);
