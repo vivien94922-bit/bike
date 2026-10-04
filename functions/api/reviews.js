@@ -43,7 +43,7 @@ export async function onRequestPost({ request, env }) {
   if (name.length > 40) return json({ message: '稱呼請控制在 40 字以內。' }, 400);
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) return json({ message: '請選擇 1 至 5 顆星。' }, 400);
   if (comment.length < 5 || comment.length > 1_000) return json({ message: '留言請填寫 5 至 1000 個字。' }, 400);
-  if (review.consent !== true) return json({ message: '請先同意評論審核後公開。' }, 400);
+  if (review.consent !== true) return json({ message: '請先確認留言會公開顯示。' }, 400);
   if (!env.GOOGLE_SHEETS_WEBHOOK_URL || !env.GOOGLE_SHEETS_TOKEN) {
     return json({ message: '留言服務尚未完成設定，請稍後再試。' }, 503);
   }
@@ -62,7 +62,7 @@ export async function onRequestPost({ request, env }) {
     if (!response?.ok || result?.success !== true) {
       return json({ message: '留言目前沒有成功送出，請稍後重試或改到 Facebook 留言。' }, 502);
     }
-    return json({ reviewId, status: 'pending' }, 201);
+    return json({ reviewId, status: 'published' }, 201);
   } catch {
     return json({ message: '留言目前無法連線送出，請稍後重試或改到 Facebook 留言。' }, 502);
   }

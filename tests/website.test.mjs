@@ -77,7 +77,7 @@ test('景點指南包含環狀線地圖、飲食休息點與隧道注意事項',
   }
 });
 
-test('評論頁可選星等和送出文字留言，且只展示審核後的真實回饋', () => {
+test('評論頁可選星等和送出文字留言，且留言立即公開供旅人參考', () => {
   assert.match(reviews, /旅人評論/);
   assert.match(reviews, /name="rating" value="5"/);
   assert.match(reviews, /textarea name="comment"/);
@@ -85,7 +85,9 @@ test('評論頁可選星等和送出文字留言，且只展示審核後的真�
   assert.match(reviews, /facebook\.com\/profile\.php\?id=100063473843836/);
   assert.match(reviewApp, /fetch\('\/api\/reviews'/);
   assert.match(reviewApp, /textContent = review\.comment/);
-  assert.match(reviewApp, /審核通過後就會顯示/);
+  assert.match(reviewApp, /評論已公開/);
+  assert.match(reviewApp, /await loadReviews\(\)/);
+  assert.match(reviews, /rows="3"/);
 });
 
 test('主導覽提供分頁，並在首頁保持立即訂車入口', () => {
@@ -149,7 +151,7 @@ test('預約需具備 Google Apps Script 設定，且部署說明涵蓋串接流
   assert.match(api, /請不要重複送出/);
   assert.match(script, /SpreadsheetApp\.openById/);
   assert.match(script, /顧客評論/);
-  assert.match(script, /待審核/);
+  assert.match(script, /Number\(payload\.rating\), safeCell\(payload\.comment\), '公開'/);
   assert.match(setup, /vivien94922@gmail\.com/);
   assert.match(setup, /Resend 必須先驗證寄件網域/);
 });

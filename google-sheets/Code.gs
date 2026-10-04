@@ -73,7 +73,7 @@ function saveReview(spreadsheetId, payload) {
     }
     sheet.appendRow([
       safeCell(payload.reviewId), new Date(), safeCell(payload.name || '匿名旅人'),
-      Number(payload.rating), safeCell(payload.comment), '待審核',
+      Number(payload.rating), safeCell(payload.comment), '公開',
     ]);
     return jsonResponse({ success: true });
   } finally {

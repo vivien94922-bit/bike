@@ -23,13 +23,13 @@
       <header class="guide-hero reviews-hero">
         <div class="eyebrow"><span class="eyebrow-line"></span> RIDERS' NOTES</div>
         <h1>你的旅程心得，<br />也能幫到下一位旅人。</h1>
-        <p>每一趟福隆海岸小旅行都有自己的風景。你可以在這裡選星等、寫下留言；店家審核通過後，評論就會顯示在本頁。</p>
+        <p>每一趟福隆海岸小旅行都有自己的風景。留下星等與心得，讓其他旅人也能參考你的分享。</p>
         <a class="button button-dark" href="#review-form">留下星等與心得 <span aria-hidden="true">↓</span></a>
       </header>
       <section class="review-note" aria-labelledby="public-reviews-title">
         <div class="review-mark"><img src="/icons/heart.svg" alt="" /></div>
         <h2 id="public-reviews-title">旅人真實回饋</h2>
-        <p>留言需由店家審核後公開；尚無公開評論時，你可以成為第一位分享的旅人。</p>
+        <p>旅人送出的留言會公開顯示在這裡，歡迎參考彼此的真實體驗。尚無評論時，你可以成為第一位分享的旅人。</p>
         <div id="review-list" class="review-list" aria-live="polite"><p class="review-empty">正在載入評論…</p></div>
         <a class="guide-link" href="https://www.facebook.com/profile.php?id=100063473843836" target="_blank" rel="noreferrer">也可以到 Facebook 看留言 ↗</a>
       </section>
@@ -45,8 +45,8 @@
             <label><input type="radio" name="rating" value="5" /><span aria-label="5 顆星">★★★★★</span></label>
           </fieldset>
           <label class="review-name-label">暱稱（選填）<input name="name" maxlength="40" autocomplete="nickname" placeholder="例如：小美" /></label>
-          <label class="review-comment-label">留言內容<span>*</span><textarea name="comment" minlength="5" maxlength="1000" rows="5" required placeholder="可以分享租車、路線或沿途景點的感受"></textarea></label>
-          <label class="review-consent"><input name="consent" type="checkbox" required /><span>我同意店家審核通過後，將本次星等、暱稱與留言公開在網站上。</span></label>
+          <label class="review-comment-label">留言內容<span>*</span><textarea name="comment" minlength="5" maxlength="1000" rows="3" required placeholder="分享租車、路線或沿途景點的感受"></textarea></label>
+          <label class="review-consent"><input name="consent" type="checkbox" required /><span>我知道送出後，星等、暱稱與留言會公開在網站上；暱稱可不填。</span></label>
           <label class="review-honeypot" aria-hidden="true">網站<input name="website" tabindex="-1" autocomplete="off" /></label>
           <button class="button button-dark" type="submit">送出評論</button>
           <p id="review-status" class="review-status" role="status" aria-live="polite"></p>

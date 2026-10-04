@@ -77,23 +77,23 @@ body{font-size:var(--readable-text)}
 @media(max-width:800px){.page-nav{gap:12px;font-size:14px}.page-nav a{font-size:14px}.home-feature{margin-inline:6.4%;padding-block:48px}.guide-page,.reviews-page{padding-inline:6%}.guide-hero{padding-top:55px}.guide-cards{gap:12px}.guide-card{padding:22px;min-height:0}}
 @media(max-width:620px){.guide-map{overflow-x:auto}.guide-map img{width:860px;max-width:none}.announcement{font-size:14px}.brand{font-size:21px}.inner-page .site-header{position:relative;min-height:0;padding:14px 5%;display:flex;flex-wrap:wrap;gap:11px}.inner-page .brand{flex:1}.inner-page .header-cta{margin:0;font-size:15px}.page-nav{order:3;flex-basis:100%;justify-content:space-between;gap:8px;padding-top:6px}.page-nav a{font-size:14px;white-space:nowrap}.home-feature{display:block;padding-block:39px}.home-feature p{font-size:17px}.home-feature .button{margin-top:20px}.guide-page,.reviews-page{padding:0 5% 55px}.guide-hero{padding:48px 0 40px}.guide-hero h1{font-size:clamp(38px,11vw,54px)}.guide-hero>p{font-size:18px;line-height:1.85}.guide-block{padding:20px 0 48px}.guide-heading h2,.notice-panel h2,.review-note h2,.review-contact h2{font-size:30px;line-height:1.45}.guide-heading p{font-size:17px}.guide-map{margin-inline:-5%;padding:8px;border-radius:0}.guide-map .route-map-caption{font-size:14px}.guide-cards{grid-template-columns:1fr}.guide-card{padding:22px 20px}.guide-card h3{font-size:21px}.guide-card p,.notice-panel li{font-size:16px}.notice-panel{padding:25px 21px}.guide-actions{align-items:flex-start;flex-direction:column;gap:12px}.review-note,.review-contact{padding:25px 21px}.review-note p,.review-contact p{font-size:17px}.reviews-hero .button{font-size:15px;line-height:1.5;padding:14px}.bike-info>p,.section-heading p,.steps p,.about-copy p,.faq-list details p{font-size:16px}.booking-form label{font-size:15px}.booking-form input,.booking-form select{font-size:17px}.vehicle-option span:last-child{font-size:14px}.vehicle-option small{font-size:13px}.bike-price-list span,.bike-price-list b,.bike-price-list del{font-size:14px}.faq-list summary{font-size:16px}}
 
-.review-form-card{padding:clamp(24px,5vw,42px);background:#edf1e6;border:1px solid #dce3db;border-radius:9px;margin-bottom:34px}
-.review-form-card h2{font-size:clamp(27px,4vw,38px);margin:0 0 10px}
-.review-form-card>p{font-size:17px;line-height:1.8;color:#65766c;margin:0 0 24px}
-.review-form-card form{display:grid;gap:20px;max-width:760px}
+.review-form-card{max-width:820px;margin:0 auto 34px;padding:24px 28px;background:#edf1e6;border:1px solid #dce3db;border-radius:9px}
+.review-form-card h2{font-size:clamp(24px,3vw,32px);margin:0 0 7px}
+.review-form-card>p{font-size:15px;line-height:1.7;color:#65766c;margin:0 0 16px}
+.review-form-card form{display:grid;gap:13px;max-width:620px}
 .star-picker{border:0;padding:0;margin:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.star-picker legend{font-size:17px;font-weight:800;margin-bottom:9px;width:100%}
+.star-picker legend{font-size:15px;font-weight:800;margin-bottom:6px;width:100%}
 .star-picker legend span,.review-comment-label>span{color:#b65a45;margin-left:4px}
 .star-picker label{display:flex;align-items:center;gap:5px;cursor:pointer;color:#9a7730}
 .star-picker input{width:20px;height:20px;accent-color:#a98024}
-.star-picker label span{font-size:25px;letter-spacing:.04em}
-.review-name-label,.review-comment-label{display:grid;gap:8px;font-size:16px;font-weight:800;color:#405b4c}
-.review-name-label input,.review-comment-label textarea{width:100%;border:1px solid #d2dcd0;border-radius:5px;padding:13px 14px;background:white;font:inherit;font-size:17px;color:var(--ink)}
-.review-comment-label textarea{min-height:150px;resize:vertical;line-height:1.8}
-.review-consent{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.7;color:#526c5b;cursor:pointer}
+.star-picker label span{font-size:22px;letter-spacing:.04em}
+.review-name-label,.review-comment-label{display:grid;gap:6px;font-size:14px;font-weight:800;color:#405b4c}
+.review-name-label input,.review-comment-label textarea{width:100%;border:1px solid #d2dcd0;border-radius:5px;padding:10px 12px;background:white;font:inherit;font-size:15px;color:var(--ink)}
+.review-comment-label textarea{min-height:88px;resize:vertical;line-height:1.7}
+.review-consent{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.6;color:#526c5b;cursor:pointer}
 .review-consent input{flex:0 0 auto;width:21px;height:21px;margin-top:2px;accent-color:#54704d}
 .review-honeypot{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-.review-form-card form>.button{justify-self:start;min-width:190px}
+.review-form-card form>.button{justify-self:start;min-width:150px;padding:11px 18px}
 .review-status{min-height:1.6em;margin:0;font-size:16px;line-height:1.7;color:#a14836}
 .review-status.success{color:#315e3d}.review-status.error{color:#a14836}
 .review-list{display:grid;gap:14px;margin-top:24px}
@@ -103,7 +103,7 @@ body{font-size:var(--readable-text)}
 .review-entry p{font-size:17px;line-height:1.9;color:#465f4e;margin:10px 0 4px;white-space:pre-wrap;overflow-wrap:anywhere}
 .review-date{font-size:14px;color:#718176}
 .review-empty{font-size:16px;color:#66786b;margin:0}
-@media(max-width:620px){.review-form-card{padding:23px 18px}.review-form-card>p,.review-entry p{font-size:16px}.review-consent{font-size:14px}.star-picker{gap:5px}.star-picker label{gap:2px}.star-picker input{width:18px;height:18px}.star-picker label span{font-size:21px}.review-entry{padding:17px}.review-entry-heading strong{font-size:16px}.review-stars{font-size:17px}}
+@media(max-width:620px){.review-form-card{padding:19px 16px}.review-form-card>p,.review-entry p{font-size:15px}.review-consent{font-size:13px}.star-picker{gap:5px}.star-picker label{gap:2px}.star-picker input{width:18px;height:18px}.star-picker label span{font-size:20px}.review-entry{padding:17px}.review-entry-heading strong{font-size:16px}.review-stars{font-size:17px}}
 
 .button{font-size:17px}.form-privacy,.cancellation-notice{font-size:15px}.announcement strong{font-size:15px}.faq-list details p{font-size:16px}.about-copy p{font-size:16px}.bike-detail-copy,.bike-detail-price,.success-message,.confirmation-summary{font-size:16px}
 @media(max-width:620px){.hero-actions .button{font-size:15px}.booking-help{font-size:15px}.form-privacy{font-size:14px}.button{font-size:16px}}

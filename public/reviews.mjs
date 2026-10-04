@@ -72,7 +72,8 @@ form.addEventListener('submit', async (event) => {
     if (!response.ok) throw new Error(result.message || '評論送出失敗，請稍後重試。');
     form.reset();
     status.classList.add('success');
-    status.textContent = '評論已收到，店家審核通過後就會顯示在上方。謝謝你分享旅程！';
+    status.textContent = '評論已公開，謝謝你分享旅程！';
+    await loadReviews();
   } catch (error) {
     status.classList.add('error');
     status.textContent = error.message || '目前無法連線，請稍後重試。';
