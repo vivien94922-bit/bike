@@ -9,12 +9,18 @@ const app = await readFile(new URL('../public/app.mjs', import.meta.url), 'utf8'
 const server = await readFile(new URL('../serve.mjs', import.meta.url), 'utf8');
 const attractions = await readFile(new URL('../public/attractions.html', import.meta.url), 'utf8').catch(() => '');
 const reviews = await readFile(new URL('../public/reviews.html', import.meta.url), 'utf8').catch(() => '');
+const astroHome = await readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
 
 test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   assert.match(html, /<title>歡樂自行車/);
   assert.match(html, /name="description"/);
   assert.match(html, /property="og:title"/);
   for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq']) assert.match(html, new RegExp(`id="${sectionId}"`));
+});
+
+test('Astro 首頁預渲染讀取來源檔，不會依賴尚未產生的 dist/index.html', () => {
+  assert.match(astroHome, /resolve\(process\.cwd\(\), 'index\.html'\)/);
+  assert.doesNotMatch(astroHome, /new URL\('\.\.\/\.\.\/index\.html'/);
 });
 
 test('租車表單涵蓋聯絡、日期、時段、多車款、各車數量和備註', () => {
