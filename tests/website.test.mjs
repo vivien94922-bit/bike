@@ -65,11 +65,12 @@ test('不向旅客顯示虛構庫存或旅客人數，並註明待確認示意�
   assert.doesNotMatch(html, /限時 1\.5 小時 <del>|單次 3 小時。/);
 });
 
-test('首頁價格正確，電動車只提供 1.5 小時方案', async () => {
+test('首頁價格正確，電動車方案以 1.5 小時標示', async () => {
   assert.match(html, /一般單車不限時間 NT\$ 100、預約 NT\$ 80/);
   assert.match(html, /親子車 NT\$ 150、預約 NT\$ 120/);
   assert.match(html, /協力車 NT\$ 200、預約 NT\$ 160/);
-  assert.match(html, /電動車只有 1\.5 小時方案/);
+  assert.match(html, /電動車 1\.5 小時方案/);
+  assert.doesNotMatch(html, /電動車只有 1\.5 小時|電動車僅提供 1\.5 小時/);
   assert.doesNotMatch(html, /3 小時/);
   assert.doesNotMatch((await readFile(new URL('../public/booking.mjs', import.meta.url), 'utf8')), /solo3h|duo3h|3 小時/);
   assert.doesNotMatch(app, /3 小時|solo3h|duo3h/);
@@ -192,9 +193,10 @@ test('整體文字比例已放大，手機地圖可橫向檢視', () => {
 });
 
 test('首頁說明火車與自駕交通方式及現場租車付款流程', () => {
-  for (const content of ['調整乘坐舒適度並讓你試騎', '任一張簡單證件暫押', '登記租車開始時間', '依登記時間核算實際騎乘時間', '現金或 LINE Pay']) {
+  for (const content of ['調整乘坐舒適度並讓你試騎', '任一張簡單證件暫押', '登記租車開始時間', '依登記時間核算實際騎乘時間', '現場僅收現金付款']) {
     assert.ok(html.includes(content), `首頁缺少租車流程資訊：${content}`);
   }
+  assert.doesNotMatch(html, /LINE Pay/);
   assert.match(attractions, /travelmode=walking/);
   assert.match(attractions, /travelmode=driving/);
 });
