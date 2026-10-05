@@ -38,4 +38,6 @@
 - 不需要設定或寄送郵件。
 - 測試送出一則評論後，「顧客評論」分頁新增「公開」列，並在評論頁確認星等和留言立即出現。
 
-若預約錯誤提示 Google Sheets 連線設定未完成，請確認 Cloudflare 兩個環境變數、Apps Script 部署權限、試算表 ID 與 token 相同，再部署最新版本。
+若網站顯示「Google 試算表尚未完成連線設定」，代表正式環境的 Cloudflare Worker 沒有同時讀到 `GOOGLE_SHEETS_WEBHOOK_URL` 和 `GOOGLE_SHEETS_TOKEN`；Google 搜尋索引只會收錄網頁，並不會替預約 API 設定試算表連線。請在 Cloudflare `bike` Worker 的 **Settings → Variables and Secrets → Production** 設定這兩個值：Webhook URL 使用 Apps Script 部署的 `/exec` 網址，token 必須與 Apps Script 指令碼屬性中的 `BOOKING_SHEETS_TOKEN` 完全相同。儲存後重新部署 Worker，再用正式網址送出一筆測試預約並確認新增到工作表。
+
+若提示改為「預約資料沒有寫入 Google 試算表」或「目前無法連線至 Google 試算表」，代表兩個 Cloudflare 值已存在，但 Apps Script 回應、部署權限、試算表 ID 或 token 驗證仍有問題。請確認 Apps Script 網頁應用程式以「我」執行並允許「所有人」存取，且修改 Apps Script 後已更新部署版本。

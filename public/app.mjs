@@ -99,7 +99,7 @@ async function getSubmissionError(response) {
 const bookingSteps = [
   { title: '聯絡資料', elements: [...form.querySelectorAll('.form-row')].slice(0, 2).concat(form.querySelector('.booking-email-label'), form.querySelector('.booking-plate-label')) },
   { title: '選車與方案', elements: [form.querySelector('.full-label'), form.querySelector('.vehicle-options'), vehicleDetails, [...form.querySelectorAll('.form-row')][2]] },
-  { title: '確認需求', elements: [form.querySelector('.estimate'), form.querySelector('.button-submit'), form.querySelector('.cancellation-notice'), form.querySelector('.form-privacy')] },
+  { title: '確認需求', elements: [form.querySelector('.estimate'), form.querySelector('.button-submit'), form.querySelector('.form-privacy')] },
 ];
 const progress = document.createElement('ol');
 progress.className = 'booking-progress';

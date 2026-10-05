@@ -174,9 +174,9 @@ test('內容字級適合長輩閱讀', () => {
   assert.match(css, /\.guide-card p,\.notice-panel li\{font-size:15px;line-height:1\.8\}/);
 });
 
-test('首頁仍標示店家營業時間與預約相關重要規則', () => {
+test('首頁標示店家營業時間，且不顯示使用者要求移除的取消規則', () => {
   assert.match(html, /營業時間 08:30–17:30/);
-  assert.match(html, /預約日前一天請來電取消/);
+  assert.doesNotMatch(html, /預約日前一天請來電取消|列入黑名單/);
 });
 
 test('首頁常見問題與景點頁都說明騎乘途中故障的道路救援方式', () => {
@@ -247,11 +247,11 @@ test('車款卡可開啟詳細介紹與直接帶入預約，行動版固定訂�
   assert.match(css, /\.fixed-booking-cta\{position:fixed/);
 });
 
-test('景點頁顯示季節隧道時間與通行規則，首頁保留店家營業和取消政策', () => {
+test('景點頁顯示季節隧道時間與通行規則，首頁保留店家營業資訊', () => {
   for (const required of ['6 月至 9 月 08:30–17:30', '10 月至隔年 5 月 08:30–17:00', '特殊節慶及臨時公告可能異動', '平日可步行', '只開放自行車通行', '並排式協力車禁止進入隧道']) {
     assert.ok(attractions.includes(required), `景點頁缺少隧道資訊：${required}`);
   }
-  for (const required of ['營業時間 08:30–17:30', '預約日前一天請來電取消', '列入黑名單', '存入 Google 試算表']) {
+  for (const required of ['營業時間 08:30–17:30', '存入 Google 試算表']) {
     assert.ok(html.includes(required), `首頁缺少營運資訊：${required}`);
   }
 });
