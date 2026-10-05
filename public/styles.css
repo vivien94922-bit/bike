@@ -157,5 +157,5 @@ body{font-size:var(--readable-text)}
 .bike-fleet-photo figcaption>span:last-child{font-size:15px;line-height:1.8;color:#65766c}
 @media(max-width:620px){.bike-fleet-photo{grid-template-columns:1fr;margin-bottom:18px}.bike-fleet-photo img{min-height:0;aspect-ratio:4/3}.bike-fleet-photo figcaption{gap:8px;padding:17px 18px 19px}.bike-fleet-photo figcaption strong{font-size:20px}.bike-fleet-photo figcaption>span:last-child{font-size:14px}}
 .bike-card-photo{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center 53%;z-index:0}
-.bike-card[data-bike-card="electric"] .bike-image:before,.bike-card[data-bike-card="electric"] .bike-image:after,.bike-card[data-bike-card="tandem"] .bike-image:before,.bike-card[data-bike-card="tandem"] .bike-image:after{display:none}
-@media(max-width:620px){.bike-card[data-bike-card="electric"] .bike-image,.bike-card[data-bike-card="tandem"] .bike-image{height:174px;min-height:174px}}
+.bike-card[data-bike-card="electric"] .bike-image:before,.bike-card[data-bike-card="electric"] .bike-image:after,.bike-card[data-bike-card="tandem"] .bike-image:before,.bike-card[data-bike-card="tandem"] .bike-image:after,.bike-card[data-bike-card="child"] .bike-image:before,.bike-card[data-bike-card="child"] .bike-image:after{display:none}
+@media(max-width:620px){.bike-card[data-bike-card="electric"] .bike-image,.bike-card[data-bike-card="tandem"] .bike-image,.bike-card[data-bike-card="child"] .bike-image{height:174px;min-height:174px}}

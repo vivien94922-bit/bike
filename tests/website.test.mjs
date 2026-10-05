@@ -96,6 +96,12 @@ test('協力車卡片展示實車照片並可由本機伺服器載入', () => {
   assert.ok(server.includes("['/tandem-bike.png', ['public/tandem-bike.png', 'image/png']]"));
 });
 
+test('親子車卡片展示實車照片並可由本機伺服器載入', () => {
+  assert.match(html, /data-bike-card="child"[\s\S]*?src="\/family-bike\.png" alt="歡樂自行車店內的親子車實車"/);
+  assert.match(css, /\.bike-card\[data-bike-card="child"\]/);
+  assert.ok(server.includes("['/family-bike.png', ['public/family-bike.png', 'image/png']]"));
+});
+
 test('一般單車提供兒童尺寸與輔助輪，價格沿用一般單車方案', () => {
   assert.match(html, /一般單車・兒童車/);
   assert.match(html, /提供兒童可騎車款與輔助輪，價格和一般單車相同/);
@@ -189,7 +195,7 @@ test('預約區提供團體預約的老闆 LINE 加好友連結', () => {
 test('介面圖示改用一致的 SVG，不使用手機 Emoji，且本機伺服器可載入圖示', () => {
   assert.doesNotMatch(html, /[\u{1F300}-\u{1FAFF}]/u);
   assert.doesNotMatch(app, /[\u{1F300}-\u{1FAFF}]/u);
-  for (const icon of ['bike', 'family-bike', 'id-card', 'return', 'sparkle', 'route', 'heart']) {
+  for (const icon of ['bike', 'id-card', 'return', 'sparkle', 'route', 'heart']) {
     assert.match(html, new RegExp(`/icons/${icon}\\.svg`));
   }
   assert.match(app, /electric-bike\.svg/);
