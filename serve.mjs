@@ -13,6 +13,7 @@ const assets = new Map([
   ['/sitemap.xml', ['public/sitemap.xml', 'application/xml; charset=utf-8']],
   ['/bike-fleet.png', ['public/bike-fleet.png', 'image/png']],
   ['/standard-bike.png', ['public/standard-bike.png', 'image/png']],
+  ['/child-bike-reference.png', ['public/child-bike-reference.png', 'image/png']],
   ['/electric-bike.png', ['public/electric-bike.png', 'image/png']],
   ['/family-bike.png', ['public/family-bike.png', 'image/png']],
   ['/tandem-bike.png', ['public/tandem-bike.png', 'image/png']],

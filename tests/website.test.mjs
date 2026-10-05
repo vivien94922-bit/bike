@@ -125,6 +125,13 @@ test('一般單車提供兒童尺寸與輔助輪，價格沿用一般單車方�
   assert.match(app, /title: '一般單車・兒童車'.*輔助輪.*價格和一般單車相同/);
 });
 
+test('兒童單車卡片展示參考情境照並清楚標示非店內實車', () => {
+  assert.match(html, /data-bike-card="standard"[\s\S]*?src="\/child-bike-reference\.png" alt="兒童騎乘單車的情境參考圖，非店內實車"/);
+  assert.match(html, /情境參考圖・非店內實車/);
+  assert.ok(server.includes("['/child-bike-reference.png', ['public/child-bike-reference.png', 'image/png']]"));
+  assert.match(css, /\.bike-photo-note\{position:absolute/);
+});
+
 test('景點指南包含環狀線地圖、飲食休息點與隧道注意事項', () => {
   assert.match(attractions, /old-caoling-loop\.svg/);
   assert.match(attractions, /福隆便當/);
