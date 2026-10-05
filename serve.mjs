@@ -12,6 +12,7 @@ const assets = new Map([
   ['/robots.txt', ['public/robots.txt', 'text/plain; charset=utf-8']],
   ['/sitemap.xml', ['public/sitemap.xml', 'application/xml; charset=utf-8']],
   ['/bike-fleet.png', ['public/bike-fleet.png', 'image/png']],
+  ['/electric-bike.png', ['public/electric-bike.png', 'image/png']],
   ['/reviews.mjs', ['public/reviews.mjs', 'text/javascript; charset=utf-8']],
   ['/styles.css', ['public/styles.css', 'text/css; charset=utf-8']],
   ['/app.mjs', ['public/app.mjs', 'text/javascript; charset=utf-8']],
