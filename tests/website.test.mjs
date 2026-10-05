@@ -138,6 +138,12 @@ test('首頁仍標示店家營業時間與預約相關重要規則', () => {
   assert.match(html, /預約日前一天請來電取消/);
 });
 
+test('首頁常見問題與景點頁都說明騎乘途中故障的道路救援方式', () => {
+  assert.match(html, /我們提供道路救援服務。每台車前方都有聯絡電話/);
+  assert.match(attractions, /途中故障協助/);
+  assert.match(attractions, /每台車前方都有聯絡電話/);
+});
+
 test('整體文字比例已放大，手機地圖可橫向檢視', () => {
   assert.match(css, /\.desktop-nav\{[^}]*font-size:14\.4px/);
   assert.match(css, /\.route-map-frame img\{width:860px;max-width:none\}/);
