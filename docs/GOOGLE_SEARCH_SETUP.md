@@ -4,13 +4,13 @@
 
 ## 部署後提交網站地圖
 
-目前正式網址為 `https://bike.vivien94922.workers.dev`。Cloudflare 部署完成後，先確認以下網址可在無登入狀態開啟：
+目前正式網址為 `https://bike.happybike.workers.dev`。Cloudflare 部署完成後，先確認以下網址可在無登入狀態開啟：
 
-- `https://bike.vivien94922.workers.dev/`
-- `https://bike.vivien94922.workers.dev/robots.txt`
-- `https://bike.vivien94922.workers.dev/sitemap.xml`
+- `https://bike.happybike.workers.dev/`
+- `https://bike.happybike.workers.dev/robots.txt`
+- `https://bike.happybike.workers.dev/sitemap.xml`
 
-接著使用店家的 Google 帳號開啟 Google Search Console，新增並驗證網站資源，在「Sitemap」提交 `https://bike.vivien94922.workers.dev/sitemap.xml`。可用「網址審查」檢查首頁、景點頁與評論頁，對重要頁面要求建立索引。Google 可能需要時間重新檢索；提交不代表保證收錄或排名。
+接著使用店家的 Google 帳號開啟 Google Search Console，新增並驗證網站資源，在「Sitemap」提交 `https://bike.happybike.workers.dev/sitemap.xml`。可用「網址審查」檢查首頁、景點頁與評論頁，對重要頁面要求建立索引。Google 可能需要時間重新檢索；提交不代表保證收錄或排名。
 
 ## 維護 Google 商家檔案
 

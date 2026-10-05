@@ -19,7 +19,7 @@ const fulongBentoPhoto = await readFile(new URL('../public/fulong-bento.png', im
 const peanutIceCreamPhoto = await readFile(new URL('../public/peanut-ice-cream-roll.png', import.meta.url));
 
 test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
-  assert.match(html, /<title>舊草嶺隧道租車/);
+  assert.match(html, /<title>福隆火車站租車/);
   assert.match(html, /name="description"/);
   assert.match(html, /property="og:title"/);
   for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq']) assert.match(html, new RegExp(`id="${sectionId}"`));
@@ -55,18 +55,20 @@ test('首頁每次開啟都從頁面頂端開始，並展示福隆主題與使�
 });
 
 test('SEO 頁面使用在地搜尋詞、唯一 canonical 與可解析的店家結構化資料', () => {
-  assert.match(html, /<title>舊草嶺隧道租車・福隆租車｜歡樂自行車<\/title>/);
-  assert.match(html, /找福隆租車、福隆火車站附近租車或舊草嶺隧道租車/);
-  assert.match(attractions, /福隆火車站租車交通方式/);
+  assert.match(html, /<title>福隆火車站租車・舊草嶺隧道租車｜歡樂自行車<\/title>/);
+  assert.match(html, /找福隆火車站租車、福隆租車或舊草嶺隧道租車/);
+  assert.match(attractions, /<title>福隆火車站租車交通方式/);
+  assert.match(attractions, /<h1>福隆火車站租車/);
   assert.match(reviews, /福隆租車旅人評論/);
   const structuredData = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
   assert.ok(structuredData, '首頁應有 JSON-LD 店家資料');
   const graph = JSON.parse(structuredData[1])['@graph'];
   assert.ok(graph.some((entry) => entry['@type'] === 'BikeStore' && entry.telephone === '+886-2-2499-1585'));
   for (const path of ['/', '/attractions.html', '/reviews.html']) {
-    assert.ok(sitemap.includes(`https://bike.vivien94922.workers.dev${path}`), `sitemap 缺少 ${path}`);
+    assert.ok(sitemap.includes(`https://bike.happybike.workers.dev${path}`), `sitemap 缺少 ${path}`);
   }
-  assert.match(robots, /Allow: \/[\s\S]*Sitemap: https:\/\/bike\.vivien94922\.workers\.dev\/sitemap\.xml/);
+  assert.match(robots, /Allow: \/[\s\S]*Sitemap: https:\/\/bike\.happybike\.workers\.dev\/sitemap\.xml/);
+  assert.doesNotMatch(html + attractions + reviews + sitemap + robots, /bike\.vivien94922\.workers\.dev/);
 });
 
 test('Astro 首頁預渲染讀取來源檔，不會依賴尚未產生的 dist/index.html', () => {

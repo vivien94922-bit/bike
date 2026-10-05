@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bike.vivien94922.workers.dev/sitemap.xml
+Sitemap: https://bike.happybike.workers.dev/sitemap.xml

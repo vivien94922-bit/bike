@@ -4,7 +4,7 @@
 
 ## 本機預覽
 
-需要 Node.js 22.12 或更新版本。網站目前部署在 `bike.vivien94922.workers.dev`（Cloudflare Workers），請用 Wrangler 啟動本機 Worker，這樣 `/api/bookings` 才會和網站使用同一個服務：
+需要 Node.js 22.12 或更新版本。網站目前部署在 `bike.happybike.workers.dev`（Cloudflare Workers），請用 Wrangler 啟動本機 Worker，這樣 `/api/bookings` 才會和網站使用同一個服務：
 
 ```sh
 npm install
