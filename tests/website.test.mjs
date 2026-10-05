@@ -76,12 +76,25 @@ test('首頁價格正確，電動車只提供 1.5 小時方案', async () => {
 });
 
 test('車款區展示店面單車照片，並支援手機版版面和本機預覽', () => {
-  assert.match(html, /class="bike-fleet-photo"/);
+  assert.match(html, /class="bike-fleet-photo bike-gallery"/);
   assert.match(html, /src="\/bike-fleet\.png" alt="歡樂自行車店前停放多款出租單車/);
   assert.equal(bikeFleetPhoto.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
   assert.match(css, /\.bike-fleet-photo\{display:grid/);
   assert.match(css, /\.bike-fleet-photo img\{display:block/);
   assert.ok(server.includes("['/bike-fleet.png', ['public/bike-fleet.png', 'image/png']]"));
+});
+
+test('單車實照集中於可滑動照片輪播，含車款、觸控滑動與上一張下一張控制', () => {
+  assert.match(html, /data-bike-gallery[\s\S]*data-gallery-track/);
+  for (const photo of ['bike-fleet.png', 'standard-bike.png', 'family-bike.png', 'tandem-bike.png', 'electric-bike.png']) {
+    assert.match(html, new RegExp(`src="\\/${photo}"`));
+  }
+  assert.match(html, /data-gallery-prev/);
+  assert.match(html, /data-gallery-next/);
+  assert.match(css, /scroll-snap-type:x mandatory/);
+  assert.match(app, /data-bike-gallery/);
+  assert.match(css, /touch-action:pan-x/);
+  assert.ok(server.includes("['/standard-bike.png', ['public/standard-bike.png', 'image/png']]"));
 });
 
 test('電動車卡片展示實車照片並可由本機伺服器載入', () => {

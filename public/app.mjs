@@ -342,3 +342,34 @@ nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () =>
 
 renderVehicleDetails();
 refreshEstimate();
+
+document.querySelectorAll('[data-bike-gallery]').forEach((gallery) => {
+  const track = gallery.querySelector('[data-gallery-track]');
+  const photos = [...track.querySelectorAll('img')];
+  const dots = gallery.querySelector('[data-gallery-dots]');
+  let activeIndex = 0;
+  photos.forEach((photo, index) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `查看第 ${index + 1} 張單車照片`);
+    dot.addEventListener('click', () => track.scrollTo({ left: index * track.clientWidth, behavior: 'smooth' }));
+    dots.append(dot);
+  });
+  const dotButtons = [...dots.children];
+  function goTo(index) {
+    const nextIndex = (index + photos.length) % photos.length;
+    track.scrollTo({ left: nextIndex * track.clientWidth, behavior: 'smooth' });
+  }
+  gallery.querySelector('[data-gallery-prev]').addEventListener('click', () => goTo(activeIndex - 1));
+  gallery.querySelector('[data-gallery-next]').addEventListener('click', () => goTo(activeIndex + 1));
+  function updateActive() {
+    activeIndex = Math.round(track.scrollLeft / track.clientWidth);
+    dotButtons.forEach((dot, index) => {
+      if (index === activeIndex) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
+  }
+  track.addEventListener('scroll', () => requestAnimationFrame(updateActive), { passive: true });
+  window.addEventListener('resize', updateActive);
+  updateActive();
+});
