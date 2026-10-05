@@ -13,6 +13,7 @@ const reviewApp = await readFile(new URL('../public/reviews.mjs', import.meta.ur
 const astroHome = await readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
 const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8');
+const bikeFleetPhoto = await readFile(new URL('../public/bike-fleet.png', import.meta.url));
 
 test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   assert.match(html, /<title>舊草嶺隧道租車/);
@@ -72,6 +73,15 @@ test('首頁價格正確，電動車只提供 1.5 小時方案', async () => {
   assert.doesNotMatch(html, /3 小時/);
   assert.doesNotMatch((await readFile(new URL('../public/booking.mjs', import.meta.url), 'utf8')), /solo3h|duo3h|3 小時/);
   assert.doesNotMatch(app, /3 小時|solo3h|duo3h/);
+});
+
+test('車款區展示店面單車照片，並支援手機版版面和本機預覽', () => {
+  assert.match(html, /class="bike-fleet-photo"/);
+  assert.match(html, /src="\/bike-fleet\.png" alt="歡樂自行車店前停放多款出租單車/);
+  assert.equal(bikeFleetPhoto.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
+  assert.match(css, /\.bike-fleet-photo\{display:grid/);
+  assert.match(css, /\.bike-fleet-photo img\{display:block/);
+  assert.ok(server.includes("['/bike-fleet.png', ['public/bike-fleet.png', 'image/png']]"));
 });
 
 test('一般單車提供兒童尺寸與輔助輪，價格沿用一般單車方案', () => {
