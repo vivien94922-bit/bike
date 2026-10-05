@@ -144,6 +144,14 @@ test('景點指南包含環狀線地圖、飲食休息點與隧道注意事項',
   }
 });
 
+test('環狀線全站里程統一為 27 公里並建議電動車較舒適', () => {
+  const recommendation = /27 公里[\s\S]*建議騎乘電動車/;
+  assert.match(html, recommendation);
+  assert.match(attractions, recommendation);
+  assert.match(routeMap, /約 27 公里路線示意/);
+  assert.doesNotMatch(`${html}\n${attractions}\n${routeMap}`, /20 公里/);
+});
+
 test('評論頁可選星等和送出文字留言，且留言立即公開供旅人參考', () => {
   assert.match(reviews, /旅人評論/);
   assert.match(reviews, /name="rating" value="5"/);
