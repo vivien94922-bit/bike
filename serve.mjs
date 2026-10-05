@@ -14,6 +14,7 @@ const assets = new Map([
   ['/bike-fleet.png', ['public/bike-fleet.png', 'image/png']],
   ['/shop-cat.png', ['public/shop-cat.png', 'image/png']],
   ['/fulong-bento.png', ['public/fulong-bento.png', 'image/png']],
+  ['/peanut-ice-cream-roll.png', ['public/peanut-ice-cream-roll.png', 'image/png']],
   ['/standard-bike.png', ['public/standard-bike.png', 'image/png']],
   ['/child-bike-reference.png', ['public/child-bike-reference.png', 'image/png']],
   ['/electric-bike.png', ['public/electric-bike.png', 'image/png']],

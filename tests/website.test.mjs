@@ -16,6 +16,7 @@ const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 
 const bikeFleetPhoto = await readFile(new URL('../public/bike-fleet.png', import.meta.url));
 const shopCatPhoto = await readFile(new URL('../public/shop-cat.png', import.meta.url));
 const fulongBentoPhoto = await readFile(new URL('../public/fulong-bento.png', import.meta.url));
+const peanutIceCreamPhoto = await readFile(new URL('../public/peanut-ice-cream-roll.png', import.meta.url));
 
 test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   assert.match(html, /<title>舊草嶺隧道租車/);
@@ -32,16 +33,18 @@ test('首頁每次開啟都從頁面頂端開始，並展示福隆主題與使�
     assert.ok(photoGrid.includes(feature), `首頁照片區缺少：${feature}`);
   }
   assert.equal((photoGrid.match(/class="fulong-photo"/g) || []).length, 6);
-  for (const license of ['公眾領域', 'CC BY-SA 3.0', 'CC BY-SA 4.0']) assert.ok(photoGrid.includes(license), `外部照片缺少授權標示：${license}`);
-  assert.ok((photoGrid.match(/href="https:\/\/commons\.wikimedia\.org\/wiki\/File:/g) || []).length >= 4, '外部照片都應連到 Wikimedia Commons 來源頁');
-  for (const licenseUrl of ['creativecommons.org/licenses/by-sa/3.0/', 'creativecommons.org/licenses/by-sa/4.0/']) assert.ok(photoGrid.includes(licenseUrl), `照片缺少授權連結：${licenseUrl}`);
-  assert.match(photoGrid, /alt="台灣九份街頭的花生捲冰淇淋"/);
+  for (const license of ['公眾領域', 'CC BY-SA 3.0']) assert.ok(photoGrid.includes(license), `外部照片缺少授權標示：${license}`);
+  assert.ok((photoGrid.match(/href="https:\/\/commons\.wikimedia\.org\/wiki\/File:/g) || []).length >= 3, '外部照片都應連到 Wikimedia Commons 來源頁');
+  assert.ok(photoGrid.includes('creativecommons.org/licenses/by-sa/3.0/'), '外部照片缺少授權連結');
+  assert.match(photoGrid, /src="\/peanut-ice-cream-roll\.png" alt="攤主正在製作花生捲冰淇淋"/);
   assert.match(photoGrid, /src="\/shop-cat\.png" alt="一隻三花白貓躺在石板路上休息"/);
   assert.match(photoGrid, /src="\/fulong-bento\.png" alt="福隆站月台前的福隆便當木盒餐點"/);
   assert.ok(server.includes("['/shop-cat.png', ['public/shop-cat.png', 'image/png']]"));
   assert.ok(server.includes("['/fulong-bento.png', ['public/fulong-bento.png', 'image/png']]"));
+  assert.ok(server.includes("['/peanut-ice-cream-roll.png', ['public/peanut-ice-cream-roll.png', 'image/png']]"));
   assert.ok(shopCatPhoto.length > 0);
   assert.ok(fulongBentoPhoto.length > 0);
+  assert.ok(peanutIceCreamPhoto.length > 0);
 });
 
 test('SEO 頁面使用在地搜尋詞、唯一 canonical 與可解析的店家結構化資料', () => {
