@@ -50,6 +50,8 @@ body{font-size:var(--readable-text)}
 .faq-list summary{font-size:17px}.footer-main>p,.footer-contact,.footer-map,.footer-bottom{font-size:14px}
 .page-nav{display:flex;align-items:center;gap:clamp(13px,2vw,28px);font-size:16px;font-weight:700;color:#50645c}
 .page-nav a:hover,.page-nav a[aria-current=page]{color:#83983d}
+.line-booking-float{position:fixed;right:22px;bottom:22px;z-index:50;display:flex;align-items:center;gap:11px;padding:12px 18px 12px 13px;border:1px solid #08a846;border-radius:999px;background:#06c755;color:#fff;font-size:16px;font-weight:800;letter-spacing:.02em;box-shadow:0 5px 20px #173c3538;transition:transform .18s,box-shadow .18s}.line-booking-float:hover{transform:translateY(-2px);box-shadow:0 8px 25px #173c3545}.line-booking-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fff;color:#06a846;font-size:10px;font-weight:900;letter-spacing:-.04em}
+@media(max-width:620px){body:not(.inner-page) .line-booking-float{bottom:calc(82px + env(safe-area-inset-bottom));right:14px}.inner-page .line-booking-float{right:14px;bottom:calc(16px + env(safe-area-inset-bottom));font-size:15px}}
 .inner-page .site-header{height:auto;min-height:76px;gap:18px}
 .home-feature{display:flex;align-items:center;justify-content:space-between;gap:32px;padding-block:70px;margin-bottom:42px;border-block:1px solid var(--line)}
 .home-feature h2{font-size:clamp(28px,4vw,44px);margin:15px 0 10px;letter-spacing:-.06em}

@@ -210,6 +210,16 @@ test('主導覽提供分頁，並在首頁保持立即訂車入口', () => {
   assert.doesNotMatch(html, /route-map-frame|id="route-map"|class="visit-section/);
 });
 
+test('首頁、景點與評論頁都有右下角固定 LINE 立即預約入口', () => {
+  const attractionsPage = attractions;
+  for (const page of [html, attractionsPage, reviews]) {
+    assert.match(page, /class="line-booking-float" href="https:\/\/line\.me\/R\/ti\/p\/~0912200039"/);
+    assert.match(page, /立即預約/);
+  }
+  assert.match(css, /\.line-booking-float\{position:fixed;right:/);
+  assert.match(css, /body:not\(\.inner-page\) \.line-booking-float\{bottom:calc\(82px/);
+});
+
 test('內容字級適合長輩閱讀', () => {
   assert.match(css, /--readable-text:18px/);
   assert.match(css, /--readable-small:15px/);
