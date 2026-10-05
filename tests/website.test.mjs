@@ -42,14 +42,16 @@ test('Astro 首頁預渲染讀取來源檔，不會依賴尚未產生的 dist/in
   assert.doesNotMatch(astroHome, /readFile|process\.cwd\(\).*index\.html/);
 });
 
-test('租車表單涵蓋聯絡、日期、時段、多車款、各車數量和備註', () => {
-  for (const field of ['name', 'phone', 'email', 'plate', 'date', 'time', 'note']) {
-    assert.match(html, new RegExp(`name="${field}"`), `表單缺少 ${field}`);
+test('租車表單只收電話、取車日期時間、車牌和必要車款資料', () => {
+  const form = html.match(/<form class="booking-form"[\s\S]*?<\/form>/)?.[0] || '';
+  for (const field of ['phone', 'plate', 'date', 'time']) {
+    assert.match(form, new RegExp(`name="${field}"`), `表單缺少 ${field}`);
   }
+  assert.doesNotMatch(form, /name="(?:name|email|note)"/);
   for (const vehicle of ['standard', 'child', 'tandem', 'electric']) assert.match(html, new RegExp(`data-vehicle="${vehicle}"`));
   assert.match(html, /選擇車種（可複選）/);
   assert.match(html, /id="selected-vehicles"/);
-  assert.match(html, /自駕車牌（選填）/);
+  assert.match(form, /車牌（選填）/);
   assert.match(html, /<select name="time" required><option value="" selected disabled>請選擇時間<\/option><\/select>/);
   assert.match(app, /for \(let minutes = 8 \* 60; minutes <= 17 \* 60; minutes \+= 15\)/);
   assert.doesNotMatch(html, /name="pickup"|選擇取車方式/);
@@ -196,7 +198,7 @@ test('內容字級適合長輩閱讀', () => {
   assert.match(css, /--readable-text:18px/);
   assert.match(css, /--readable-small:15px/);
   assert.match(css, /\.booking-form input,\.booking-form select\{font-size:17px/);
-  assert.match(css, /@media\(max-width:620px\)\{[\s\S]*?\.booking-form input,\.booking-form select,\.booking-email-label input\{font-size:16px/);
+  assert.match(css, /@media\(max-width:620px\)\{[\s\S]*?\.booking-form input,\.booking-form select\{font-size:16px/);
   assert.match(css, /\.guide-card p,\.notice-panel li\{font-size:15px;line-height:1\.8\}/);
 });
 
@@ -255,7 +257,7 @@ test('預約需具備 Google Apps Script 設定，且部署說明涵蓋串接流
   assert.match(script, /顧客評論/);
   assert.match(script, /'預約狀態': '待確認'/);
   assert.match(script, /ensureBookingColumns/);
-  for (const column of ['預約編號', '姓名', '電話', 'Email', '預約日期', '預約時間', '車種', '數量', '備註', '車牌號碼', '系統建立時間', '預約狀態']) {
+  for (const column of ['預約編號', '電話', '預約日期', '預約時間', '車種', '數量', '車牌號碼', '系統建立時間', '預約狀態']) {
     assert.ok(script.includes(column), `Apps Script 缺少試算表欄位：${column}`);
   }
   assert.match(script, /Number\(payload\.rating\), safeCell\(payload\.comment\), '公開'/);
@@ -297,7 +299,7 @@ test('預約 API 未啟用時說明原因並提供下一步', () => {
 });
 
 test('手機預約分三步確認，錯誤時保留表單並顯示所選車款金額', () => {
-  assert.match(app, /title: '聯絡資料'/);
+  assert.match(app, /title: '聯絡與取車時間'/);
   assert.match(app, /title: '選車與方案'/);
   assert.match(app, /title: '確認需求'/);
   assert.match(app, /function updateBookingReview\(\)/);

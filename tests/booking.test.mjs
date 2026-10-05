@@ -24,24 +24,24 @@ test('拒絕不存在的車款或超出展示範圍的台數', () => {
 
 test('非字串欄位會回報驗證錯誤而不拋出執行錯誤', () => {
   assert.deepEqual(validateBooking({
-    name: 123, phone: 912345678, email: null, date: null, time: null,
-    vehicles: [{ vehicleId: 'toString', packageId: 'unlimited', quantity: 1 }], note: {},
+    phone: 912345678, date: null, time: null,
+    vehicles: [{ vehicleId: 'toString', packageId: 'unlimited', quantity: 1 }],
   }), [
-    '請填寫稱呼（最多 80 字）', '請填寫有效的台灣聯絡電話', '請填寫有效的電子郵件',
-    '請選擇今天或之後的取車日期', '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請選擇有效的車款', '備註格式錯誤',
+    '請填寫有效的台灣聯絡電話',
+    '請選擇今天或之後的取車日期', '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請選擇有效的車款',
   ]);
 });
 
-test('完整且有效的預約資料可通過檢查', () => {
+test('只提供電話、日期、時間、車牌和車款即可通過預約資料檢查', () => {
   assert.deepEqual(validateBooking({
-    name: '王小明', phone: '0912-345-678', email: 'rider@example.com', date: '2026-10-12',
+    phone: '0912-345-678', plate: 'ABC-1234', date: '2026-10-12',
     time: '09:00', vehicles: [{ vehicleId: 'electric', packageId: 'duo1_5h', quantity: '2' }],
   }), []);
 });
 
 test('回報缺漏欄位與錯誤電話', () => {
-  assert.deepEqual(validateBooking({ name: ' ', phone: '123', email: '', date: '', time: '', vehicles: [] }), [
-    '請填寫稱呼（最多 80 字）', '請填寫有效的台灣聯絡電話', '請填寫有效的電子郵件', '請選擇今天或之後的取車日期',
+  assert.deepEqual(validateBooking({ phone: '123', date: '', time: '', vehicles: [] }), [
+    '請填寫有效的台灣聯絡電話', '請選擇今天或之後的取車日期',
     '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請至少選擇一種車款',
   ]);
 });
@@ -77,13 +77,13 @@ test('自駕車牌為選填且限制格式長度', () => {
   assert.ok(validateBooking({ ...base, plate: 'X'.repeat(21) }).includes('車牌不可超過 20 個字'));
 });
 
-test('拒絕過去日期、未知時段、無效車款和過長備註', () => {
+test('拒絕過去日期、未知時段和無效車款', () => {
   const errors = validateBooking({
-    name: '王小明', phone: '0912345678', email: 'rider@example.com', date: '2020-01-01', time: '25:30',
-    vehicles: [{ vehicleId: 'standard', packageId: 'invalid', quantity: '1' }], note: 'x'.repeat(1001),
+    phone: '0912345678', date: '2020-01-01', time: '25:30',
+    vehicles: [{ vehicleId: 'standard', packageId: 'invalid', quantity: '1' }],
   });
   assert.deepEqual(errors, [
-    '請選擇今天或之後的取車日期', '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請選擇此車種適用的租借時限', '備註不可超過 1000 字',
+    '請選擇今天或之後的取車日期', '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請選擇此車種適用的租借時限',
   ]);
 });
 

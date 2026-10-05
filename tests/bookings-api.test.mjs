@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import { onRequestPost } from '../functions/api/bookings.js';
 
 const validBooking = {
-  name: '王小明', phone: '0912-345-678', email: 'rider@example.com', plate: 'ABC-1234',
+  phone: '0912-345-678', plate: 'ABC-1234',
   date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
   time: '09:00', vehicles: [
     { vehicleId: 'electric', packageId: 'duo1_5h', quantity: '2' },
     { vehicleId: 'standard', packageId: 'unlimited', quantity: '1' },
-  ], note: '上午到店',
+  ],
 };
 const requestFor = (body, headers = { 'content-type': 'application/json' }) => new Request('https://example.test/api/bookings', {
   method: 'POST', headers, body: JSON.stringify(body),
@@ -53,8 +53,9 @@ test('寫入試算表成功後回傳預約編號和待確認狀態，且完全�
     assert.match(result.requestId, /^SR-[A-F0-9]{8}$/);
     assert.equal(result.status, '待確認');
     assert.equal(sheetPayload.token, configuredEnv.GOOGLE_SHEETS_TOKEN);
-    assert.equal(sheetPayload.name, validBooking.name);
-    assert.equal(sheetPayload.email, validBooking.email);
+    assert.equal(sheetPayload.name, '');
+    assert.equal(sheetPayload.email, '');
+    assert.equal(sheetPayload.note, '');
     assert.equal(sheetPayload.date, validBooking.date);
     assert.equal(sheetPayload.time, validBooking.time);
     assert.equal(sheetPayload.plate, 'ABC-1234');

@@ -50,15 +50,10 @@ export function estimateRentals(vehicles) {
 
 export function validateBooking(booking) {
   const errors = [];
-  const name = typeof booking.name === 'string' ? booking.name.trim() : '';
   const phone = typeof booking.phone === 'string' ? booking.phone : '';
-  const email = typeof booking.email === 'string' ? booking.email.trim() : '';
   const plate = typeof booking.plate === 'string' ? booking.plate.trim() : '';
   const dateValue = typeof booking.date === 'string' ? booking.date : '';
-  const note = typeof booking.note === 'string' ? booking.note : '';
-  if (!name || name.length > 80) errors.push('請填寫稱呼（最多 80 字）');
   if (!/^(?:09\d{8}|0[2-8]\d{7,8})$/.test(phone.replace(/[\s-]/g, ''))) errors.push('請填寫有效的台灣聯絡電話');
-  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push('請填寫有效的電子郵件');
   const parsedDate = /^\d{4}-\d{2}-\d{2}$/.test(dateValue) ? new Date(`${dateValue}T00:00:00Z`) : null;
   const validCalendarDate = parsedDate && !Number.isNaN(parsedDate.valueOf()) && parsedDate.toISOString().slice(0, 10) === dateValue;
   if (!validCalendarDate || dateValue < new Date().toISOString().slice(0, 10)) errors.push('請選擇今天或之後的取車日期');
@@ -85,8 +80,6 @@ export function validateBooking(booking) {
       }
     }
   }
-  if (typeof booking.note !== 'undefined' && typeof booking.note !== 'string') errors.push('備註格式錯誤');
-  else if (note.length > 1000) errors.push('備註不可超過 1000 字');
   if (typeof booking.plate !== 'undefined' && typeof booking.plate !== 'string') errors.push('車牌格式錯誤');
   else if (plate.length > 20) errors.push('車牌不可超過 20 個字');
   return errors;

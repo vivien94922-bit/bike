@@ -11,7 +11,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   const contentLength = Number(request.headers.get('content-length') || 0);
-  if (contentLength > 12_000) return json({ message: '表單內容過長，請縮短備註後重試。' }, 413);
+  if (contentLength > 12_000) return json({ message: '表單資料過長，請檢查填寫內容後重試。' }, 413);
 
   let booking;
   try {
@@ -41,15 +41,15 @@ export async function onRequestPost({ request, env }) {
   const sheetPayload = {
     token: env.GOOGLE_SHEETS_TOKEN,
     requestId,
-    name: booking.name.trim(),
+    name: '',
     phone: booking.phone.trim(),
-    email: booking.email.trim(),
+    email: '',
     plate: booking.plate?.trim() || '',
     date: booking.date,
     time: booking.time,
     vehicles,
     estimatedTotal,
-    note: (booking.note || '').trim(),
+    note: '',
   };
 
   try {

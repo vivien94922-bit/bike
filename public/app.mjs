@@ -97,8 +97,8 @@ async function getSubmissionError(response) {
 }
 
 const bookingSteps = [
-  { title: '聯絡資料', elements: [...form.querySelectorAll('.form-row')].slice(0, 2).concat(form.querySelector('.booking-email-label'), form.querySelector('.booking-plate-label')) },
-  { title: '選車與方案', elements: [form.querySelector('.full-label'), form.querySelector('.vehicle-options'), vehicleDetails, [...form.querySelectorAll('.form-row')][2]] },
+  { title: '聯絡與取車時間', elements: [...form.querySelectorAll('.form-row')].slice(0, 2).concat(form.querySelector('.booking-plate-label')) },
+  { title: '選車與方案', elements: [form.querySelector('.full-label'), form.querySelector('.vehicle-options'), vehicleDetails] },
   { title: '確認需求', elements: [form.querySelector('.estimate'), form.querySelector('.button-submit'), form.querySelector('.form-privacy')] },
 ];
 const progress = document.createElement('ol');
@@ -160,12 +160,10 @@ function showBookingStep(stepNumber) {
 
 function showBookingError(message) {
   errorBox.textContent = message;
-  const invalidField = message.includes('稱呼') ? '[name="name"]'
-    : message.includes('日期') ? '[name="date"]'
+  const invalidField = message.includes('日期') ? '[name="date"]'
       : message.includes('時間') ? '[name="time"]'
         : message.includes('電話') ? '[name="phone"]'
-          : message.includes('電子郵件') ? '[name="email"]'
-            : message.includes('車牌') ? '[name="plate"]'
+          : message.includes('車牌') ? '[name="plate"]'
             : message.includes('車款') ? '[data-vehicle]'
               : message.includes('時限') ? '.rental-package'
                 : message.includes('台數') ? '.rental-quantity' : null;
@@ -200,7 +198,7 @@ document.querySelectorAll('[data-select-bike]').forEach((button) => {
     const target = document.querySelector(`[data-vehicle="${button.dataset.selectBike}"]`);
     if (target.getAttribute('aria-pressed') !== 'true') target.click();
     document.querySelector('#booking').scrollIntoView({ behavior: 'smooth' });
-    document.querySelector('#booking-form [name="name"]').focus({ preventScroll: true });
+    document.querySelector('#booking-form [name="phone"]').focus({ preventScroll: true });
   });
 });
 
@@ -323,7 +321,7 @@ bikeDetailModal.querySelector('.bike-detail-book').addEventListener('click', () 
   if (button.getAttribute('aria-pressed') !== 'true') button.click();
   closeBikeDetail();
   document.querySelector('#booking').scrollIntoView({ behavior: 'smooth' });
-  document.querySelector('#booking-form [name="name"]').focus({ preventScroll: true });
+  document.querySelector('#booking-form [name="phone"]').focus({ preventScroll: true });
 });
 bikeDetailModal.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeBikeDetail();
