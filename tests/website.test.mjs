@@ -65,11 +65,12 @@ test('不向旅客顯示虛構庫存或旅客人數，並註明待確認示意�
   assert.doesNotMatch(html, /限時 1\.5 小時 <del>|單次 3 小時。/);
 });
 
-test('首頁價格正確，電動車方案以 1.5 小時標示', async () => {
+test('首頁價格正確，電動車時間只標示 1.5 小時', async () => {
   assert.match(html, /一般單車不限時間 NT\$ 100、預約 NT\$ 80/);
   assert.match(html, /親子車 NT\$ 150、預約 NT\$ 120/);
   assert.match(html, /協力車 NT\$ 200、預約 NT\$ 160/);
-  assert.match(html, /電動車 1\.5 小時方案/);
+  assert.match(html, /電動車 1\.5 小時：單人預約/);
+  assert.match(html, /1\.5 小時，提供單人或雙人兩種選擇/);
   assert.doesNotMatch(html, /電動車只有 1\.5 小時|電動車僅提供 1\.5 小時/);
   assert.doesNotMatch(html, /3 小時/);
   assert.doesNotMatch((await readFile(new URL('../public/booking.mjs', import.meta.url), 'utf8')), /solo3h|duo3h|3 小時/);
