@@ -175,3 +175,4 @@ body{font-size:var(--readable-text)}
 .photo-caption small{font-size:10px;line-height:1.4;color:#f5f5e9}
 .photo-caption a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:620px){.fulong-photo-grid{height:320px;gap:6px;padding:6px}.photo-caption{padding:19px 6px 6px}.photo-caption b{font-size:12px}.photo-caption small{font-size:9px}}
+.about-copy .about-signoff{color:var(--ink);font-weight:800}

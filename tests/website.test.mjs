@@ -25,6 +25,13 @@ test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq']) assert.match(html, new RegExp(`id="${sectionId}"`));
 });
 
+test('關於我們呈現福隆在地店家、阿嬤平日經營與車況檢查故事', () => {
+  const about = html.match(/<section class="about-section"[\s\S]*?<\/section>/)?.[0] || '';
+  for (const detail of ['我們是福隆在地的腳踏車出租店', '平常的日子裡，店裡大多只有阿嬤一個人', '週末與假日，兒女們才會回來一起幫忙', '平日前來租車，還請給阿嬤一點時間與耐心', 'GIANT 捷安特高品質車款', '每次出發前仔細做好車況檢查', '找歡樂，也找一份最在地的溫暖']) {
+    assert.ok(about.includes(detail), `關於我們缺少：${detail}`);
+  }
+});
+
 test('首頁每次開啟都從頁面頂端開始，並展示福隆主題與使用者提供的小貓照片', () => {
   assert.match(html, /history\.scrollRestoration = 'manual'/);
   assert.match(html, /window\.addEventListener\('pageshow'[\s\S]*?history\.replaceState\(null, '', window\.location\.pathname \+ window\.location\.search\)[\s\S]*?window\.scrollTo\(\{ top: 0, left: 0, behavior: 'instant' \}\)/);
