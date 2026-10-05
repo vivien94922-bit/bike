@@ -11,7 +11,7 @@ const bikeDetailModal = document.querySelector('#bike-detail-modal');
 const bikeIntros = {
   standard: { icon: '/icons/bike.svg', title: '一般單車・兒童車', copy: '提供兒童可騎車款與輔助輪，價格和一般單車相同。各年齡層歡迎詢問適合車款；現場可調整並試騎。租借不限時間，舊草嶺隧道來回約 4.2 公里。', prices: '不限時間原價 NT$ 100・預約 NT$ 80' },
   child: { icon: '/icons/family-bike.svg', title: '親子車', copy: '親子一起出遊的選擇，租借不限時間。騎乘前可請店家協助調整坐姿與舒適度，先試騎再出發。', prices: '不限時間原價 NT$ 150・預約 NT$ 120' },
-  tandem: { icon: '/icons/tandem.svg', title: '協力車', copy: '兩人同騎、一起欣賞海岸風景，租借不限時間，適合探索舊草嶺環狀線。', prices: '不限時間原價 NT$ 200・預約 NT$ 160' },
+  tandem: { icon: '/icons/tandem.svg', title: '協力車', copy: '專為雙人騎乘設計，提供絕佳的同步騎行體驗。配備舒適高彈力鞍座與高強度鋼管車架，讓您與夥伴輕鬆享受沿途美景與雙人協同踩踏的樂趣。', prices: '不限時間原價 NT$ 200・預約 NT$ 160' },
   electric: { icon: '/icons/electric-bike.svg', title: '電動車', copy: '可選單人或雙人，租借時間為 1.5 小時。預約每台折 NT$ 50。', prices: '單人 NT$ 250・預約 NT$ 200；雙人 NT$ 350・預約 NT$ 300' },
 };
 

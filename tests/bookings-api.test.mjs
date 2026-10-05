@@ -35,7 +35,16 @@ test('API 拒絕不在營業預約時段或非 15 分鐘間隔的時間', async 
 test('Google 試算表設定未完成時不回報成功', async () => {
   const response = await onRequestPost({ request: requestFor(validBooking), env: {} });
   assert.equal(response.status, 503);
-  assert.match((await response.json()).message, /Google 試算表尚未完成/);
+  assert.match((await response.json()).message, /GOOGLE_SHEETS_WEBHOOK_URL、GOOGLE_SHEETS_TOKEN/);
+});
+
+test('Google 試算表設定錯誤時指出缺少的 Cloudflare Production 變數名稱', async () => {
+  const response = await onRequestPost({
+    request: requestFor(validBooking),
+    env: { GOOGLE_SHEETS_WEBHOOK_URL: configuredEnv.GOOGLE_SHEETS_WEBHOOK_URL },
+  });
+  assert.equal(response.status, 503);
+  assert.match((await response.json()).message, /缺少：GOOGLE_SHEETS_TOKEN/);
 });
 
 test('寫入試算表成功後回傳預約編號和待確認狀態，且完全不寄信', async () => {

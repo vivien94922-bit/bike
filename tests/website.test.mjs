@@ -109,6 +109,7 @@ test('電動車卡片展示實車照片並可由本機伺服器載入', () => {
 
 test('協力車卡片展示實車照片並可由本機伺服器載入', () => {
   assert.match(html, /data-bike-card="tandem"[\s\S]*?src="\/tandem-bike\.png" alt="歡樂自行車店內的協力車實車"/);
+  assert.match(html, /專為雙人騎乘設計，提供絕佳的同步騎行體驗。配備舒適高彈力鞍座與高強度鋼管車架/);
   assert.match(css, /\.bike-card\[data-bike-card="tandem"\]/);
   assert.ok(server.includes("['/tandem-bike.png', ['public/tandem-bike.png', 'image/png']]"));
 });

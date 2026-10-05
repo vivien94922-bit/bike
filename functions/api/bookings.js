@@ -26,8 +26,9 @@ export async function onRequestPost({ request, env }) {
 
   const errors = validateBooking(booking);
   if (errors.length) return json({ message: errors[0], errors }, 400);
-  if (!env.GOOGLE_SHEETS_WEBHOOK_URL || !env.GOOGLE_SHEETS_TOKEN) {
-    return json({ message: 'Google 試算表尚未完成連線設定，需求沒有送出。請致電 02-2499-1585。' }, 503);
+  const missingSettings = ['GOOGLE_SHEETS_WEBHOOK_URL', 'GOOGLE_SHEETS_TOKEN'].filter((key) => !env[key]);
+  if (missingSettings.length) {
+    return json({ message: `Google 試算表連線尚未完成，需求沒有送出。Cloudflare Worker Production 缺少：${missingSettings.join('、')}。請確認變數名稱與正式環境部署後再試，或致電 02-2499-1585。` }, 503);
   }
 
   const requestId = `SR-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
