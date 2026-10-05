@@ -23,6 +23,18 @@ test('拒絕無效星等、過短留言和未確認公開的回饋', async () =>
   }
 });
 
+test('評論服務未設定時指出缺少的 Production 變數名稱且不呼叫 Google', async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => { throw new Error('不應連線'); };
+  try {
+    const response = await onRequestPost({ request: requestFor(review), env: {} });
+    assert.equal(response.status, 503);
+    assert.match((await response.json()).message, /GOOGLE_SHEETS_WEBHOOK_URL、GOOGLE_SHEETS_TOKEN/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test('匿名旅人可以送出評論，服務將評分和留言立即公開', async () => {
   const originalFetch = globalThis.fetch;
   let payload;

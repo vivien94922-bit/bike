@@ -44,8 +44,9 @@ export async function onRequestPost({ request, env }) {
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) return json({ message: '請選擇 1 至 5 顆星。' }, 400);
   if (comment.length < 5 || comment.length > 1_000) return json({ message: '留言請填寫 5 至 1000 個字。' }, 400);
   if (review.consent !== true) return json({ message: '請先確認留言會公開顯示。' }, 400);
-  if (!env.GOOGLE_SHEETS_WEBHOOK_URL || !env.GOOGLE_SHEETS_TOKEN) {
-    return json({ message: '留言服務尚未完成設定，請稍後再試。' }, 503);
+  const missingSettings = ['GOOGLE_SHEETS_WEBHOOK_URL', 'GOOGLE_SHEETS_TOKEN'].filter((key) => !env[key]);
+  if (missingSettings.length) {
+    return json({ message: `留言服務尚未連線，留言沒有送出。Cloudflare Worker Production 缺少：${missingSettings.join('、')}。請完成設定並部署後再試。` }, 503);
   }
 
   const reviewId = `RV-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
