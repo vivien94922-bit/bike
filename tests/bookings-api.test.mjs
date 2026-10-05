@@ -24,6 +24,15 @@ test('拒絕無效欄位，且不呼叫後端', async () => {
   assert.match((await response.json()).message, /電話/);
 });
 
+test('預約 API 拒絕未填自駕車牌的需求', async () => {
+  const response = await onRequestPost({
+    request: requestFor({ ...validBooking, plate: '   ' }),
+    env: configuredEnv,
+  });
+  assert.equal(response.status, 400);
+  assert.match((await response.json()).message, /自駕車牌/);
+});
+
 test('API 拒絕不在營業預約時段或非 15 分鐘間隔的時間', async () => {
   for (const time of ['07:45', '08:01', '17:15']) {
     const response = await onRequestPost({ request: requestFor({ ...validBooking, time }), env: configuredEnv });

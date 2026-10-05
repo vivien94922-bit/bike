@@ -80,7 +80,8 @@ export function validateBooking(booking) {
       }
     }
   }
-  if (typeof booking.plate !== 'undefined' && typeof booking.plate !== 'string') errors.push('車牌格式錯誤');
+  if (typeof booking.plate !== 'string') errors.push(booking.plate == null ? '請填寫自駕車牌號碼' : '車牌格式錯誤');
+  else if (!plate) errors.push('請填寫自駕車牌號碼');
   else if (plate.length > 20) errors.push('車牌不可超過 20 個字');
   return errors;
 }

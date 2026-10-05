@@ -28,7 +28,7 @@ test('非字串欄位會回報驗證錯誤而不拋出執行錯誤', () => {
     vehicles: [{ vehicleId: 'toString', packageId: 'unlimited', quantity: 1 }],
   }), [
     '請填寫有效的台灣聯絡電話',
-    '請選擇今天或之後的取車日期', '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請選擇有效的車款',
+    '請選擇今天或之後的取車日期', '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請選擇有效的車款', '請填寫自駕車牌號碼',
   ]);
 });
 
@@ -42,13 +42,13 @@ test('只提供電話、日期、時間、車牌和車款即可通過預約資�
 test('回報缺漏欄位與錯誤電話', () => {
   assert.deepEqual(validateBooking({ phone: '123', date: '', time: '', vehicles: [] }), [
     '請填寫有效的台灣聯絡電話', '請選擇今天或之後的取車日期',
-    '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請至少選擇一種車款',
+    '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請至少選擇一種車款', '請填寫自駕車牌號碼',
   ]);
 });
 
 test('接受台灣手機與市話格式', () => {
   const base = {
-    name: '陳小姐', phone: '02-2499-1585', email: 'rider@example.com', date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
+    name: '陳小姐', phone: '02-2499-1585', email: 'rider@example.com', plate: 'ABC-1234', date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
     time: '09:30', vehicles: [{ vehicleId: 'standard', packageId: 'unlimited', quantity: '1' }],
   };
   assert.deepEqual(validateBooking(base), []);
@@ -57,7 +57,7 @@ test('接受台灣手機與市話格式', () => {
 
 test('取車時間限制為 08:00 至 17:00，並以 15 分鐘為間隔', () => {
   const base = {
-    name: '陳小姐', phone: '0912345678', email: 'rider@example.com', date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
+    name: '陳小姐', phone: '0912345678', email: 'rider@example.com', plate: 'ABC-1234', date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
     time: '08:00', vehicles: [{ vehicleId: 'standard', packageId: 'unlimited', quantity: '1' }],
   };
   for (const time of ['08:00', '08:15', '12:30', '16:45', '17:00']) assert.deepEqual(validateBooking({ ...base, time }), []);
@@ -66,12 +66,13 @@ test('取車時間限制為 08:00 至 17:00，並以 15 分鐘為間隔', () => 
   }
 });
 
-test('自駕車牌為選填且限制格式長度', () => {
+test('自駕車牌為必填且限制格式長度', () => {
   const base = {
     name: '陳小姐', phone: '0912345678', email: 'rider@example.com', date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
     time: '09:00', vehicles: [{ vehicleId: 'standard', packageId: 'unlimited', quantity: '1' }],
   };
-  assert.deepEqual(validateBooking(base), []);
+  assert.ok(validateBooking(base).includes('請填寫自駕車牌號碼'));
+  assert.ok(validateBooking({ ...base, plate: '   ' }).includes('請填寫自駕車牌號碼'));
   assert.deepEqual(validateBooking({ ...base, plate: 'ABC-1234' }), []);
   assert.ok(validateBooking({ ...base, plate: {} }).includes('車牌格式錯誤'));
   assert.ok(validateBooking({ ...base, plate: 'X'.repeat(21) }).includes('車牌不可超過 20 個字'));
@@ -83,7 +84,7 @@ test('拒絕過去日期、未知時段和無效車款', () => {
     vehicles: [{ vehicleId: 'standard', packageId: 'invalid', quantity: '1' }],
   });
   assert.deepEqual(errors, [
-    '請選擇今天或之後的取車日期', '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請選擇此車種適用的租借時限',
+    '請選擇今天或之後的取車日期', '請選擇 08:00 至 17:00、每 15 分鐘一個時段的時間', '請選擇此車種適用的租借時限', '請填寫自駕車牌號碼',
   ]);
 });
 
@@ -96,7 +97,7 @@ test('多種車款可同筆預約並合計正確預約價', () => {
   assert.equal(estimateRentals(vehicles), 80 * 2 + 120 + 300);
   const base = {
     name: '林小姐', phone: '0912345678', email: 'rider@example.com', date: new Date(Date.now() + 86_400_000).toISOString().slice(0, 10),
-    time: '09:30', vehicles,
+    time: '09:30', plate: 'ABC-1234', vehicles,
   };
   assert.deepEqual(validateBooking(base), []);
   assert.ok(validateBooking({ ...base, vehicles: [...vehicles, vehicles[0]] }).includes('同一車款請合併輸入租借台數'));

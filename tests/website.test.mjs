@@ -51,7 +51,7 @@ test('租車表單只收電話、取車日期時間、車牌和必要車款資�
   for (const vehicle of ['standard', 'child', 'tandem', 'electric']) assert.match(html, new RegExp(`data-vehicle="${vehicle}"`));
   assert.match(html, /選擇車種（可複選）/);
   assert.match(html, /id="selected-vehicles"/);
-  assert.match(form, /車牌（選填）/);
+  assert.match(form, /自駕車牌<span>\*<\/span>[\s\S]*?name="plate"[^>]*required/);
   assert.match(html, /<select name="time" required><option value="" selected disabled>請選擇時間<\/option><\/select>/);
   assert.match(app, /for \(let minutes = 8 \* 60; minutes <= 17 \* 60; minutes \+= 15\)/);
   assert.doesNotMatch(html, /name="pickup"|選擇取車方式/);
