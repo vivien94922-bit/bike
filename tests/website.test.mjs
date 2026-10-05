@@ -59,7 +59,7 @@ test('租車表單涵蓋聯絡、日期、時段、多車款、各車數量和�
 
 test('不向旅客顯示虛構庫存或旅客人數，並註明待確認示意資料', () => {
   assert.doesNotMatch(html, /尚有 [0-9]+ 台|今天有 <strong>[0-9]+ 位旅人|目前為示意/);
-  for (const required of ['歡樂自行車', '228 新北市貢寮區', '02-2499-1585', '不限時間', 'NT$ 100', 'NT$ 150', 'NT$ 200', 'NT$ 250', 'NT$ 350', '預約 NT$ 80', '預約 NT$ 120', '預約 NT$ 160', '預約 NT$ 200', '預約 NT$ 300', '預約每台折 NT$ 50', 'facebook.com/profile.php?id=100063473843836']) {
+  for (const required of ['歡樂自行車', '228 新北市貢寮區福隆里', '外隆林街 16 之 2 號', '02-2499-1585', '不限時間', 'NT$ 100', 'NT$ 150', 'NT$ 200', 'NT$ 250', 'NT$ 350', '預約 NT$ 80', '預約 NT$ 120', '預約 NT$ 160', '預約 NT$ 200', '預約 NT$ 300', '預約每台折 NT$ 50', 'facebook.com/profile.php?id=100063473843836']) {
     assert.ok(html.includes(required), `首頁缺少店家資料：${required}`);
   }
   assert.doesNotMatch(html, /限時 1\.5 小時 <del>|單次 3 小時。/);
@@ -143,6 +143,15 @@ test('景點指南包含環狀線地圖、飲食休息點與隧道注意事項',
   for (const stop of ['福隆火車站', '制天險', '白雲飛處', '石城觀景點', '萊萊地質區', '四角窟觀景台', '三貂角燈塔', '馬崗社區', '卯澳漁村']) {
     assert.ok(routeMap.includes(stop), `路線圖缺少景點：${stop}`);
   }
+});
+
+test('首頁、景點導航和結構化資料使用含福隆里的正確地址', () => {
+  assert.match(html, /福隆里外隆林街 16 之 2 號/);
+  assert.match(html, /"streetAddress": "福隆里外隆林街 16 之 2 號"/);
+  assert.match(attractions, /地址是 228 新北市貢寮區福隆里外隆林街 16 之 2 號/);
+  assert.match(attractions, /%E8%B2%A2%E5%AF%AE%E5%8D%80%E7%A6%8F%E9%9A%86%E9%87%8C%E5%A4%96/);
+  assert.match(html, /maps\.google\.com\//);
+  assert.match(html, /福隆里外隆林街16之2號/);
 });
 
 test('環狀線全站里程統一為 27 公里並建議電動車較舒適', () => {
