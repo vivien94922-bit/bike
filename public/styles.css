@@ -163,3 +163,13 @@ body{font-size:var(--readable-text)}
 .bike-photo-note{position:absolute;right:10px;bottom:10px;z-index:2;padding:5px 8px;border-radius:3px;background:#173c35d9;color:#fff;font-size:11px;line-height:1.4;letter-spacing:.02em}
 .bike-card[data-bike-card="electric"] .bike-image:before,.bike-card[data-bike-card="electric"] .bike-image:after,.bike-card[data-bike-card="tandem"] .bike-image:before,.bike-card[data-bike-card="tandem"] .bike-image:after,.bike-card[data-bike-card="child"] .bike-image:before,.bike-card[data-bike-card="child"] .bike-image:after{display:none}
 @media(max-width:620px){.bike-card[data-bike-card="electric"] .bike-image,.bike-card[data-bike-card="tandem"] .bike-image,.bike-card[data-bike-card="child"] .bike-image{height:174px;min-height:174px}}
+.fulong-photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:8px;padding:8px;background:#e8eadb}
+.fulong-photo{position:relative;min-width:0;min-height:0;overflow:hidden;border-radius:3px;background:#c8d5c3;color:#fff;margin:0}
+.fulong-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.fulong-photo:hover img{transform:scale(1.045)}
+.fulong-photo:focus-visible{outline:3px solid var(--lime);outline-offset:2px;z-index:2}
+.photo-caption{position:absolute;inset:auto 0 0;display:grid;gap:3px;padding:23px 10px 9px;background:linear-gradient(transparent,#102a25d9);text-shadow:0 1px 3px #102a25a0}
+.photo-caption b{font-size:13px;line-height:1.35}
+.photo-caption small{font-size:10px;line-height:1.4;color:#f5f5e9}
+.photo-caption a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:620px){.fulong-photo-grid{height:320px;gap:6px;padding:6px}.photo-caption{padding:19px 6px 6px}.photo-caption b{font-size:12px}.photo-caption small{font-size:9px}}

@@ -22,6 +22,21 @@ test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq']) assert.match(html, new RegExp(`id="${sectionId}"`));
 });
 
+test('首頁每次開啟都從頁面頂端開始，並展示福隆主題與小貓照片及授權', () => {
+  assert.match(html, /history\.scrollRestoration = 'manual'/);
+  assert.match(html, /window\.addEventListener\('pageshow'[\s\S]*?history\.replaceState\(null, '', window\.location\.pathname \+ window\.location\.search\)[\s\S]*?window\.scrollTo\(\{ top: 0, left: 0, behavior: 'instant' \}\)/);
+  const photoGrid = html.match(/<div class="hero-art fulong-photo-grid"[\s\S]*?<\/div>\n      <\/section>/)?.[0] || '';
+  for (const feature of ['福隆車站月台', '舊草嶺隧道', '福隆便當', '福隆海岸', '花生捲冰淇淋', '可愛小貓']) {
+    assert.ok(photoGrid.includes(feature), `首頁照片區缺少：${feature}`);
+  }
+  assert.equal((photoGrid.match(/class="fulong-photo"/g) || []).length, 6);
+  for (const license of ['公眾領域', 'CC BY-SA 3.0', 'CC BY-SA 4.0', 'CC0 1.0']) assert.ok(photoGrid.includes(license), `照片缺少授權標示：${license}`);
+  assert.ok((photoGrid.match(/href="https:\/\/commons\.wikimedia\.org\/wiki\/File:/g) || []).length >= 6, '每張照片都應連到 Wikimedia Commons 來源頁');
+  for (const licenseUrl of ['creativecommons.org/licenses/by-sa/3.0/', 'creativecommons.org/licenses/by-sa/4.0/', 'creativecommons.org/publicdomain/zero/1.0/']) assert.ok(photoGrid.includes(licenseUrl), `照片缺少授權連結：${licenseUrl}`);
+  assert.match(photoGrid, /alt="台灣九份街頭的花生捲冰淇淋"/);
+  assert.match(photoGrid, /alt="一隻可愛的小貓直視鏡頭"/);
+});
+
 test('SEO 頁面使用在地搜尋詞、唯一 canonical 與可解析的店家結構化資料', () => {
   assert.match(html, /<title>舊草嶺隧道租車・福隆租車｜歡樂自行車<\/title>/);
   assert.match(html, /找福隆租車、福隆火車站附近租車或舊草嶺隧道租車/);
