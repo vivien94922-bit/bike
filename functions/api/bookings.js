@@ -26,7 +26,13 @@ export async function onRequestPost({ request, env }) {
 
   const errors = validateBooking(booking);
   if (errors.length) return json({ message: errors[0], errors }, 400);
-  const missingSettings = ['GOOGLE_SHEETS_WEBHOOK_URL', 'GOOGLE_SHEETS_TOKEN'].filter((key) => !env[key]);
+  const sheetsWebhookUrl = typeof env.GOOGLE_SHEETS_WEBHOOK_URL === 'string'
+    ? env.GOOGLE_SHEETS_WEBHOOK_URL.trim()
+    : '';
+  const missingSettings = [
+    ...(!sheetsWebhookUrl ? ['GOOGLE_SHEETS_WEBHOOK_URL'] : []),
+    ...(!env.GOOGLE_SHEETS_TOKEN ? ['GOOGLE_SHEETS_TOKEN'] : []),
+  ];
   if (missingSettings.length) {
     return json({ message: `Google 試算表連線尚未完成，需求沒有送出。Cloudflare Worker Production 缺少：${missingSettings.join('、')}。請確認變數名稱與正式環境部署後再試，或致電 02-2499-1585。` }, 503);
   }
@@ -54,7 +60,7 @@ export async function onRequestPost({ request, env }) {
   };
 
   try {
-    const sheetResponse = await fetch(env.GOOGLE_SHEETS_WEBHOOK_URL, {
+    const sheetResponse = await fetch(sheetsWebhookUrl, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(sheetPayload),
@@ -67,7 +73,12 @@ export async function onRequestPost({ request, env }) {
     const detail = error instanceof Error
       ? error.message.replace(/https?:\/\/[^\s)]+/g, '[URL]')
       : 'Unknown error';
-    console.error(`[booking] Google Sheets request failed: ${detail}`);
+    let endpointInfo = `unparseable length=${sheetsWebhookUrl.length}`;
+    try {
+      const endpoint = new URL(sheetsWebhookUrl);
+      endpointInfo = `${endpoint.protocol}//${endpoint.host}${endpoint.pathname.replace(/\/s\/[^/]+/, '/s/[ID]')}`;
+    } catch {}
+    console.error(`[booking] Google Sheets request failed (${endpointInfo}): ${detail}`);
     return json({ message: '目前無法連線至 Google 試算表，需求尚未送出。請稍後重試或致電 02-2499-1585。' }, 502);
   }
 

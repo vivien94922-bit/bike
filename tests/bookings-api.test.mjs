@@ -119,16 +119,39 @@ test('試算表連線例外會記錄已遮蔽網址的診斷訊息', async () =>
   const originalFetch = globalThis.fetch;
   const originalConsoleError = console.error;
   const logs = [];
-  globalThis.fetch = async () => { throw new Error('connect failed: https://script.example.test/exec'); };
+  globalThis.fetch = async () => { throw new Error('connect failed: https://script.example.test/macros/s/deployment-secret/exec'); };
   console.error = (...args) => logs.push(args.join(' '));
   try {
-    const response = await onRequestPost({ request: requestFor(validBooking), env: configuredEnv });
+    const response = await onRequestPost({
+      request: requestFor(validBooking),
+      env: { ...configuredEnv, GOOGLE_SHEETS_WEBHOOK_URL: 'https://script.example.test/macros/s/deployment-secret/exec' },
+    });
     assert.equal(response.status, 502);
     assert.match((await response.json()).message, /目前無法連線至 Google 試算表/);
+    assert.match(logs.join('\n'), /https:\/\/script\.example\.test\/macros\/s\/\[ID\]\/exec/);
     assert.match(logs.join('\n'), /connect failed: \[URL\]/);
-    assert.doesNotMatch(logs.join('\n'), /script\.example\.test/);
+    assert.doesNotMatch(logs.join('\n'), /deployment-secret/);
   } finally {
     globalThis.fetch = originalFetch;
     console.error = originalConsoleError;
+  }
+});
+
+test('Google Sheets 網址會先移除首尾空白再呼叫', async () => {
+  const originalFetch = globalThis.fetch;
+  let calledUrl;
+  globalThis.fetch = async (url) => {
+    calledUrl = url;
+    return Response.json({ success: true });
+  };
+  try {
+    const response = await onRequestPost({
+      request: requestFor(validBooking),
+      env: { ...configuredEnv, GOOGLE_SHEETS_WEBHOOK_URL: `  ${configuredEnv.GOOGLE_SHEETS_WEBHOOK_URL}\n` },
+    });
+    assert.equal(response.status, 201);
+    assert.equal(calledUrl, configuredEnv.GOOGLE_SHEETS_WEBHOOK_URL);
+  } finally {
+    globalThis.fetch = originalFetch;
   }
 });
