@@ -63,7 +63,11 @@ export async function onRequestPost({ request, env }) {
     if (!sheetResponse.ok || sheetResult.success !== true) {
       return json({ message: '預約資料沒有寫入 Google 試算表，需求尚未送出。請稍後重試或致電 02-2499-1585。' }, 502);
     }
-  } catch {
+  } catch (error) {
+    const detail = error instanceof Error
+      ? error.message.replace(/https?:\/\/[^\s)]+/g, '[URL]')
+      : 'Unknown error';
+    console.error(`[booking] Google Sheets request failed: ${detail}`);
     return json({ message: '目前無法連線至 Google 試算表，需求尚未送出。請稍後重試或致電 02-2499-1585。' }, 502);
   }
 

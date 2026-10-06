@@ -114,3 +114,21 @@ test('試算表未確認寫入時不回報成功', async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+test('試算表連線例外會記錄已遮蔽網址的診斷訊息', async () => {
+  const originalFetch = globalThis.fetch;
+  const originalConsoleError = console.error;
+  const logs = [];
+  globalThis.fetch = async () => { throw new Error('connect failed: https://script.example.test/exec'); };
+  console.error = (...args) => logs.push(args.join(' '));
+  try {
+    const response = await onRequestPost({ request: requestFor(validBooking), env: configuredEnv });
+    assert.equal(response.status, 502);
+    assert.match((await response.json()).message, /目前無法連線至 Google 試算表/);
+    assert.match(logs.join('\n'), /connect failed: \[URL\]/);
+    assert.doesNotMatch(logs.join('\n'), /script\.example\.test/);
+  } finally {
+    globalThis.fetch = originalFetch;
+    console.error = originalConsoleError;
+  }
+});
