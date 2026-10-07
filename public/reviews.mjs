@@ -1,6 +1,4 @@
 const list = document.querySelector('#review-list');
-const form = document.querySelector('#review-form');
-const status = document.querySelector('#review-status');
 
 function renderReviews(reviews) {
   if (!reviews.length) {
