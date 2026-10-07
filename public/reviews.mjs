@@ -11,14 +11,13 @@ let allReviews = [];
 let currentPage = 1;
 
 
-/* =========================
-   平均星等
-========================= */
-
-function renderSummary(reviews) {
+// =========================
+// 顯示平均評分
+// =========================
+function renderSummary() {
   if (!summary) return;
 
-  if (!reviews.length) {
+  if (allReviews.length === 0) {
     summary.innerHTML = `
       <div class="review-average">—</div>
       <div class="review-summary-stars">★★★★★</div>
@@ -27,46 +26,44 @@ function renderSummary(reviews) {
     return;
   }
 
-  const total = reviews.reduce((sum, review) => {
+  const total = allReviews.reduce((sum, review) => {
     return sum + Number(review.rating || 0);
   }, 0);
 
-  const average = total / reviews.length;
+  const average = total / allReviews.length;
 
-  const roundedAverage = Math.round(average);
+  const rounded = Math.round(average);
 
   summary.innerHTML = `
     <div class="review-average">${average.toFixed(1)}</div>
 
-    <div class="review-summary-stars" aria-label="${average.toFixed(1)} 顆星">
-      ${'★'.repeat(roundedAverage)}
-      ${'☆'.repeat(5 - roundedAverage)}
+    <div class="review-summary-stars">
+      ${'★'.repeat(rounded)}
+      ${'☆'.repeat(5 - rounded)}
     </div>
 
     <div class="review-summary-count">
-      共 ${reviews.length} 則旅人評論
+      共 ${allReviews.length} 則旅人評論
     </div>
   `;
 }
 
 
-/* =========================
-   顯示評論
-========================= */
-
+// =========================
+// 顯示評論
+// =========================
 function renderReviews() {
   if (!list) {
-    console.error('找不到 #review-list');
+    console.error('❌ 找不到 #review-list');
     return;
   }
 
-  if (!allReviews.length) {
-    list.replaceChildren(
-      Object.assign(document.createElement('p'), {
-        className: 'review-empty',
-        textContent: '目前還沒有公開評論，歡迎留下第一則心得。',
-      })
-    );
+  if (allReviews.length === 0) {
+    list.innerHTML = `
+      <p class="review-empty">
+        目前還沒有公開評論，歡迎留下第一則心得。
+      </p>
+    `;
 
     if (pagination) {
       pagination.hidden = true;
@@ -79,76 +76,96 @@ function renderReviews() {
     allReviews.length / REVIEWS_PER_PAGE
   );
 
-  if (currentPage > totalPages) {
-    currentPage = totalPages;
-  }
-
-  const startIndex =
+  const start =
     (currentPage - 1) * REVIEWS_PER_PAGE;
 
-  const pageReviews = allReviews.slice(
-    startIndex,
-    startIndex + REVIEWS_PER_PAGE
-  );
+  const pageReviews =
+    allReviews.slice(
+      start,
+      start + REVIEWS_PER_PAGE
+    );
 
-  const reviewElements = pageReviews.map((review) => {
-    const article = document.createElement('article');
+
+  list.innerHTML = '';
+
+
+  pageReviews.forEach((review) => {
+
+    const article =
+      document.createElement('article');
+
     article.className = 'review-entry';
 
-    const heading = document.createElement('div');
-    heading.className = 'review-entry-heading';
 
-    const name = document.createElement('strong');
+    const heading =
+      document.createElement('div');
+
+    heading.className =
+      'review-entry-heading';
+
+
+    const name =
+      document.createElement('strong');
+
     name.textContent =
       review.name || '匿名旅人';
 
-    const rating = document.createElement('span');
-    rating.className = 'review-stars';
+
+    const rating =
+      document.createElement('span');
+
+    rating.className =
+      'review-stars';
+
 
     const ratingNumber = Math.min(
       5,
-      Math.max(1, Number(review.rating) || 1)
+      Math.max(
+        1,
+        Number(review.rating) || 1
+      )
     );
 
-    rating.setAttribute(
-      'aria-label',
-      `${ratingNumber} 顆星`
-    );
 
     rating.textContent =
       '★'.repeat(ratingNumber) +
       '☆'.repeat(5 - ratingNumber);
 
-    heading.append(name, rating);
 
-    const comment = document.createElement('p');
+    heading.append(
+      name,
+      rating
+    );
+
+
+    const comment =
+      document.createElement('p');
+
     comment.textContent =
       review.comment || '';
+
 
     article.append(
       heading,
       comment
     );
 
-    if (review.date) {
-      const date = document.createElement('time');
 
-      date.className = 'review-date';
-      date.textContent = review.date;
-
-      article.append(date);
-    }
-
-    return article;
+    list.appendChild(article);
   });
 
-  list.replaceChildren(...reviewElements);
 
-
-  /* 分頁 */
+  // =========================
+  // 分頁
+  // =========================
 
   if (pagination) {
-    pagination.hidden = totalPages <= 1;
+
+    if (totalPages <= 1) {
+      pagination.hidden = true;
+    } else {
+      pagination.hidden = false;
+    }
 
     if (pageInfo) {
       pageInfo.textContent =
@@ -157,72 +174,109 @@ function renderReviews() {
 
     if (prevButton) {
       prevButton.disabled =
-        currentPage === 1;
+        currentPage <= 1;
     }
 
     if (nextButton) {
       nextButton.disabled =
-        currentPage === totalPages;
+        currentPage >= totalPages;
     }
   }
 }
 
 
-/* =========================
-   從 Cloudflare API 取得評論
-========================= */
-
+// =========================
+// 從 Cloudflare API 取得評論
+// =========================
 async function loadReviews() {
+
+  console.log('🔵 開始載入評論');
+
+
   try {
-    const response = await fetch(
-      '/api/reviews',
-      {
-        cache: 'no-store',
-      }
+
+    const response =
+      await fetch(
+        '/api/reviews?t=' + Date.now(),
+        {
+          cache: 'no-store'
+        }
+      );
+
+
+    console.log(
+      '🟢 API 狀態：',
+      response.status
     );
 
-    if (!response.ok) {
-      throw new Error(
-        `HTTP ${response.status}`
-      );
-    }
 
     const result =
       await response.json();
 
+
     console.log(
-      '網站取得的評論：',
-      result.reviews
+      '🟢 API 回傳：',
+      result
     );
 
+
+    if (!Array.isArray(result.reviews)) {
+
+      throw new Error(
+        'API 沒有回傳 reviews 陣列'
+      );
+    }
+
+
     allReviews =
-      Array.isArray(result.reviews)
-        ? result.reviews
-        : [];
+      result.reviews;
+
+
+    console.log(
+      '🟢 取得評論數量：',
+      allReviews.length
+    );
+
 
     currentPage = 1;
 
-    renderSummary(allReviews);
+
+    renderSummary();
+
     renderReviews();
 
+
+    console.log(
+      '🟢 評論顯示完成'
+    );
+
+
   } catch (error) {
+
     console.error(
-      '評論載入失敗：',
+      '🔴 評論載入失敗：',
       error
     );
 
-    if (list) {
-      list.replaceChildren(
-        Object.assign(
-          document.createElement('p'),
-          {
-            className: 'review-empty',
-            textContent:
-              '評論列表暫時無法載入。',
-          }
-        )
-      );
+
+    if (summary) {
+      summary.innerHTML = `
+        <div class="review-average">!</div>
+        <div class="review-summary-count">
+          評論載入失敗
+        </div>
+      `;
     }
+
+
+    if (list) {
+      list.innerHTML = `
+        <p class="review-empty">
+          評論暫時無法載入，請稍後再試。
+        </p>
+      `;
+    }
+
 
     if (pagination) {
       pagination.hidden = true;
@@ -231,54 +285,63 @@ async function loadReviews() {
 }
 
 
-/* =========================
-   上一頁
-========================= */
-
+// =========================
+// 上一頁
+// =========================
 prevButton?.addEventListener(
   'click',
   () => {
+
     if (currentPage > 1) {
+
       currentPage--;
+
       renderReviews();
 
       window.scrollTo({
-        top: list?.offsetTop - 100 || 0,
-        behavior: 'smooth',
+        top:
+          list?.offsetTop - 100 || 0,
+        behavior: 'smooth'
       });
     }
   }
 );
 
 
-/* =========================
-   下一頁
-========================= */
-
+// =========================
+// 下一頁
+// =========================
 nextButton?.addEventListener(
   'click',
   () => {
+
     const totalPages =
       Math.ceil(
         allReviews.length /
         REVIEWS_PER_PAGE
       );
 
-    if (currentPage < totalPages) {
+
+    if (
+      currentPage <
+      totalPages
+    ) {
+
       currentPage++;
+
       renderReviews();
 
       window.scrollTo({
-        top: list?.offsetTop - 100 || 0,
-        behavior: 'smooth',
+        top:
+          list?.offsetTop - 100 || 0,
+        behavior: 'smooth'
       });
     }
   }
 );
 
 
-/* =========================
-   開始
-========================= */
-
+// =========================
+// 開始
+// =========================
 loadReviews();
