@@ -3,6 +3,11 @@
   "name": "bike",
   "main": "./src/worker.js",
   "compatibility_date": "2026-10-03",
+
+  "vars": {
+    "GOOGLE_SHEETS_WEBHOOK_URL": "https://script.google.com/macros/s/AKfycbwLT19sQUXPlAjdHz1Rex3cUMBVWesuQuOXx8mnLphdbtj_kmTROkp0TMwtxgqmwnxc/exec"
+  },
+
   "assets": {
     "directory": "./dist/",
     "binding": "ASSETS",
