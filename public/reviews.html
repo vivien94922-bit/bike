@@ -40,21 +40,18 @@
       <section class="review-form-card" aria-labelledby="review-form-title">
         <h2 id="review-form-title">寫下你的騎乘心得</h2>
         <p>分享實際體驗，讓下一位旅人更好安排行程。暱稱可不填，電話和電子郵件都不會收集。</p>
-        <form id="review-form">
-          <fieldset class="star-picker"><legend>這次體驗幾顆星？<span>*</span></legend>
-            <label><input type="radio" name="rating" value="1" required /><span aria-label="1 顆星">★</span></label>
-            <label><input type="radio" name="rating" value="2" /><span aria-label="2 顆星">★★</span></label>
-            <label><input type="radio" name="rating" value="3" /><span aria-label="3 顆星">★★★</span></label>
-            <label><input type="radio" name="rating" value="4" /><span aria-label="4 顆星">★★★★</span></label>
-            <label><input type="radio" name="rating" value="5" /><span aria-label="5 顆星">★★★★★</span></label>
-          </fieldset>
-          <label class="review-name-label">暱稱（選填）<input name="name" maxlength="40" autocomplete="nickname" placeholder="例如：小美" /></label>
-          <label class="review-comment-label">留言內容<span>*</span><textarea name="comment" minlength="5" maxlength="1000" rows="3" required placeholder="分享租車、路線或沿途景點的感受"></textarea></label>
-          <label class="review-consent"><input name="consent" type="checkbox" required /><span>我知道送出後，星等、暱稱與留言會公開在網站上；暱稱可不填。</span></label>
-          <label class="review-honeypot" aria-hidden="true">網站<input name="website" tabindex="-1" autocomplete="off" /></label>
-          <button class="button button-dark" type="submit">送出評論</button>
-          <p id="review-status" class="review-status" role="status" aria-live="polite"></p>
-        </form>
+        <div class="google-review-form">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLScJ47EZxyWhMLXGmw4cjdNPDkLbiEnoTClu0XFsbG8v7gYnEg/viewform?embedded=true"
+          width="100%"
+          height="878"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="歡樂自行車旅人評論表單">
+          載入中…
+        </iframe>
+      </div>
       </section>
       <section class="review-contact">
         <h2>有預約或租車問題嗎？</h2>
