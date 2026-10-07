@@ -4,9 +4,9 @@ const json = (body, status = 200) => new Response(JSON.stringify(body), {
 });
 
 export async function onRequestGet({ env }) {
-  if (!env.GOOGLE_SHEETS_WEBHOOK_URL || !env.GOOGLE_SHEETS_TOKEN) {
-    return json({ reviews: [] });
-  }
+  if (!env.GOOGLE_SHEETS_WEBHOOK_URL) {
+  return json({ reviews: [] });
+}
   try {
     const endpoint = new URL(env.GOOGLE_SHEETS_WEBHOOK_URL);
     endpoint.searchParams.set('action', 'reviews');
