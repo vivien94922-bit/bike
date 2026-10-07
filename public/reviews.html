@@ -34,7 +34,27 @@
         <div class="review-mark"><img src="/icons/heart.svg" alt="" /></div>
         <h2 id="public-reviews-title">旅人真實回饋</h2>
         <p>旅人送出的留言會公開顯示在這裡，歡迎參考彼此的真實體驗。尚無評論時，你可以成為第一位分享的旅人。</p>
-        <div id="review-list" class="review-list" aria-live="polite"><p class="review-empty">正在載入評論…</p></div>
+        <div class="review-summary" id="review-summary" aria-live="polite">
+  <div class="review-average">—</div>
+  <div class="review-summary-stars">★★★★★</div>
+  <div class="review-summary-count">目前沒有評論</div>
+</div>
+
+<div id="review-list" class="review-list" aria-live="polite">
+  <p class="review-empty">正在載入評論…</p>
+</div>
+
+<div class="review-pagination" id="review-pagination" hidden>
+  <button type="button" class="review-page-button" id="review-prev">
+    ← 上一頁
+  </button>
+
+  <span id="review-page-info">1 / 1</span>
+
+  <button type="button" class="review-page-button" id="review-next">
+    下一頁 →
+  </button>
+</div>
         <a class="guide-link" href="https://www.facebook.com/profile.php?id=100063473843836" target="_blank" rel="noreferrer">也可以到 Facebook 看留言 ↗</a>
       </section>
       <section class="review-form-card" aria-labelledby="review-form-title">
@@ -44,7 +64,7 @@
         <iframe
           src="https://docs.google.com/forms/d/e/1FAIpQLScJ47EZxyWhMLXGmw4cjdNPDkLbiEnoTClu0XFsbG8v7gYnEg/viewform?embedded=true"
           width="100%"
-          height="878"
+          height="600"
           frameborder="0"
           marginheight="0"
           marginwidth="0"
