@@ -176,3 +176,88 @@ body{font-size:var(--readable-text)}
 .photo-caption a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:620px){.fulong-photo-grid{height:320px;gap:6px;padding:6px}.photo-caption{padding:19px 6px 6px}.photo-caption b{font-size:12px}.photo-caption small{font-size:9px}}
 .about-copy .about-signoff{color:var(--ink);font-weight:800}
+/*星等與評論*/
+.review-note,
+.review-form-card {
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.google-review-form {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f7f7f1;
+}
+
+.google-review-form iframe {
+  display: block;
+  width: 100%;
+  height: 650px;
+  border: 0;
+}
+.review-summary {
+  text-align: center;
+  margin: 28px auto 32px;
+  padding: 24px;
+  border: 1px solid #dce3db;
+  border-radius: 20px;
+  background: #f7f7f1;
+}
+
+.review-average {
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 700;
+  color: #173c35;
+}
+
+.review-summary-stars {
+  margin-top: 8px;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: #173c35;
+}
+
+.review-summary-count {
+  margin-top: 8px;
+  color: #75847d;
+  font-size: 14px;
+}
+
+.review-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.review-page-button {
+  border: 1px solid #173c35;
+  background: transparent;
+  color: #173c35;
+  padding: 9px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.review-page-button:hover:not(:disabled) {
+  background: #173c35;
+  color: #f7f7f1;
+}
+
+.review-page-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+#review-page-info {
+  min-width: 48px;
+  text-align: center;
+  color: #75847d;
+}
