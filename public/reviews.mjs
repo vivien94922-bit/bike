@@ -47,39 +47,4 @@ async function loadReviews() {
     }));
   }
 }
-
-form.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  if (!form.reportValidity()) return;
-  const data = new FormData(form);
-  const button = form.querySelector('[type="submit"]');
-  button.disabled = true;
-  status.className = 'review-status';
-  status.textContent = '正在送出評論…';
-  try {
-    const response = await fetch('/api/reviews', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        name: data.get('name'),
-        rating: Number(data.get('rating')),
-        comment: data.get('comment'),
-        consent: data.get('consent') === 'on',
-        website: data.get('website'),
-      }),
-    });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(result.message || '評論送出失敗，請稍後重試。');
-    form.reset();
-    status.classList.add('success');
-    status.textContent = '評論已公開，謝謝你分享旅程！';
-    await loadReviews();
-  } catch (error) {
-    status.classList.add('error');
-    status.textContent = error.message || '目前無法連線，請稍後重試。';
-  } finally {
-    button.disabled = false;
-  }
-});
-
 loadReviews();
