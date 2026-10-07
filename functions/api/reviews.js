@@ -67,9 +67,30 @@ export async function onRequestGet(context) {
       });
     }
 
-    return json({
-      reviews: result.reviews
-    });
+    const reviews = result.reviews.map((review) => {
+  const rawRating = String(review.rating || '').trim();
+
+  let rating = Number(rawRating);
+
+  // 如果 Google Sheets 回傳的是 ★★★★★
+  if (!Number.isFinite(rating)) {
+    rating = (rawRating.match(/[★⭐]/g) || []).length;
+  }
+
+  // 限制在 1～5 顆星
+  rating = Math.min(5, Math.max(1, rating || 1));
+
+  return {
+    name: review.name || '匿名旅人',
+    rating,
+    comment: review.comment || '',
+    date: review.date || ''
+  };
+});
+
+return json({
+  reviews
+});
 
   } catch (error) {
 
