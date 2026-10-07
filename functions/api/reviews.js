@@ -1,7 +1,6 @@
 export async function onRequestGet(context) {
   const { env } = context;
 
-  // 檢查 Apps Script 網址是否存在
   if (!env.GOOGLE_SHEETS_WEBHOOK_URL) {
     return json({
       reviews: [],
@@ -10,18 +9,15 @@ export async function onRequestGet(context) {
   }
 
   try {
-    // 建立 Apps Script 網址
     const endpoint = new URL(
       env.GOOGLE_SHEETS_WEBHOOK_URL
     );
 
-    // 告訴 Apps Script：我要取得評論
     endpoint.searchParams.set(
       'action',
       'reviews'
     );
 
-    // 呼叫 Google Apps Script
     const response = await fetch(
       endpoint.toString(),
       {
@@ -33,7 +29,6 @@ export async function onRequestGet(context) {
       }
     );
 
-    // 讀取 Google 回傳內容
     const text = await response.text();
 
     console.log(
@@ -41,38 +36,37 @@ export async function onRequestGet(context) {
       text
     );
 
-    // 如果 Google 回傳錯誤
     if (!response.ok) {
       return json({
         reviews: [],
-        error: `Google Apps Script HTTP ${response.status}`,
+        error:
+          `Google Apps Script HTTP ${response.status}`,
         googleResponse: text
       });
     }
 
-    // 將文字轉成 JSON
     let result;
 
     try {
       result = JSON.parse(text);
-    } catch (error) {
+    } catch {
       return json({
         reviews: [],
-        error: 'Google Apps Script 回傳的不是 JSON',
+        error:
+          'Google Apps Script 回傳的不是 JSON',
         googleResponse: text
       });
     }
 
-    // 確認 reviews 是陣列
     if (!Array.isArray(result.reviews)) {
       return json({
         reviews: [],
-        error: 'Google Apps Script 沒有回傳 reviews 陣列',
+        error:
+          'Google Apps Script 沒有回傳 reviews 陣列',
         googleResponse: result
       });
     }
 
-    // 成功
     return json({
       reviews: result.reviews
     });
@@ -86,7 +80,82 @@ export async function onRequestGet(context) {
 
     return json({
       reviews: [],
-      error: error?.message || '取得評論失敗'
+      error:
+        error?.message ||
+        '取得評論失敗'
+    });
+  }
+}
+
+
+// ======================================
+// 保留原本的 POST 功能
+// ======================================
+export async function onRequestPost(context) {
+  const { request, env } = context;
+
+  if (!env.GOOGLE_SHEETS_WEBHOOK_URL) {
+    return json({
+      success: false,
+      message:
+        'GOOGLE_SHEETS_WEBHOOK_URL 尚未設定'
+    });
+  }
+
+  try {
+
+    const body =
+      await request.text();
+
+    const endpoint = new URL(
+      env.GOOGLE_SHEETS_WEBHOOK_URL
+    );
+
+    endpoint.searchParams.set(
+      'action',
+      'review'
+    );
+
+    const response = await fetch(
+      endpoint.toString(),
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type':
+            'application/json'
+        },
+        body
+      }
+    );
+
+    const text =
+      await response.text();
+
+    let result;
+
+    try {
+      result = JSON.parse(text);
+    } catch {
+      result = {
+        success: response.ok,
+        message: text
+      };
+    }
+
+    return json(result);
+
+  } catch (error) {
+
+    console.error(
+      '送出評論失敗：',
+      error
+    );
+
+    return json({
+      success: false,
+      message:
+        error?.message ||
+        '送出評論失敗'
     });
   }
 }
@@ -100,6 +169,7 @@ function json(data) {
       headers: {
         'Content-Type':
           'application/json; charset=utf-8',
+
         'Cache-Control':
           'no-store, no-cache, must-revalidate'
       }
