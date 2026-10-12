@@ -22,6 +22,9 @@ test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   assert.match(html, /<title>福隆火車站租車/);
   assert.match(html, /name="description"/);
   assert.match(html, /property="og:title"/);
+  assert.match(html, /name="robots" content="index,follow,max-image-preview:large"/);
+  assert.match(html, /property="og:image" content="https:\/\/bike\.happybike\.workers\.dev\/bike-fleet\.png"/);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
   for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq']) assert.match(html, new RegExp(`id="${sectionId}"`));
 });
 
@@ -63,7 +66,16 @@ test('SEO 頁面使用在地搜尋詞、唯一 canonical 與可解析的店家�
   const structuredData = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
   assert.ok(structuredData, '首頁應有 JSON-LD 店家資料');
   const graph = JSON.parse(structuredData[1])['@graph'];
-  assert.ok(graph.some((entry) => entry['@type'] === 'BikeStore' && entry.telephone === '+886-2-2499-1585'));
+  assert.ok(graph.some((entry) => entry['@type'] === 'BikeStore' && entry.telephone === '+886-2-2499-1585' && entry.image === 'https://bike.happybike.workers.dev/bike-fleet.png'));
+  for (const [path, page, image] of [
+    ['/', html, 'bike-fleet.png'],
+    ['/attractions.html', attractions, 'fulong-bento.png'],
+    ['/reviews.html', reviews, 'bike-fleet.png'],
+  ]) {
+    assert.match(page, /name="robots" content="index,follow,max-image-preview:large"/, `${path} 必須允許 Google 顯示大型圖片預覽`);
+    assert.ok(page.includes(`property="og:image" content="https://bike.happybike.workers.dev/${image}"`), `${path} 缺少可公開存取的分享圖片`);
+    assert.ok(page.includes(`name="twitter:image" content="https://bike.happybike.workers.dev/${image}"`), `${path} 缺少 Twitter 圖片`);
+  }
   for (const path of ['/', '/attractions.html', '/reviews.html']) {
     assert.ok(sitemap.includes(`https://bike.happybike.workers.dev${path}`), `sitemap 缺少 ${path}`);
   }
