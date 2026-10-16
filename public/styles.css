@@ -1552,3 +1552,73 @@ h1, h2,
     box-shadow: 0 2px 0 #8ca82b, 0 4px 0 #6e8725, 0 8px 14px rgba(121,153,29,.32), 0 0 0 3px rgba(212,237,97,.22);
   }
 }
+
+
+/* 立即預約按鈕微調：融入全站簡約自然風格，保留低調動態與層次陰影 */
+.site-header .header-cta {
+  color: var(--ink, #173c35) !important;
+  background: var(--lime, #d4ed61) !important;
+  border: 1px solid rgba(23, 60, 53, .08);
+  border-radius: 2px;
+  padding: 13px 17px;
+  font-size: 14.4px;
+  font-weight: 800 !important;
+  letter-spacing: .01em;
+  box-shadow:
+    0 2px 0 rgba(23, 60, 53, .14),
+    0 4px 9px rgba(23, 60, 53, .10),
+    0 7px 15px rgba(23, 60, 53, .07);
+  animation: booking-cta-soft-pulse 3.4s ease-in-out infinite;
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.site-header .header-cta::before {
+  content: none !important;
+  animation: none !important;
+}
+.site-header .header-cta::after {
+  content: none !important;
+  animation: none !important;
+}
+.site-header .header-cta span {
+  font-size: 1em;
+  transition: transform .22s ease;
+}
+.site-header .header-cta:hover {
+  color: var(--ink, #173c35) !important;
+  background: #e0f477 !important;
+  transform: translateY(-2px);
+  filter: none;
+  box-shadow:
+    0 2px 0 rgba(23, 60, 53, .16),
+    0 5px 12px rgba(23, 60, 53, .13),
+    0 9px 20px rgba(121, 153, 29, .18);
+  animation-play-state: paused;
+}
+.site-header .header-cta:hover span {
+  transform: translateX(2px);
+}
+@keyframes booking-cta-soft-pulse {
+  0%, 100% {
+    box-shadow: 0 2px 0 rgba(23, 60, 53, .14), 0 4px 9px rgba(23, 60, 53, .10), 0 7px 15px rgba(23, 60, 53, .07);
+  }
+  50% {
+    box-shadow: 0 2px 0 rgba(23, 60, 53, .14), 0 5px 11px rgba(23, 60, 53, .12), 0 9px 18px rgba(121, 153, 29, .13);
+  }
+}
+@media (max-width: 620px) {
+  .site-header .header-cta {
+    padding: 10px 12px;
+    border-radius: 2px;
+  }
+}
+@media (max-width: 380px) {
+  .site-header .header-cta {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header .header-cta {
+    animation: none !important;
+  }
+}
