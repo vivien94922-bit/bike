@@ -1404,3 +1404,14 @@ h1, h2,
     display: none;
   }
 }
+
+
+/* 遊覽車注意事項：淺紅色螢光筆畫重點 */
+.highlight-bus-notice {
+  background: linear-gradient(transparent 42%, rgba(255, 171, 181, .62) 42%, rgba(255, 171, 181, .62) 96%, transparent 96%);
+  color: inherit;
+  padding: 0 .08em;
+  font-weight: 800;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
