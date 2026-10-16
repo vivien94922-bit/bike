@@ -320,3 +320,53 @@ body{font-size:var(--readable-text)}
     padding: 7px 9px;
   }
 }
+
+/* 導覽選單：滑鼠移入時底線由左向右展開 */
+.desktop-nav a,
+.page-nav a {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  transition: color .22s ease;
+}
+
+.desktop-nav a::after,
+.page-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 2px;
+  background: var(--lime, #d4ed61);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .28s ease;
+  pointer-events: none;
+}
+
+.desktop-nav a:hover::after,
+.desktop-nav a:focus-visible::after,
+.page-nav a:hover::after,
+.page-nav a:focus-visible::after,
+.page-nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible,
+.page-nav a:hover,
+.page-nav a:focus-visible,
+.page-nav a[aria-current="page"] {
+  color: var(--ink, #173c35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-nav a,
+  .page-nav a,
+  .desktop-nav a::after,
+  .page-nav a::after {
+    transition: none;
+  }
+}
+
