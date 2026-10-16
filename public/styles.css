@@ -496,27 +496,30 @@ button, input, select, textarea { font-family: var(--sans); }
     linear-gradient(135deg, #fff8ec 0%, #f7f1df 48%, #e8f0df 100%);
   color: #315347;
 }
+/* 使用 CSS 幾何星芒裝飾，不用文字符號，避免手機系統轉成表情符號 */
 .hero-banner::before {
-  content: "✳";
+  content: "";
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   right: 12%;
   top: 14%;
-  color: rgba(128,157,119,.32);
-  font-size: clamp(40px, 6vw, 76px);
-  line-height: 1;
+  width: clamp(42px, 6vw, 76px);
+  aspect-ratio: 1;
+  background: rgba(128,157,119,.32);
+  clip-path: polygon(50% 0%, 61% 38%, 100% 50%, 61% 62%, 50% 100%, 39% 62%, 0% 50%, 39% 38%);
   transform: rotate(-12deg);
   pointer-events: none;
 }
 .hero-banner::after {
-  content: "✦";
+  content: "";
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   right: 21%;
   bottom: 17%;
-  color: rgba(226,166,126,.5);
-  font-size: clamp(24px, 3vw, 38px);
-  line-height: 1;
+  width: clamp(26px, 3vw, 38px);
+  aspect-ratio: 1;
+  background: rgba(226,166,126,.5);
+  clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
   transform: rotate(8deg);
   pointer-events: none;
 }
