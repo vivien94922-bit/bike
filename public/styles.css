@@ -901,34 +901,86 @@ p, li, dd, dt, summary, label {
 }
 
 
-/* QR Code 精簡放在白色預約表單最底部 */
-.booking-wrap .booking-form .booking-qr-card {
+/* QR Code 在白色表單外側右邊，底部與表單對齊 */
+.booking-wrap {
+  max-width: 1320px;
+  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.3fr) 150px;
+  gap: 22px;
+  align-items: stretch;
+}
+.booking-wrap .google-booking-form {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.booking-wrap .booking-qr-card {
   position: static;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  width: 100%;
-  margin: 20px auto 0;
-  padding: 14px 0 0;
+  justify-content: flex-end;
+  align-self: stretch;
+  min-width: 0;
+  margin-top: 0;
+  padding: 0 0 25px;
   border: 0;
-  border-top: 1px solid #e4e9df;
   border-radius: 0;
   background: transparent;
+  text-align: center;
 }
-.booking-wrap .booking-form .booking-qr-link {
+.booking-wrap .booking-qr-link {
+  display: block;
   width: 100%;
-  max-width: 132px;
-  padding: 4px;
+  max-width: 140px;
+  padding: 6px;
   border: 1px solid #e5e9e1;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #fff;
 }
-.booking-wrap .booking-form .booking-qr-link img {
+.booking-wrap .booking-qr-link img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
 }
-.booking-wrap .booking-form .booking-qr-open {
+.booking-wrap .booking-qr-open {
   display: none;
+}
+@media (max-width: 1190px) {
+  .booking-wrap {
+    grid-template-columns: minmax(180px, .7fr) minmax(0, 1.3fr) 125px;
+    gap: 15px;
+  }
+}
+@media (max-width: 800px) {
+  .booking-wrap {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .booking-wrap .booking-qr-card {
+    grid-column: 2;
+    justify-content: flex-end;
+    align-self: stretch;
+    padding-bottom: 25px;
+  }
+}
+@media (max-width: 620px) {
+  .booking-wrap {
+    display: block;
+  }
+  .booking-wrap .booking-form {
+    margin-top: 26px;
+  }
+  .booking-wrap .booking-qr-card {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0;
+    padding: 16px 0 0;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  .booking-wrap .booking-qr-link {
+    max-width: 120px;
+  }
 }
