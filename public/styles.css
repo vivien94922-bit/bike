@@ -1094,3 +1094,204 @@ h1, h2,
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
+
+/* 手機閱讀體驗整理：縮小過大的標題與留白，避免內容擠出螢幕 */
+@media (max-width: 620px) {
+  html {
+    scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-size: 15px;
+    line-height: 1.75;
+    overflow-wrap: break-word;
+  }
+  img, iframe, video {
+    max-width: 100%;
+  }
+  .site-header {
+    min-height: 58px;
+    padding: 9px 4.5%;
+    gap: 8px;
+  }
+  .brand {
+    min-width: 0;
+    font-size: 16px;
+    gap: 6px;
+  }
+  .brand-mark {
+    width: 29px;
+    height: 29px;
+    flex: 0 0 29px;
+  }
+  .header-cta {
+    padding: 8px 10px;
+    font-size: 11px;
+    border-radius: 8px;
+  }
+  .menu-toggle {
+    flex: 0 0 auto;
+  }
+  .section-wrap,
+  .announcements-page,
+  .page-content,
+  .guide-content,
+  .reviews-page,
+  .about-page {
+    width: calc(100% - 32px);
+    max-width: 100%;
+  }
+  h1 {
+    font-size: clamp(26px, 7vw, 32px);
+    line-height: 1.35;
+  }
+  h2 {
+    font-size: clamp(22px, 5.8vw, 27px);
+    line-height: 1.45;
+  }
+  h3 {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  p, li {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .eyebrow,
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: .12em;
+  }
+  .section-heading {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-heading p,
+  .section-intro,
+  .hero-banner-content p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .hero-banner {
+    min-height: 0;
+  }
+  .hero-banner-content {
+    width: 90%;
+    padding: 42px 0 60px;
+  }
+  .hero-banner-kicker {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+  .hero-banner h1 {
+    font-size: clamp(27px, 7.2vw, 33px);
+    line-height: 1.4;
+    margin: 14px 0;
+  }
+  .hero-banner-title-en {
+    font-size: 9px;
+    letter-spacing: .1em;
+    overflow-wrap: anywhere;
+  }
+  .hero-banner-actions {
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .hero-banner-button {
+    min-height: 42px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .hero-banner-secondary {
+    font-size: 12px;
+  }
+  .hero-banner-caption {
+    font-size: 7px;
+    line-height: 1.5;
+  }
+  .bikes-section,
+  .about-gallery-section,
+  .booking-section,
+  .how-section,
+  .faq-section {
+    padding-top: 48px;
+    padding-bottom: 52px;
+  }
+  .bike-card h3,
+  .announcement-card h3,
+  .review-card h3 {
+    font-size: 17px;
+  }
+  .bike-card p,
+  .announcement-card p,
+  .review-card p,
+  .trust-item small {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .bike-card,
+  .announcement-card,
+  .review-card,
+  .faq-item {
+    min-width: 0;
+  }
+  .booking-wrap {
+    display: block;
+    width: calc(100% - 32px);
+  }
+  .booking-wrap .booking-form {
+    margin-top: 18px;
+  }
+  .google-booking-form iframe {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+  .booking-wrap .booking-qr-card {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+  input, select, textarea, button {
+    max-width: 100%;
+  }
+  .site-footer {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+}
+@media (max-width: 380px) {
+  .section-wrap,
+  .announcements-page,
+  .page-content,
+  .guide-content,
+  .reviews-page,
+  .about-page,
+  .booking-wrap {
+    width: calc(100% - 26px);
+  }
+  .brand {
+    font-size: 14px;
+  }
+  .header-cta {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+  .hero-banner-content {
+    width: 92%;
+    padding-top: 36px;
+  }
+  .hero-banner h1 {
+    font-size: 26px;
+  }
+  .hero-banner-title-en {
+    font-size: 8px;
+    letter-spacing: .06em;
+  }
+  h2 {
+    font-size: 21px;
+  }
+  p, li {
+    font-size: 14px;
+  }
+}
