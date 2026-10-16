@@ -419,3 +419,9 @@ body{font-size:var(--readable-text)}
   .brand-sub { font-size: 7px; }
 }
 
+
+
+/* Rental steps: highlighter-style titles and larger step numbers */
+.steps h3 .step-title-marker{background:linear-gradient(transparent 56%,rgba(212,237,97,.88) 56%,rgba(212,237,97,.88) 91%,transparent 91%);padding:0 .08em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.steps .step-no{font-size:24px;font-weight:800;letter-spacing:.02em;color:#84954e;line-height:1}
+@media(max-width:620px){.steps .step-no{font-size:25px}}
