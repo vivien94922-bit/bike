@@ -425,3 +425,41 @@ body{font-size:var(--readable-text)}
 .steps h3 .step-title-marker{background:linear-gradient(transparent 56%,rgba(212,237,97,.88) 56%,rgba(212,237,97,.88) 91%,transparent 91%);padding:0 .08em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .steps .step-no{font-size:24px;font-weight:800;letter-spacing:.02em;color:#84954e;line-height:1}
 @media(max-width:620px){.steps .step-no{font-size:25px}}
+
+
+/* 全站字體微調：中文使用俐落黑體，標題加入細緻宋體層次 */
+:root {
+  --serif: "Noto Serif TC", "Songti TC", Georgia, serif;
+  --sans: "DM Sans", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+html { text-rendering: optimizeLegibility; }
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.85;
+  letter-spacing: .015em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.45;
+}
+h3, h4 {
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: -.012em;
+  line-height: 1.55;
+}
+p, li { line-height: 1.9; }
+button, input, select, textarea { font-family: var(--sans); }
+.hero h1 { font-weight: 700; letter-spacing: -.04em; line-height: 1.28; }
+.brand { letter-spacing: -.035em; }
+.desktop-nav { letter-spacing: .01em; }
+@media (max-width: 620px) {
+  body { font-size: 15.5px; line-height: 1.8; }
+  h1, h2 { line-height: 1.42; }
+  .hero h1 { line-height: 1.22; }
+}
