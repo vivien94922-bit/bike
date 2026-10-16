@@ -991,9 +991,9 @@ p, li, dd, dt, summary, label {
 
 /* 新品牌圖示：同時用於導覽列、頁尾與瀏覽器分頁圖示 */
 .brand-mark {
-  width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
   border: 0;
   border-radius: 0;
   overflow: hidden;
