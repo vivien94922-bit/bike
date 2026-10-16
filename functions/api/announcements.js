@@ -10,8 +10,7 @@ const json = (body, status = 200) =>
 export async function onRequestGet({ env }) {
   // 確認必要設定存在
   if (
-    !env.GOOGLE_SHEETS_WEBHOOK_URL ||
-    !env.GOOGLE_SHEETS_TOKEN
+    !env.ANNOUNCEMENTS_WEBHOOK_URL
   ) {
     return json(
       {
@@ -25,7 +24,7 @@ export async function onRequestGet({ env }) {
   try {
     // 連接 Google Apps Script
     const endpoint = new URL(
-      env.GOOGLE_SHEETS_WEBHOOK_URL
+      env.ANNOUNCEMENTS_WEBHOOK_URL
     );
 
     endpoint.searchParams.set(
