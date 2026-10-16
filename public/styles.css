@@ -1084,3 +1084,13 @@ h1, h2,
     letter-spacing: .08em;
   }
 }
+
+
+/* 淺紅色螢光筆重點：創立年份 */
+.highlight-founding {
+  background: linear-gradient(transparent 48%, rgba(255, 171, 181, .55) 48%, rgba(255, 171, 181, .55) 94%, transparent 94%);
+  color: inherit;
+  padding: 0 .08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
