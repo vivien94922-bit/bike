@@ -106,3 +106,17 @@
   .announcement-card { padding: 16px 13px; }
   .announcements-page .guide-hero h1 { font-size: 32px; }
 }
+
+/* 八折優惠公告標題：螢光筆劃過的底色 */
+.announcement-title-marker {
+  padding: 0 .12em .04em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background: linear-gradient(
+    transparent 56%,
+    rgba(212, 237, 97, .88) 56%,
+    rgba(212, 237, 97, .88) 91%,
+    transparent 91%
+  );
+}
+
