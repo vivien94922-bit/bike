@@ -10,6 +10,6 @@
     "run_worker_first": ["/api/*"]
   },
   "vars": {
-    "GOOGLE_SHEETS_WEBHOOK_URL": "https://script.google.com/macros/s/AKfycbwLT19sQUXPlAjdHz1Rex3cUMBVWesuQuOXx8mnLphdbtj_kmTROkp0TMwtxgqmwnxc/exec"
+    "GOOGLE_SHEETS_WEBHOOK_URL": "https://script.google.com/macros/s/AKfycby0VWyxXZ9aMO-wXUJ4T-czbG5ZsflWZHOFoPtSVMJpmIJqyJiHGX0KKqQUN0rb4PV0rQ/exec"
   }
 }
