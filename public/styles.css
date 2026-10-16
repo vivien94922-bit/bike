@@ -1020,3 +1020,33 @@ p, li, dd, dt, summary, label {
   pointer-events: none;
 }
 .hero-banner-shade { display: none; }
+
+
+/* 質感字體：全站只使用思源黑體與思源宋體兩種字體 */
+:root {
+  --sans: "Noto Sans TC", sans-serif;
+  --serif: "Noto Serif TC", serif;
+}
+*, *::before, *::after {
+  font-family: var(--sans);
+}
+h1, h2,
+.hero-banner h1,
+.hero h1,
+.section-heading h2,
+.how-heading h2,
+.about-copy h2,
+.faq-intro h2,
+.booking-intro h2,
+.guide-hero h1,
+.guide-section h2,
+.reviews-hero h1,
+.about-gallery-heading h2,
+.modal-card h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -.025em;
+}
+.hero-banner-title-en {
+  font-family: var(--sans);
+}
