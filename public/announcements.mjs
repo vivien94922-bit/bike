@@ -20,7 +20,7 @@ function render(announcements) {
     date.className = 'announcement-date';
     date.textContent = announcement.date;
     const title = document.createElement('h2');
-    if (/八折|8折/.test(announcement.title)) {
+    if (/遊覽車注意事項|預約享八折優惠|八折|8折/.test(announcement.title)) {
       const highlightedTitle = document.createElement('span');
       highlightedTitle.className = 'announcement-title-marker';
       highlightedTitle.textContent = announcement.title;
