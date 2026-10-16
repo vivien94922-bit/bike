@@ -901,119 +901,34 @@ p, li, dd, dt, summary, label {
 }
 
 
-/* QR Code 放在整個白色預約表單方框外側右邊 */
-.booking-wrap {
-  max-width: 1320px;
-  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.3fr) 184px;
-  gap: 26px;
+/* QR Code 精簡放在白色預約表單最底部 */
+.booking-wrap .booking-form .booking-qr-card {
+  position: static;
+  display: flex;
+  justify-content: center;
   align-items: center;
-}
-.booking-wrap .google-booking-form {
-  min-width: 0;
-}
-.booking-wrap .google-form-container {
   width: 100%;
-  overflow: hidden;
+  margin: 20px auto 0;
+  padding: 14px 0 0;
+  border: 0;
+  border-top: 1px solid #e4e9df;
+  border-radius: 0;
+  background: transparent;
+}
+.booking-wrap .booking-form .booking-qr-link {
+  width: 100%;
+  max-width: 132px;
+  padding: 4px;
+  border: 1px solid #e5e9e1;
   border-radius: 8px;
   background: #fff;
 }
-.booking-wrap .google-form-container iframe {
-  display: block;
-  width: 100%;
-  height: 550px;
-  border: 0;
-}
-.booking-wrap .booking-qr-card {
-  position: static;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-  padding: 20px 12px;
-  border: 1px solid #dce6d7;
-  border-radius: 14px;
-  background: #fffdf7;
-  text-align: center;
-}
-.booking-qr-eyebrow {
-  color: #7b906d;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .14em;
-}
-.booking-qr-card h4 {
-  margin: 0;
-  color: #315347;
-  font-size: 18px;
-  line-height: 1.4;
-}
-.booking-qr-card p {
-  margin: 0;
-  color: #68796d;
-  font-size: 12px;
-  line-height: 1.7;
-}
-.booking-qr-link {
-  display: block;
-  width: 100%;
-  max-width: 170px;
-  padding: 6px;
-  border-radius: 10px;
-  background: #fff;
-}
-.booking-qr-link img {
+.booking-wrap .booking-form .booking-qr-link img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
 }
-.booking-qr-open {
-  color: #315347;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.6;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-@media (max-width: 1190px) {
-  .booking-wrap {
-    grid-template-columns: minmax(180px, .7fr) minmax(0, 1.3fr) 150px;
-    gap: 18px;
-  }
-  .booking-wrap .booking-form {
-    padding: 24px 18px;
-  }
-  .booking-qr-card {
-    padding: 16px 8px;
-  }
-}
-@media (max-width: 800px) {
-  .booking-wrap {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-    gap: 24px;
-  }
-  .booking-wrap .booking-qr-card {
-    grid-column: 2;
-    justify-self: stretch;
-    width: 100%;
-    max-width: 100%;
-  }
-}
-@media (max-width: 620px) {
-  .booking-wrap {
-    display: block;
-  }
-  .booking-wrap .booking-form {
-    margin-top: 26px;
-  }
-  .booking-wrap .booking-qr-card {
-    width: 100%;
-    max-width: 100%;
-    margin-top: 16px;
-    padding: 20px 16px;
-  }
-  .booking-wrap .booking-qr-link {
-    max-width: 190px;
-  }
+.booking-wrap .booking-form .booking-qr-open {
+  display: none;
 }
