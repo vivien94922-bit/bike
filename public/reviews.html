@@ -6,72 +6,272 @@
     <meta name="theme-color" content="#f7f7f1" />
     <meta name="description" content="查看福隆租車與舊草嶺隧道單車旅人的實際心得，參考歡樂自行車車款與沿途騎乘體驗。" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
+
     <meta property="og:title" content="福隆租車旅人評論｜歡樂自行車" />
-    <meta property="og:description" content="看看其他旅人租車騎舊草嶺隧道與福隆海岸的心得，也歡迎留下星等與留言。" />
+    <meta property="og:description" content="看看其他旅人租車騎舊草嶺隧道與福隆海岸的心得，也歡迎留下評論。" />
     <meta property="og:url" content="https://bike.happybike.workers.dev/reviews.html" />
     <meta property="og:image" content="https://bike.happybike.workers.dev/bike-fleet.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="960" />
     <meta property="og:image:height" content="720" />
     <meta property="og:image:alt" content="歡樂自行車店前停放多款出租單車。" />
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://bike.happybike.workers.dev/bike-fleet.png" />
     <meta name="twitter:image:alt" content="歡樂自行車店前停放多款出租單車。" />
+
     <link rel="canonical" href="https://bike.happybike.workers.dev/reviews.html" />
+
     <title>福隆租車旅人評論｜歡樂自行車</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
+
+    <!-- 保留原本的評論讀取功能 -->
     <script type="module" src="/reviews.mjs"></script>
+
+    <style>
+      /* Google 表單：配合原網站的簡約風格 */
+      .google-review-embed {
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid rgba(40, 50, 40, 0.12);
+        border-radius: 16px;
+        background: #fff;
+      }
+
+      .google-review-embed iframe {
+        display: block;
+        width: 100%;
+        min-height: 600px;
+        border: 0;
+        background: #fff;
+      }
+
+      .google-review-note {
+        margin: 0 0 18px;
+        color: #666b61;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .google-review-fallback {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      @media (max-width: 800px) {
+        .google-review-embed iframe {
+          min-height: 1100px;
+        }
+      }
+    </style>
   </head>
+
   <body class="inner-page">
-    <div class="announcement"><span class="announcement-dot"></span> 歡樂自行車・旅人評論與回饋</div>
+    <div class="announcement">
+      <span class="announcement-dot"></span>
+      歡樂自行車・旅人評論與回饋
+    </div>
+
     <header class="site-header">
-      <a class="brand" href="/index.html" aria-label="歡樂自行車首頁"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="11" cy="27" r="7"/><circle cx="30" cy="27" r="7"/><path d="m11 27 8-13 6 13H11l6-9h10m-3-6h4"/></svg></span><span>歡樂自行車<span class="brand-sub">HUAN LE BICYCLE</span></span></a>
-      <nav class="page-nav" aria-label="主要導覽"><a href="/index.html#bikes">車款與價格</a><a href="/attractions.html">景點介紹</a><a href="/reviews.html" aria-current="page">旅人評論</a><a href="/index.html#how">租車方式</a></nav>
-      <a class="header-cta" href="/index.html#booking">立即預約 <span aria-hidden="true">↗</span></a>
+      <a class="brand" href="/index.html" aria-label="歡樂自行車首頁">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <circle cx="11" cy="27" r="7" />
+            <circle cx="30" cy="27" r="7" />
+            <path d="m11 27 8-13 6 13H11l6-9h10m-3-6h4" />
+          </svg>
+        </span>
+        <span>
+          歡樂自行車
+          <span class="brand-sub">HUAN LE BICYCLE</span>
+        </span>
+      </a>
+
+      <nav class="page-nav" aria-label="主要導覽">
+        <a href="/index.html#bikes">車款與價格</a>
+        <a href="/attractions.html">景點介紹</a>
+        <a href="/reviews.html" aria-current="page">旅人評論</a>
+        <a href="/index.html#how">租車方式</a>
+      </nav>
+
+      <a class="header-cta" href="/index.html#booking">
+        立即預約 <span aria-hidden="true">↗</span>
+      </a>
     </header>
+
     <main class="reviews-page">
+      <!-- 頁面主視覺 -->
       <header class="guide-hero reviews-hero">
-        <div class="eyebrow"><span class="eyebrow-line"></span> RIDERS' NOTES</div>
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          RIDERS' NOTES
+        </div>
+
         <h1>你的旅程心得，<br />也能幫到下一位旅人。</h1>
-        <p>每一趟福隆海岸小旅行都有自己的風景。留下星等與心得，讓其他旅人也能參考你的分享。</p>
-        <a class="button button-dark" href="#review-form">留下星等與心得 <span aria-hidden="true">↓</span></a>
+
+        <p>
+          每一趟福隆海岸小旅行都有自己的風景。
+          歡迎留下心得，讓其他旅人也能參考你的分享。
+        </p>
+
+        <a class="button button-dark" href="#review-form">
+          留下旅程心得 <span aria-hidden="true">↓</span>
+        </a>
       </header>
+
+      <!-- 公開評論列表：保留原本的載入功能 -->
       <section class="review-note" aria-labelledby="public-reviews-title">
-        <div class="review-mark"><img src="/icons/heart.svg" alt="" /></div>
-        <h2 id="public-reviews-title">旅人真實回饋</h2>
-        <p>旅人送出的留言會公開顯示在這裡，歡迎參考彼此的真實體驗。尚無評論時，你可以成為第一位分享的旅人。</p>
-        <div id="review-list" class="review-list" aria-live="polite"><p class="review-empty">正在載入評論…</p></div>
-        <a class="guide-link" href="https://www.facebook.com/profile.php?id=100063473843836" target="_blank" rel="noreferrer">也可以到 Facebook 看留言 ↗</a>
+        <div class="review-mark">
+          <img src="/icons/heart.svg" alt="" />
+        </div>
+
+        <h2 id="public-reviews-title">旅人的真實回饋</h2>
+
+        <p>
+          旅人分享的心得會顯示在這裡，歡迎參考彼此的真實體驗。
+          尚無評論時，你可以成為第一位分享的旅人。
+        </p>
+
+        <div id="review-list" class="review-list" aria-live="polite">
+          <p class="review-empty">正在載入評論…</p>
+        </div>
+
+        <a
+          class="guide-link"
+          href="https://www.facebook.com/profile.php?id=100063473843836"
+          target="_blank"
+          rel="noreferrer"
+        >
+          也可以到 Facebook 看留言 ↗
+        </a>
       </section>
-      <section class="review-form-card" aria-labelledby="review-form-title">
+
+      <!-- Google 表單評論區 -->
+      <section
+        class="review-form-card"
+        id="review-form"
+        aria-labelledby="review-form-title"
+      >
         <h2 id="review-form-title">寫下你的騎乘心得</h2>
-        <p>分享實際體驗，讓下一位旅人更好安排行程。暱稱可不填，電話和電子郵件都不會收集。</p>
-        <form id="review-form">
-          <fieldset class="star-picker"><legend>這次體驗幾顆星？<span>*</span></legend>
-            <label><input type="radio" name="rating" value="1" required /><span aria-label="1 顆星">★</span></label>
-            <label><input type="radio" name="rating" value="2" /><span aria-label="2 顆星">★★</span></label>
-            <label><input type="radio" name="rating" value="3" /><span aria-label="3 顆星">★★★</span></label>
-            <label><input type="radio" name="rating" value="4" /><span aria-label="4 顆星">★★★★</span></label>
-            <label><input type="radio" name="rating" value="5" /><span aria-label="5 顆星">★★★★★</span></label>
-          </fieldset>
-          <label class="review-name-label">暱稱（選填）<input name="name" maxlength="40" autocomplete="nickname" placeholder="例如：小美" /></label>
-          <label class="review-comment-label">留言內容<span>*</span><textarea name="comment" minlength="5" maxlength="1000" rows="3" required placeholder="分享租車、路線或沿途景點的感受"></textarea></label>
-          <label class="review-consent"><input name="consent" type="checkbox" required /><span>我知道送出後，星等、暱稱與留言會公開在網站上；暱稱可不填。</span></label>
-          <label class="review-honeypot" aria-hidden="true">網站<input name="website" tabindex="-1" autocomplete="off" /></label>
-          <button class="button button-dark" type="submit">送出評論</button>
-          <p id="review-status" class="review-status" role="status" aria-live="polite"></p>
-        </form>
+
+        <p>
+          分享實際體驗，讓下一位旅人更好安排行程。
+          請透過下方 Google 表單留下評論。
+        </p>
+
+        <p class="google-review-note">
+          請填寫實際的租車體驗，並避免提供電話、住址等不必要的個人資料。
+          感謝你幫助下一位旅人規劃福隆單車旅行！
+        </p>
+
+        <div class="google-review-embed">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScJ47EZxyWhMLXGmw4cjdNPDkLbiEnoTClu0XFsbG8v7gYnEg/viewform?embedded=true"
+            title="歡樂自行車旅人評論表單"
+            width="100%"
+            height="600"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            loading="lazy"
+          >
+            載入 Google 表單中…
+          </iframe>
+        </div>
+
+        <a
+          class="button button-dark google-review-fallback"
+          href="https://forms.gle/cAR1muHJHRreoPBU9"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          如果表單無法顯示，請點此填寫 ↗
+        </a>
       </section>
+
+      <!-- 租車聯絡資訊 -->
       <section class="review-contact">
         <h2>有預約或租車問題嗎？</h2>
-        <p>評論頁不會直接建立預約；租車需求請使用預約表單，或在營業時間來電。</p>
-        <div class="guide-actions"><a class="button button-dark" href="/index.html#booking">前往租車預約</a><a class="guide-link" href="tel:+886224991585">電話 02-2499-1585</a></div>
+
+        <p>
+          評論頁不會直接建立預約；租車需求請使用預約表單，
+          或在營業時間來電。
+        </p>
+
+        <div class="guide-actions">
+          <a class="button button-dark" href="/index.html#booking">
+            前往租車預約
+          </a>
+
+          <a class="guide-link" href="tel:+886224991585">
+            電話 02-2499-1585
+          </a>
+        </div>
       </section>
     </main>
-    <footer class="site-footer"><div class="footer-main"><a class="brand brand-footer" href="/index.html"><span class="brand-mark"><svg viewBox="0 0 40 40"><circle cx="11" cy="27" r="7"/><circle cx="30" cy="27" r="7"/><path d="m11 27 8-13 6 13H11l6-9h10m-3-6h4"/></svg></span><span>歡樂自行車<span class="brand-sub">HUAN LE BICYCLE</span></span></a><p>228 新北市貢寮區福隆里<br />外隆林街 16 之 2 號</p><div class="footer-contact"><a href="tel:+886224991585">02-2499-1585</a><span>營業時間 08:30–17:30</span></div><div class="footer-social"><a href="/attractions.html">景點介紹</a><a href="https://www.facebook.com/profile.php?id=100063473843836" target="_blank" rel="noreferrer">Facebook ↗</a></div></div><div class="footer-bottom"><span>感謝分享你的福隆單車旅行</span><span>歡樂自行車</span></div></footer>
-    <a class="line-booking-float" href="https://line.me/R/ti/p/~0912200039" target="_blank" rel="noreferrer" aria-label="透過 LINE 立即預約歡樂自行車"><span class="line-booking-mark" aria-hidden="true">LINE</span><span>立即預約</span></a>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <a class="brand brand-footer" href="/index.html">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <circle cx="11" cy="27" r="7" />
+              <circle cx="30" cy="27" r="7" />
+              <path d="m11 27 8-13 6 13H11l6-9h10m-3-6h4" />
+            </svg>
+          </span>
+
+          <span>
+            歡樂自行車
+            <span class="brand-sub">HUAN LE BICYCLE</span>
+          </span>
+        </a>
+
+        <p>
+          228 新北市貢寮區福隆里<br />
+          外隆林街 16 之 2 號
+        </p>
+
+        <div class="footer-contact">
+          <a href="tel:+886224991585">02-2499-1585</a>
+          <span>營業時間 08:30–17:30</span>
+        </div>
+
+        <div class="footer-social">
+          <a href="/attractions.html">景點介紹</a>
+          <a
+            href="https://www.facebook.com/profile.php?id=100063473843836"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Facebook ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>感謝分享你的福隆單車旅行</span>
+        <span>歡樂自行車</span>
+      </div>
+    </footer>
+
+    <a
+      class="line-booking-float"
+      href="https://line.me/R/ti/p/~0912200039"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="透過 LINE 立即預約歡樂自行車"
+    >
+      <span class="line-booking-mark" aria-hidden="true">LINE</span>
+      <span>立即預約</span>
+    </a>
   </body>
 </html>
+```
