@@ -463,3 +463,20 @@ button, input, select, textarea { font-family: var(--sans); }
   h1, h2 { line-height: 1.42; }
   .hero h1 { line-height: 1.22; }
 }
+
+
+/* 首頁「歡樂自行車創立於 2018 年」淡粉色螢光筆 */
+.about-copy .about-founded {
+  margin: 0 0 16px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+.about-founded-marker {
+  display: inline;
+  padding: 0 .12em;
+  background: linear-gradient(transparent 48%, rgba(255, 190, 205, .88) 48%, rgba(255, 190, 205, .88) 91%, transparent 91%);
+  color: var(--ink, #173c35);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
