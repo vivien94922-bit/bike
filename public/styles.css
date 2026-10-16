@@ -1453,3 +1453,102 @@ h1, h2,
 .hero-banner-secondary {
   font-weight: 800 !important;
 }
+
+
+/* 右上角立即預約：醒目立體按鈕、脈衝光暈與多層陰影 */
+.site-header .header-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  color: #173c35 !important;
+  background: linear-gradient(135deg, #f4ff8b 0%, #d4ed61 42%, #b9d943 100%) !important;
+  border: 1px solid rgba(255,255,255,.92);
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-weight: 900 !important;
+  letter-spacing: .035em;
+  box-shadow:
+    0 2px 0 #8ca82b,
+    0 5px 0 #6e8725,
+    0 8px 0 rgba(23,60,53,.12),
+    0 12px 20px rgba(121,153,29,.34),
+    0 0 0 4px rgba(212,237,97,.23),
+    0 0 22px rgba(212,237,97,.48);
+  animation: booking-cta-bounce 2.4s ease-in-out infinite, booking-cta-glow 2.4s ease-in-out infinite;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.site-header .header-cta::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+  border: 2px solid rgba(180,215,54,.72);
+  border-radius: 12px;
+  opacity: 0;
+  animation: booking-cta-ring 2.4s ease-out infinite;
+  pointer-events: none;
+}
+.site-header .header-cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -55%;
+  width: 36%;
+  transform: skewX(-22deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent);
+  animation: booking-cta-shine 3.2s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.site-header .header-cta span {
+  display: inline-block;
+  font-size: 1.15em;
+  transition: transform .2s ease;
+}
+.site-header .header-cta:hover {
+  transform: translateY(-4px) scale(1.055);
+  filter: saturate(1.12);
+  box-shadow:
+    0 3px 0 #8ca82b,
+    0 7px 0 #6e8725,
+    0 13px 0 rgba(23,60,53,.1),
+    0 18px 28px rgba(121,153,29,.4),
+    0 0 0 5px rgba(212,237,97,.3),
+    0 0 30px rgba(212,237,97,.65);
+  animation-play-state: paused;
+}
+.site-header .header-cta:hover span {
+  transform: translate(3px,-2px);
+}
+@keyframes booking-cta-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes booking-cta-glow {
+  0%, 100% { box-shadow: 0 2px 0 #8ca82b, 0 5px 0 #6e8725, 0 8px 0 rgba(23,60,53,.12), 0 12px 20px rgba(121,153,29,.34), 0 0 0 4px rgba(212,237,97,.23), 0 0 22px rgba(212,237,97,.48); }
+  50% { box-shadow: 0 2px 0 #8ca82b, 0 5px 0 #6e8725, 0 8px 0 rgba(23,60,53,.12), 0 15px 26px rgba(121,153,29,.42), 0 0 0 6px rgba(212,237,97,.29), 0 0 32px rgba(212,237,97,.7); }
+}
+@keyframes booking-cta-ring {
+  0% { transform: scale(.92); opacity: .72; }
+  75%, 100% { transform: scale(1.13); opacity: 0; }
+}
+@keyframes booking-cta-shine {
+  0%, 62% { left: -55%; opacity: 0; }
+  68% { opacity: 1; }
+  82%, 100% { left: 125%; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header .header-cta,
+  .site-header .header-cta::before,
+  .site-header .header-cta::after {
+    animation: none !important;
+  }
+}
+@media (max-width: 620px) {
+  .site-header .header-cta {
+    padding: 10px 12px;
+    border-radius: 7px;
+    box-shadow: 0 2px 0 #8ca82b, 0 4px 0 #6e8725, 0 8px 14px rgba(121,153,29,.32), 0 0 0 3px rgba(212,237,97,.22);
+  }
+}
