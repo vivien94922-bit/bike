@@ -645,10 +645,11 @@ button, input, select, textarea { font-family: var(--sans); }
 .about-gallery {
   display: grid;
   grid-template-columns: 1.15fr .9fr 1fr 1fr;
-  grid-template-rows: 210px 180px;
+  grid-template-rows: 165px 150px 125px;
   grid-template-areas:
     "station station tunnel bento"
-    "station beach beach cat";
+    "station beach beach cat"
+    "icecream icecream beach cat";
   gap: 13px;
   max-width: 1120px;
   margin: 0 auto;
@@ -672,17 +673,9 @@ button, input, select, textarea { font-family: var(--sans); }
 .gallery-station img { object-position: center; }
 .gallery-tunnel img { object-position: center; }
 .gallery-beach img { object-position: center 55%; }
-/* 將甜點與小貓安排成錯落的小卡，避免格線過度工整 */
-.about-gallery {
-  grid-template-areas:
-    "station station tunnel bento"
-    "station beach beach icecream";
-}
+/* 甜點與小貓各自保留一格，搭配跨列照片做出不規則節奏 */
 .gallery-icecream { grid-area: icecream; }
-.gallery-cat {
-  grid-area: unset;
-  display: none;
-}
+.gallery-cat { grid-area: cat; }
 @media (min-width: 900px) {
   .about-gallery .gallery-bento { transform: translateY(12px); }
   .about-gallery .gallery-tunnel { transform: translateY(-5px); }
@@ -693,11 +686,11 @@ button, input, select, textarea { font-family: var(--sans); }
   .about-gallery-section { padding: 70px 6.4% 80px; }
   .about-gallery {
     grid-template-columns: 1.1fr 1fr 1fr;
-    grid-template-rows: 180px 150px 160px;
+    grid-template-rows: 170px 145px 145px;
     grid-template-areas:
       "station station tunnel"
       "station beach beach"
-      "bento icecream icecream";
+      "bento icecream cat";
     gap: 10px;
   }
   .about-gallery .gallery-bento,
@@ -712,11 +705,12 @@ button, input, select, textarea { font-family: var(--sans); }
   .about-gallery-heading p { font-size: 13px; }
   .about-gallery {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 205px 145px 145px;
+    grid-template-rows: 195px 135px 145px 135px;
     grid-template-areas:
       "station station"
       "tunnel bento"
-      "beach icecream";
+      "beach beach"
+      "icecream cat";
     gap: 8px;
   }
   .about-gallery .fulong-photo { border-radius: 2px; }
