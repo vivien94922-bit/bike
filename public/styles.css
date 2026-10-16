@@ -1050,3 +1050,37 @@ h1, h2,
 .hero-banner-title-en {
   font-family: var(--sans);
 }
+
+
+/* 手機版首頁 Banner：依手機比例重新縮放背景，不沿用桌機裁切位置 */
+@media (max-width: 620px) {
+  .hero-banner {
+    min-height: clamp(430px, 135vw, 560px);
+    background-image:
+      linear-gradient(90deg, rgba(255,248,236,.88) 0%, rgba(247,241,223,.70) 58%, rgba(232,240,223,.28) 100%),
+      url("/icon2.jpg");
+    background-position: center, 62% center;
+    background-size: cover, auto 100%;
+    background-repeat: no-repeat, no-repeat;
+  }
+  .hero-banner-content {
+    width: 90%;
+    padding: 48px 0 62px;
+  }
+  .hero-banner h1 {
+    font-size: clamp(30px, 7.8vw, 38px);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  .hero-banner-content p {
+    max-width: 100%;
+    font-size: 14px;
+  }
+  .hero-banner-caption {
+    left: 5%;
+    right: 5%;
+    bottom: 12px;
+    font-size: 7px;
+    letter-spacing: .08em;
+  }
+}
