@@ -987,3 +987,36 @@ p, li, dd, dt, summary, label {
     max-width: 120px;
   }
 }
+
+
+/* 新品牌圖示：同時用於導覽列、頁尾與瀏覽器分頁圖示 */
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.hero-banner {
+  background:
+    linear-gradient(90deg, rgba(255,248,236,.94) 0%, rgba(247,241,223,.78) 52%, rgba(232,240,223,.30) 100%),
+    url("/icon2.jpg") center center / cover no-repeat;
+}
+.hero-banner-image {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+.hero-banner-shade { display: none; }
