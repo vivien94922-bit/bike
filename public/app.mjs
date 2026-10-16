@@ -110,21 +110,7 @@ bikeDetailModal?.addEventListener('keydown', (event) => {
   }
 });
 
-// 手機版導覽列
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.desktop-nav');
-
-menuToggle?.addEventListener('click', () => {
-  const isOpen = nav?.classList.toggle('open') ?? false;
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-});
-
-nav?.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    menuToggle?.setAttribute('aria-expanded', 'false');
-  });
-});
+// 手機版導覽由全站共用的 /nav.mjs 管理。
 
 // 單車圖片輪播
 document.querySelectorAll('[data-bike-gallery]').forEach((gallery) => {
