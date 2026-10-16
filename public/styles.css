@@ -509,7 +509,7 @@ button, input, select, textarea { font-family: var(--sans); }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(13, 43, 35, .88) 0%, rgba(13, 43, 35, .69) 38%, rgba(13, 43, 35, .22) 72%, rgba(13, 43, 35, .08) 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, .82) 0%, rgba(0, 0, 0, .64) 38%, rgba(0, 0, 0, .28) 72%, rgba(0, 0, 0, .12) 100%);
 }
 .hero-banner-content {
   width: min(1120px, 87.2%);
@@ -609,7 +609,7 @@ button, input, select, textarea { font-family: var(--sans); }
 @media (max-width: 620px) {
   .hero-banner { min-height: 485px; min-height: clamp(460px, 126vw, 560px); }
   .hero-banner-image { object-position: 56% center; }
-  .hero-banner-shade { background: linear-gradient(90deg, rgba(13,43,35,.82), rgba(13,43,35,.54) 72%, rgba(13,43,35,.32)); }
+  .hero-banner-shade { background: linear-gradient(90deg, rgba(0,0,0,.82), rgba(0,0,0,.62) 72%, rgba(0,0,0,.38)); }
   .hero-banner-content { width: 90%; padding: 55px 0 68px; }
   .hero-banner-kicker { font-size: 11px; gap: 8px; letter-spacing: .03em; }
   .hero-banner-kicker span { width: 20px; }
