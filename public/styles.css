@@ -482,8 +482,7 @@ button, input, select, textarea { font-family: var(--sans); }
 }
 
 
-/* 首頁大幅主視覺 Banner：取代原本六小格福隆照片 */
-/* 首頁品牌 Banner：無照片，以深炭黑漸層與細緻線條營造質感 */
+/* 首頁品牌 Banner：暖奶油白與鼠尾草綠，呼應網站原有配色 */
 .hero-banner {
   position: relative;
   isolation: isolate;
@@ -493,10 +492,10 @@ button, input, select, textarea { font-family: var(--sans); }
   display: flex;
   align-items: center;
   background:
-    radial-gradient(ellipse at 78% 38%, rgba(255,255,255,.075) 0%, rgba(255,255,255,0) 35%),
-    radial-gradient(ellipse at 92% 105%, rgba(190,170,139,.12) 0%, rgba(190,170,139,0) 40%),
-    linear-gradient(118deg, #101010 0%, #1b1b1b 54%, #292725 100%);
-  color: #fff;
+    radial-gradient(ellipse at 82% 28%, rgba(255,255,255,.8) 0%, rgba(255,255,255,0) 34%),
+    radial-gradient(ellipse at 92% 105%, rgba(247,217,200,.48) 0%, rgba(247,217,200,0) 42%),
+    linear-gradient(118deg, #f7f5ed 0%, #e9eee4 54%, #dce9d7 100%);
+  color: #173c35;
 }
 .hero-banner::before {
   content: "";
@@ -507,9 +506,9 @@ button, input, select, textarea { font-family: var(--sans); }
   right: -8%;
   top: 50%;
   transform: translateY(-50%);
-  border: 1px solid rgba(226,216,199,.13);
+  border: 1px solid rgba(53,84,77,.18);
   border-radius: 50%;
-  box-shadow: 0 0 0 42px rgba(226,216,199,.025), 0 0 0 96px rgba(226,216,199,.02);
+  box-shadow: 0 0 0 42px rgba(53,84,77,.035), 0 0 0 96px rgba(53,84,77,.025);
   pointer-events: none;
 }
 .hero-banner::after {
@@ -520,7 +519,7 @@ button, input, select, textarea { font-family: var(--sans); }
   top: 16%;
   width: 1px;
   height: 68%;
-  background: linear-gradient(transparent, rgba(226,216,199,.18), transparent);
+  background: linear-gradient(transparent, rgba(53,84,77,.2), transparent);
   pointer-events: none;
 }
 .hero-banner-shade { display: none; }
@@ -533,7 +532,7 @@ button, input, select, textarea { font-family: var(--sans); }
   display: inline-flex;
   align-items: center;
   gap: 11px;
-  color: #d7cbb8;
+  color: #61776a;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: .12em;
@@ -542,22 +541,22 @@ button, input, select, textarea { font-family: var(--sans); }
   display: inline-block;
   width: 28px;
   height: 1px;
-  background: #c9b79a;
+  background: #8fa493;
 }
 .hero-banner h1 {
   margin: 20px 0 18px;
-  color: #fff;
+  color: #173c35;
   font-family: var(--serif);
   font-size: clamp(36px, 4.2vw, 54px);
   font-weight: 500;
   letter-spacing: .015em;
   line-height: 1.38;
-  text-shadow: 0 3px 24px rgba(0,0,0,.2);
+  text-shadow: 0 2px 18px rgba(255,255,255,.28);
 }
 .hero-banner-title-en {
   display: inline-block;
   margin-top: 10px;
-  color: #d0c3ae;
+  color: #687f70;
   font-family: "DM Sans", sans-serif;
   font-size: clamp(12px, 1.15vw, 15px);
   font-weight: 400;
@@ -567,7 +566,7 @@ button, input, select, textarea { font-family: var(--sans); }
 .hero-banner-content p {
   margin: 0;
   max-width: 660px;
-  color: rgba(255,255,255,.74);
+  color: #53675e;
   font-size: clamp(14px, 1.35vw, 17px);
   line-height: 1.95;
   letter-spacing: .035em;
@@ -585,26 +584,26 @@ button, input, select, textarea { font-family: var(--sans); }
   justify-content: center;
   gap: 25px;
   padding: 14px 19px;
-  border: 1px solid rgba(235,226,211,.7);
-  background: #e8dfd1;
-  color: #171614;
+  border: 1px solid #173c35;
+  background: #173c35;
+  color: #f7f7f1;
   font-size: 14px;
   font-weight: 700;
   transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
 }
 .hero-banner-button:hover {
   transform: translateY(-2px);
-  background: #f3ede4;
-  box-shadow: 0 10px 28px rgba(0,0,0,.22);
+  background: #35544d;
+  box-shadow: 0 10px 28px rgba(23,60,53,.15);
 }
 .hero-banner-button span { font-size: 21px; line-height: 1; }
 .hero-banner-secondary {
-  color: rgba(255,255,255,.86);
+  color: #35544d;
   font-size: 13px;
   font-weight: 500;
   text-underline-offset: 5px;
 }
-.hero-banner-secondary:hover { color: #d7cbb8; text-decoration: underline; }
+.hero-banner-secondary:hover { color: #173c35; text-decoration: underline; }
 .hero-banner-caption {
   position: absolute;
   right: max(calc((100% - 1120px)/2), 6.4%);
@@ -613,7 +612,7 @@ button, input, select, textarea { font-family: var(--sans); }
   display: flex;
   justify-content: flex-end;
   gap: 18px;
-  color: rgba(226,216,199,.58);
+  color: rgba(53,84,77,.56);
   font-size: 9px;
   font-weight: 500;
   letter-spacing: .2em;
@@ -624,7 +623,7 @@ button, input, select, textarea { font-family: var(--sans); }
     width: 100vw;
     right: -42%;
     top: 42%;
-    box-shadow: 0 0 0 25px rgba(226,216,199,.025), 0 0 0 58px rgba(226,216,199,.02);
+    box-shadow: 0 0 0 25px rgba(53,84,77,.035), 0 0 0 58px rgba(53,84,77,.025);
   }
   .hero-banner::after { right: 12%; top: 12%; height: 76%; }
   .hero-banner-content { width: 90%; padding: 55px 0 68px; }
