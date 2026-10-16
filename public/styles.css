@@ -1317,3 +1317,90 @@ h1, h2,
     flex: 0 0 35px;
   }
 }
+
+
+/* 首頁頂部公告：價格與遊覽車提醒上下輪播 */
+.announcement {
+  --announcement-height: 34px;
+  height: var(--announcement-height) !important;
+  min-height: var(--announcement-height) !important;
+  padding: 0 12px !important;
+  flex-wrap: nowrap !important;
+  gap: 9px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.announcement-viewport {
+  height: var(--announcement-height);
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+.announcement-track {
+  display: flex;
+  flex-direction: column;
+  animation: announcement-vertical-roll 8s ease-in-out infinite;
+}
+.announcement-slide {
+  height: var(--announcement-height);
+  min-height: var(--announcement-height);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+.announcement-slide strong {
+  color: inherit !important;
+  background: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-weight: 700;
+}
+.announcement-slide span {
+  color: #d9e4c4;
+}
+.announcement-slide a {
+  color: var(--lime);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+@keyframes announcement-vertical-roll {
+  0%, 39% { transform: translateY(0); }
+  50%, 89% { transform: translateY(calc(-1 * var(--announcement-height))); }
+  100% { transform: translateY(0); }
+}
+@media (max-width: 620px) {
+  .announcement {
+    --announcement-height: 42px;
+    font-size: 10.5px !important;
+    line-height: 1.35;
+    gap: 6px;
+    padding-inline: 8px !important;
+  }
+  .announcement-slide {
+    white-space: normal;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-content: center;
+    text-align: center;
+  }
+  .announcement-slide strong {
+    font-size: 10.5px !important;
+  }
+  .announcement-slide span {
+    font-size: 10px;
+  }
+  .announcement-slide a {
+    margin-left: 3px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .announcement-track {
+    animation: none;
+  }
+  .announcement-slide:nth-child(2) {
+    display: none;
+  }
+}
