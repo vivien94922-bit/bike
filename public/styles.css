@@ -1633,12 +1633,13 @@ h1, h2,
   justify-content: center;
   gap: 10px;
 }
-.loading-with-bike img {
+.loading-with-bike::before {
+  content: "";
   display: block;
   width: 42px;
   height: 32px;
-  object-fit: contain;
   flex: 0 0 auto;
+  background: url("/icon3.png") center / contain no-repeat;
   animation: loading-bike-bounce 1s ease-in-out infinite;
   filter: drop-shadow(0 2px 2px rgba(23, 60, 53, .12));
 }
@@ -1647,11 +1648,11 @@ h1, h2,
   50% { transform: translateY(-4px) rotate(2deg); }
 }
 @media (max-width: 620px) {
-  .loading-with-bike img {
+  .loading-with-bike::before {
     width: 36px;
     height: 28px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .loading-with-bike img { animation: none; }
+  .loading-with-bike::before { animation: none; }
 }
