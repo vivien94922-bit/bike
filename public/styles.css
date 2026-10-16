@@ -1415,3 +1415,14 @@ h1, h2,
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
+
+/* 預約享八折優惠：淺紅色螢光筆重點 */
+.highlight-pink-text {
+  background: linear-gradient(transparent 42%, rgba(255, 171, 181, .62) 42%, rgba(255, 171, 181, .62) 96%, transparent 96%);
+  color: inherit;
+  padding: 0 .08em;
+  font-weight: 800;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
