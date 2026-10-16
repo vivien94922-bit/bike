@@ -965,18 +965,44 @@ p, li, dd, dt, summary, label {
 }
 @media (max-width: 760px) {
   .google-booking-layout {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
+    grid-template-columns: minmax(0, 1fr) minmax(120px, 34%);
+    gap: 10px;
+    align-items: start;
   }
   .booking-qr-card {
     position: static;
-    grid-row: 1;
-    padding: 20px 16px;
+    grid-row: auto;
+    padding: 14px 8px;
+    gap: 9px;
+  }
+  .booking-qr-card h4 {
+    font-size: 15px;
   }
   .booking-qr-card p {
-    max-width: 300px;
+    font-size: 11px;
+    line-height: 1.55;
   }
   .booking-qr-link {
-    max-width: 190px;
+    max-width: 150px;
+    padding: 4px;
+  }
+  .booking-qr-open {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+@media (max-width: 420px) {
+  .google-booking-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(108px, 34%);
+    gap: 8px;
+  }
+  .booking-qr-card {
+    padding: 12px 6px;
+  }
+  .booking-qr-card h4 {
+    font-size: 13px;
+  }
+  .booking-qr-card p {
+    font-size: 10px;
   }
 }
