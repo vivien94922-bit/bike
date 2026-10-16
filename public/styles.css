@@ -1624,55 +1624,34 @@ h1, h2,
 }
 
 
-/* icon3 腳踏車小動畫：沿著公告列輕快騎過，延續全站自然綠色調 */
-.announcement {
-  position: relative;
-  isolation: isolate;
+
+
+/* icon3 腳踏車動畫：只出現在公告／評論的載入提示，不放在頁面最上方 */
+.loading-with-bike {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
-.announcement > .announcement-bike-animation {
-  position: absolute;
-  z-index: 0;
-  left: 0;
-  top: 50%;
-  width: 34px;
-  height: 26px;
+.loading-with-bike img {
+  display: block;
+  width: 42px;
+  height: 32px;
   object-fit: contain;
-  object-position: center;
-  opacity: .88;
-  pointer-events: none;
-  transform: translate(-50px, -50%);
-  animation: announcement-bike-ride 12s linear infinite;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .14));
+  flex: 0 0 auto;
+  animation: loading-bike-bounce 1s ease-in-out infinite;
+  filter: drop-shadow(0 2px 2px rgba(23, 60, 53, .12));
 }
-.announcement > .announcement-dot,
-.announcement > .announcement-viewport,
-.announcement > :not(.announcement-bike-animation) {
-  position: relative;
-  z-index: 1;
-}
-@keyframes announcement-bike-ride {
-  0% { left: -2%; transform: translate(-50px, -50%) rotate(-2deg); }
-  8% { transform: translate(-20px, -50%) rotate(0deg); }
-  92% { transform: translate(0, -50%) rotate(0deg); }
-  100% { left: 102%; transform: translate(0, -50%) rotate(2deg); }
+@keyframes loading-bike-bounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-4px) rotate(2deg); }
 }
 @media (max-width: 620px) {
-  .announcement > .announcement-bike-animation {
-    width: 27px;
-    height: 21px;
-    animation-duration: 10s;
-    opacity: .82;
+  .loading-with-bike img {
+    width: 36px;
+    height: 28px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .announcement > .announcement-bike-animation {
-    animation: none;
-    left: auto;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 20px;
-    opacity: .75;
-  }
+  .loading-with-bike img { animation: none; }
 }
