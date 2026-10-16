@@ -20,7 +20,14 @@ function render(announcements) {
     date.className = 'announcement-date';
     date.textContent = announcement.date;
     const title = document.createElement('h2');
-    title.textContent = announcement.title;
+    if (/八折|8折/.test(announcement.title)) {
+      const highlightedTitle = document.createElement('span');
+      highlightedTitle.className = 'announcement-title-marker';
+      highlightedTitle.textContent = announcement.title;
+      title.append(highlightedTitle);
+    } else {
+      title.textContent = announcement.title;
+    }
     const content = document.createElement('p');
     content.textContent = announcement.content;
     article.append(date, title, content);
