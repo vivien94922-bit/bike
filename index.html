@@ -70,10 +70,12 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <script>
-      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      // 保留網址中的 #bikes、#how 等錨點，讓導覽連結能正確捲動到指定區塊。
+      // 只有網址沒有錨點時，才在頁面恢復顯示時回到頂端。
       window.addEventListener('pageshow', () => {
-        if (window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search);
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        if (!window.location.hash) {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }
       });
     </script>
     <script type="module" src="app.mjs"></script>
