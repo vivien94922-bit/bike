@@ -901,24 +901,36 @@ p, li, dd, dt, summary, label {
 }
 
 
-/* 預約表單旁新增 QR Code，桌機並排、手機自動改為上下排列 */
-.google-booking-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 232px;
-  align-items: start;
-  gap: 22px;
+/* QR Code 放在整個白色預約表單方框外側右邊 */
+.booking-wrap {
+  max-width: 1320px;
+  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.3fr) 184px;
+  gap: 26px;
+  align-items: center;
 }
-.google-booking-layout .google-form-container {
+.booking-wrap .google-booking-form {
   min-width: 0;
 }
-.booking-qr-card {
-  position: sticky;
-  top: 24px;
+.booking-wrap .google-form-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+}
+.booking-wrap .google-form-container iframe {
+  display: block;
+  width: 100%;
+  height: 550px;
+  border: 0;
+}
+.booking-wrap .booking-qr-card {
+  position: static;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  padding: 22px 16px 20px;
+  min-width: 0;
+  padding: 20px 12px;
   border: 1px solid #dce6d7;
   border-radius: 14px;
   background: #fffdf7;
@@ -933,20 +945,20 @@ p, li, dd, dt, summary, label {
 .booking-qr-card h4 {
   margin: 0;
   color: #315347;
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.4;
 }
 .booking-qr-card p {
   margin: 0;
   color: #68796d;
-  font-size: 13px;
-  line-height: 1.75;
+  font-size: 12px;
+  line-height: 1.7;
 }
 .booking-qr-link {
   display: block;
   width: 100%;
-  max-width: 220px;
-  padding: 8px;
+  max-width: 170px;
+  padding: 6px;
   border-radius: 10px;
   background: #fff;
 }
@@ -958,51 +970,50 @@ p, li, dd, dt, summary, label {
 }
 .booking-qr-open {
   color: #315347;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
+  line-height: 1.6;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-@media (max-width: 760px) {
-  .google-booking-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(120px, 34%);
-    gap: 10px;
-    align-items: start;
+@media (max-width: 1190px) {
+  .booking-wrap {
+    grid-template-columns: minmax(180px, .7fr) minmax(0, 1.3fr) 150px;
+    gap: 18px;
+  }
+  .booking-wrap .booking-form {
+    padding: 24px 18px;
   }
   .booking-qr-card {
-    position: static;
-    grid-row: auto;
-    padding: 14px 8px;
-    gap: 9px;
-  }
-  .booking-qr-card h4 {
-    font-size: 15px;
-  }
-  .booking-qr-card p {
-    font-size: 11px;
-    line-height: 1.55;
-  }
-  .booking-qr-link {
-    max-width: 150px;
-    padding: 4px;
-  }
-  .booking-qr-open {
-    font-size: 11px;
-    line-height: 1.5;
+    padding: 16px 8px;
   }
 }
-@media (max-width: 420px) {
-  .google-booking-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(108px, 34%);
-    gap: 8px;
+@media (max-width: 800px) {
+  .booking-wrap {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 24px;
   }
-  .booking-qr-card {
-    padding: 12px 6px;
+  .booking-wrap .booking-qr-card {
+    grid-column: 2;
+    justify-self: stretch;
+    width: 100%;
+    max-width: 100%;
   }
-  .booking-qr-card h4 {
-    font-size: 13px;
+}
+@media (max-width: 620px) {
+  .booking-wrap {
+    display: block;
   }
-  .booking-qr-card p {
-    font-size: 10px;
+  .booking-wrap .booking-form {
+    margin-top: 26px;
+  }
+  .booking-wrap .booking-qr-card {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 16px;
+    padding: 20px 16px;
+  }
+  .booking-wrap .booking-qr-link {
+    max-width: 190px;
   }
 }
