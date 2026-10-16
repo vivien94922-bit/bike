@@ -370,3 +370,52 @@ body{font-size:var(--readable-text)}
   }
 }
 
+/* 全站共用導覽：中小螢幕統一使用可展開選單 */
+@media (max-width: 900px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    gap: 12px;
+  }
+  .desktop-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    padding: 18px 5% 22px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    background: var(--paper, #f7f7f1);
+    border-bottom: 1px solid var(--line, #dce3db);
+    box-shadow: 0 12px 20px rgba(23, 60, 53, .06);
+  }
+  .desktop-nav.open { display: flex; }
+  .desktop-nav a { width: fit-content; font-size: 14px; }
+  .menu-toggle {
+    display: grid;
+    flex: 0 0 auto;
+    gap: 5px;
+    border: 0;
+    background: transparent;
+    padding: 8px;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: var(--ink, #173c35);
+  }
+}
+@media (max-width: 620px) {
+  .site-header { padding-inline: 5%; min-height: 62px; }
+  .desktop-nav { padding: 16px 5% 20px; }
+  .header-cta { margin-left: auto; margin-right: 0; padding: 10px 11px; font-size: 12px; white-space: nowrap; }
+  .brand { font-size: 18px; gap: 7px; }
+  .brand-mark { width: 31px; height: 31px; flex: 0 0 auto; }
+  .brand-sub { font-size: 7px; }
+}
+
