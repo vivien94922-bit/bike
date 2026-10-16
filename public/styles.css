@@ -1426,3 +1426,30 @@ h1, h2,
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
+
+/* 首頁 Banner 文字加粗、提高對比，讓主視覺更醒目 */
+.hero-banner-kicker {
+  color: #405f4d !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.55);
+}
+.hero-banner h1 {
+  color: #234638 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.35);
+}
+.hero-banner-title-en {
+  color: #536e50 !important;
+  font-weight: 800 !important;
+  letter-spacing: .16em;
+}
+.hero-banner-content p {
+  color: #3f5b4d !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.35);
+}
+.hero-banner-button,
+.hero-banner-secondary {
+  font-weight: 800 !important;
+}
