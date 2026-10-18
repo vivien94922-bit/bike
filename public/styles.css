@@ -1656,3 +1656,38 @@ h1, h2,
 @media (prefers-reduced-motion: reduce) {
   .loading-with-bike::before { animation: none; }
 }
+
+
+/* Local SEO content section: keep location/service information readable and consistent with the site design. */
+.local-seo-section {
+  padding-block: clamp(28px, 4vw, 52px);
+  border-top: 1px solid rgba(23, 60, 53, .12);
+}
+.local-seo-section .section-heading {
+  margin-bottom: 18px;
+}
+.local-seo-copy {
+  max-width: 850px;
+  color: var(--muted, #59645b);
+  font-size: 15px;
+  line-height: 1.95;
+}
+.local-seo-copy p {
+  margin: 0 0 12px;
+}
+.local-seo-copy p:last-child {
+  margin-bottom: 0;
+}
+.local-seo-copy strong {
+  color: var(--ink, #173c35);
+  font-weight: 700;
+}
+.local-seo-copy a {
+  color: var(--ink, #173c35);
+  text-decoration: underline;
+  text-decoration-color: rgba(23, 60, 53, .4);
+  text-underline-offset: 3px;
+}
+.local-seo-copy a:hover {
+  text-decoration-color: currentColor;
+}
