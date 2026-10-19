@@ -31,7 +31,7 @@
     <div class="announcement"><span class="announcement-dot"></span> 歡樂自行車・貢寮海岸單車旅行指南</div>
     <header class="site-header">
       <a class="brand" href="/index.html#top" aria-label="歡樂自行車首頁"><span class="brand-mark"><img src="/icon1.png" alt="" /></span><span>歡樂自行車<span class="brand-sub">HUAN LE BICYCLE</span></span></a>
-      <nav class="desktop-nav" aria-label="主要導覽"><a href="/index.html#bikes">車款與價格</a><a href="/index.html#how">租車方式</a><div class="nav-dropdown"><a class="nav-dropdown-toggle" href="/attractions.html" aria-current="page">景點介紹 <span class="nav-dropdown-chevron" aria-hidden="true">⌄</span></a><div class="nav-dropdown-menu"><a href="/attractions.html#tunnel-notice-title">行前注意</a><a href="/attractions.html#arrival-title">交通指南</a></div></div><a href="/reviews.html">旅人評論</a><a href="/announcements.html">最新公告</a><div class="nav-dropdown"><a class="nav-dropdown-toggle" href="/about.html">關於我們 <span class="nav-dropdown-chevron" aria-hidden="true">⌄</span></a><div class="nav-dropdown-menu"><a href="/index.html#faq">常見問題</a></div></div></nav>
+      <nav class="desktop-nav" aria-label="主要導覽"><a href="/index.html#bikes">車款與價格</a><a href="/index.html#how">租車方式</a><div class="nav-dropdown"><a class="nav-dropdown-toggle" href="/attractions.html" aria-current="page">景點介紹 <span class="nav-dropdown-chevron" aria-hidden="true">⌄</span></a><div class="nav-dropdown-menu"><a href="/attractions.html#tunnel-notice-title">行前注意</a><a href="/attractions.html#arrival-title">交通指南</a><a href="/attractions.html#fulong-weather">即時天氣</a></div></div><a href="/reviews.html">旅人評論</a><a href="/announcements.html">最新公告</a><div class="nav-dropdown"><a class="nav-dropdown-toggle" href="/about.html">關於我們 <span class="nav-dropdown-chevron" aria-hidden="true">⌄</span></a><div class="nav-dropdown-menu"><a href="/index.html#faq">常見問題</a></div></div></nav>
       <a class="header-cta" href="/index.html#booking">立即預約 <span aria-hidden="true">↗</span></a>
       <button class="menu-toggle" type="button" aria-label="開啟導覽選單" aria-expanded="false"><span></span><span></span></button>
     </header>
@@ -54,6 +54,42 @@
           <article class="guide-card"><span class="guide-number">05</span><h3>海岸小店、燒烤與飲料</h3><p>石城及沿線有咖啡、燒烤和飲料販售點，適合補充體力、停下來看海。不同店家的營業時段不一，建議不要把補給安排在最後一刻。</p></article>
           <article class="guide-card guide-card-green"><span class="guide-number">店內補給</span><h3>飲料、雨衣都備得到</h3><p>歡樂自行車店內有茶裡王、舒跑、礦泉水與雨衣販售。下雨或騎到一半想補水，可以先到店裡準備；品項依當日現貨為準。</p></article>
         </div>
+      </section>
+
+
+      <section class="fulong-weather-section" id="fulong-weather" aria-labelledby="fulong-weather-title">
+        <div class="weather-heading">
+          <div>
+            <span class="eyebrow"><span class="eyebrow-line"></span> FULONG WEATHER</span>
+            <h2 id="fulong-weather-title">福隆即時天氣</h2>
+            <p>出發騎車前，先看看海邊的天氣吧！穿好裝備、慢慢騎，享受福隆的海風。</p>
+          </div>
+          <span class="weather-live-badge"><i aria-hidden="true"></i> 即時更新</span>
+        </div>
+        <div class="weather-main-card" aria-live="polite">
+          <div class="weather-animation weather-sunny" id="weather-animation" aria-hidden="true">
+            <span class="weather-sun"></span><span class="weather-cloud weather-cloud-a"></span><span class="weather-cloud weather-cloud-b"></span>
+            <span class="weather-rain"><i></i><i></i><i></i></span>
+          </div>
+          <div class="weather-current">
+            <p class="weather-location">📍 新北市貢寮區・福隆</p>
+            <p class="weather-status" id="weather-status">小太陽正在確認天氣…</p>
+            <div class="weather-temperature"><span id="weather-temperature">--</span><sup>°C</sup></div>
+            <p class="weather-feels">體感溫度 <strong id="weather-feels">--°C</strong></p>
+          </div>
+          <div class="weather-details">
+            <div><span class="weather-detail-icon">💧</span><span>相對濕度</span><strong id="weather-humidity">--%</strong></div>
+            <div><span class="weather-detail-icon">🌬️</span><span>風速</span><strong id="weather-wind">-- km/h</strong></div>
+            <div><span class="weather-detail-icon">☔</span><span>目前降水</span><strong id="weather-rain">-- mm</strong></div>
+          </div>
+        </div>
+        <div class="weather-forecast-panel">
+          <div class="weather-forecast-heading"><h3>接下來的天氣</h3><span>福隆在地預報</span></div>
+          <div class="weather-forecast-grid" id="weather-forecast">
+            <p class="weather-loading">小雲朵正在整理預報……</p>
+          </div>
+        </div>
+        <p class="weather-footnote" id="weather-updated">天氣資料載入中；海邊風勢與實際路況仍請以現場狀況為準。</p>
       </section>
 
       <section class="notice-panel" aria-labelledby="tunnel-notice-title">
@@ -79,5 +115,78 @@
     <footer class="site-footer"><div class="footer-main"><a class="brand brand-footer" href="/index.html"><span class="brand-mark"><img src="/icon1.png" alt="" /></span><span>歡樂自行車<span class="brand-sub">HUAN LE BICYCLE</span></span></a><p>228 新北市貢寮區福隆里<br />外隆林街 16 之 2 號</p><div class="footer-contact"><a href="tel:+886224991585">02-2499-1585</a><span>營業時間 08:30–17:30</span></div><div class="footer-social"><a href="/reviews.html">旅人評論</a><a href="https://www.facebook.com/profile.php?id=100063473843836" target="_blank" rel="noreferrer">Facebook ↗</a></div></div><div class="footer-bottom"><span>景點路線及營業時間請依店家與風管處最新公告</span><span>歡樂自行車</span></div></footer>
     <a class="line-booking-float" href="https://line.me/R/ti/p/~0912200039" target="_blank" rel="noreferrer" aria-label="透過 LINE 立即預約歡樂自行車"><span class="line-booking-mark" aria-hidden="true">LINE</span><span>立即預約</span></a>
     <script type="module" src="/nav.mjs"></script>
+    <script>
+      (() => {
+        const $ = (id) => document.getElementById(id);
+        const weatherText = (code, isDay = 1) => {
+          if (code === 0) return isDay ? '晴朗舒適，適合出門走走！' : '夜空晴朗，記得注意海邊風勢。';
+          if ([1, 2].includes(code)) return '多雲時晴，偶爾有陽光探頭。';
+          if (code === 3) return '陰天，出門可以帶件薄外套。';
+          if ([45, 48].includes(code)) return '有霧，騎車請放慢速度、留意視線。';
+          if ([51, 53, 55, 56, 57].includes(code)) return '有點毛毛雨，雨衣先準備好！';
+          if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return '正在下雨，騎車記得穿雨衣、注意路滑。';
+          if ([71, 73, 75, 77, 85, 86].includes(code)) return '天氣較冷，出門前請再確認當地狀況。';
+          if ([95, 96, 99].includes(code)) return '可能有雷雨，建議暫緩騎乘、留在安全處。';
+          return '一起看看福隆的海邊天氣吧！';
+        };
+        const weatherKind = (code, isDay = 1) => {
+          if (code === 0) return isDay ? 'sunny' : 'night';
+          if ([1, 2, 3].includes(code)) return 'cloudy';
+          if ([45, 48].includes(code)) return 'fog';
+          if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return 'rainy';
+          if ([95, 96, 99].includes(code)) return 'storm';
+          return 'cloudy';
+        };
+        const emoji = (code, isDay = 1) => {
+          const kind = weatherKind(code, isDay);
+          return ({sunny:'☀️',night:'🌙',cloudy:'⛅',fog:'🌫️',rainy:'🌦️',storm:'⛈️'})[kind] || '⛅';
+        };
+        const setAnimation = (code, isDay) => {
+          const art = $('weather-animation');
+          if (art) art.className = 'weather-animation weather-' + weatherKind(code, isDay);
+        };
+        const render = async () => {
+          try {
+            const url = 'https://api.open-meteo.com/v1/forecast?latitude=25.0167&longitude=121.9440&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=3&timezone=Asia%2FTaipei';
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('weather unavailable');
+            const data = await response.json();
+            const now = data.current;
+            $('weather-status').textContent = weatherText(now.weather_code, now.is_day);
+            $('weather-temperature').textContent = Math.round(now.temperature_2m);
+            $('weather-feels').textContent = Math.round(now.apparent_temperature) + '°C';
+            $('weather-humidity').textContent = Math.round(now.relative_humidity_2m) + '%';
+            $('weather-wind').textContent = Math.round(now.wind_speed_10m) + ' km/h';
+            $('weather-rain').textContent = Number(now.precipitation).toFixed(1) + ' mm';
+            setAnimation(now.weather_code, now.is_day);
+            const hourly = data.hourly;
+            const nowTime = now.time.slice(0, 13);
+            let start = hourly.time.findIndex((t) => t.slice(0, 13) >= nowTime);
+            if (start < 0) start = 0;
+            const hourlyCards = [0, 1, 2].map((offset) => {
+              const i = Math.min(start + offset * 2, hourly.time.length - 1);
+              const time = hourly.time[i].slice(11, 16);
+              const code = hourly.weather_code[i];
+              return '<article class="weather-forecast-card"><span class="weather-forecast-time">' + (offset === 0 ? '接下來' : time) + '</span><span class="weather-forecast-emoji" aria-hidden="true">' + emoji(code) + '</span><strong>' + Math.round(hourly.temperature_2m[i]) + '°</strong><span class="weather-rain-chance">降雨機率 ' + Math.round(hourly.precipitation_probability[i] ?? 0) + '%</span></article>';
+            });
+            const dayNames = ['今天', '明天', '後天'];
+            const dailyCards = data.daily.time.map((date, i) => {
+              const d = new Date(date + 'T12:00:00+08:00');
+              const weekday = ['日','一','二','三','四','五','六'][d.getDay()];
+              return '<article class="weather-forecast-card weather-daily-card"><span class="weather-forecast-time">' + (dayNames[i] || weekday) + (i === 0 ? '' : '・週' + weekday) + '</span><span class="weather-forecast-emoji" aria-hidden="true">' + emoji(data.daily.weather_code[i]) + '</span><strong>' + Math.round(data.daily.temperature_2m_min[i]) + '° <small>—</small> ' + Math.round(data.daily.temperature_2m_max[i]) + '°</strong><span class="weather-rain-chance">降雨機率 ' + Math.round(data.daily.precipitation_probability_max[i] ?? 0) + '%</span></article>';
+            });
+            $('weather-forecast').innerHTML = '<div class="weather-forecast-subtitle">未來時段</div><div class="weather-forecast-row">' + hourlyCards.join('') + '</div><div class="weather-forecast-subtitle">未來三天</div><div class="weather-forecast-row">' + dailyCards.join('') + '</div>';
+            const updated = new Date(now.time);
+            $('weather-updated').textContent = '資料更新時間：' + updated.toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit', hour12:false }) + '（台灣時間）・資料來源：Open-Meteo。天氣預報僅供行程參考。';
+          } catch (error) {
+            $('weather-status').textContent = '小雲朵暫時迷路了，請稍後再試。';
+            $('weather-forecast').innerHTML = '<p class="weather-loading">目前無法載入天氣資料，請稍後重新整理頁面。</p>';
+            $('weather-updated').textContent = '若天氣資訊未顯示，請稍後再試；出發前也可查看中央氣象署最新預報。';
+          }
+        };
+        render();
+      })();
+    </script>
+
 </body>
 </html>
