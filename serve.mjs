@@ -12,6 +12,7 @@ const assets = new Map([
   ['/robots.txt', ['public/robots.txt', 'text/plain; charset=utf-8']],
   ['/sitemap.xml', ['public/sitemap.xml', 'application/xml; charset=utf-8']],
   ['/bike-fleet.png', ['public/bike-fleet.png', 'image/png']],
+  ['/logo.png', ['public/logo.png', 'image/png']],
   ['/logo.svg', ['public/logo.svg', 'image/svg+xml; charset=utf-8']],
   ['/shop-cat.png', ['public/shop-cat.png', 'image/png']],
   ['/fulong-bento.png', ['public/fulong-bento.png', 'image/png']],
