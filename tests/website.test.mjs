@@ -25,7 +25,7 @@ test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   assert.match(html, /name="description"/);
   assert.match(html, /property="og:title"/);
   assert.match(html, /name="robots" content="index,follow,max-image-preview:large"/);
-  assert.match(html, /rel="icon" type="image\/png" href="\/logo\.png" sizes="512x512"/);
+  assert.match(html, /rel="icon" type="image\/png" href="\/logo\.png" sizes="256x256"/);
   assert.match(html, /class="brand-mark"><img src="\/logo\.svg" alt=""/);
   assert.match(html, /property="og:image" content="https:\/\/bike\.happybike\.workers\.dev\/bike-fleet\.png"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
@@ -76,8 +76,8 @@ test('SEO 頁面使用在地搜尋詞、唯一 canonical 與可解析的店家�
   assert.equal(bikeStore.name, website.name);
   assert.equal(bikeStore.logo, 'https://bike.happybike.workers.dev/logo.png');
   assert.equal(siteFavicon.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
-  assert.equal(siteFavicon.readUInt32BE(16), 512);
-  assert.equal(siteFavicon.readUInt32BE(20), 512);
+  assert.equal(siteFavicon.readUInt32BE(16), 256);
+  assert.equal(siteFavicon.readUInt32BE(20), 256);
   assert.match(siteLogo, /viewBox="0 0 512 512"/);
   assert.match(siteLogo, /<title[^>]*>歡樂自行車<\/title>/);
   assert.ok(server.includes("['/logo.svg', ['public/logo.svg', 'image/svg+xml; charset=utf-8']]"));
