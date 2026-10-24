@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">歡樂自行車</title>
+  <desc id="desc">深綠色雙輪單車標誌，位於奶油色圓形底上</desc>
+  <circle cx="256" cy="256" r="244" fill="#f7f7f1" stroke="#183e36" stroke-width="16" />
+  <g fill="none" stroke="#183e36" stroke-linecap="round" stroke-linejoin="round" stroke-width="20">
+    <circle cx="142" cy="342" r="76" />
+    <circle cx="370" cy="342" r="76" />
+    <path d="m142 342 91-156 77 156H142l70-120h104m-26-48h38" />
+  </g>
+  <circle cx="286" cy="174" r="15" fill="#df8265" />
+</svg>

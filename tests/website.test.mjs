@@ -14,6 +14,7 @@ const astroHome = await readFile(new URL('../src/pages/index.astro', import.meta
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
 const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8');
 const bikeFleetPhoto = await readFile(new URL('../public/bike-fleet.png', import.meta.url));
+const siteLogo = await readFile(new URL('../public/logo.svg', import.meta.url), 'utf8');
 const shopCatPhoto = await readFile(new URL('../public/shop-cat.png', import.meta.url));
 const fulongBentoPhoto = await readFile(new URL('../public/fulong-bento.png', import.meta.url));
 const peanutIceCreamPhoto = await readFile(new URL('../public/peanut-ice-cream-roll.png', import.meta.url));
@@ -23,6 +24,8 @@ test('首頁具備搜尋摘要、分享 metadata 與公開租車資訊', () => {
   assert.match(html, /name="description"/);
   assert.match(html, /property="og:title"/);
   assert.match(html, /name="robots" content="index,follow,max-image-preview:large"/);
+  assert.match(html, /rel="icon" type="image\/svg\+xml" href="\/logo\.svg" sizes="any"/);
+  assert.match(html, /class="brand-mark"><img src="\/logo\.svg" alt=""/);
   assert.match(html, /property="og:image" content="https:\/\/bike\.happybike\.workers\.dev\/bike-fleet\.png"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   for (const sectionId of ['bikes', 'booking', 'how', 'about', 'faq']) assert.match(html, new RegExp(`id="${sectionId}"`));
@@ -66,6 +69,14 @@ test('SEO 頁面使用在地搜尋詞、唯一 canonical 與可解析的店家�
   const structuredData = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
   assert.ok(structuredData, '首頁應有 JSON-LD 店家資料');
   const graph = JSON.parse(structuredData[1])['@graph'];
+  const website = graph.find((entry) => entry['@type'] === 'WebSite');
+  const bikeStore = graph.find((entry) => entry['@type'] === 'BikeStore');
+  assert.equal(website.name, '歡樂自行車');
+  assert.equal(bikeStore.name, website.name);
+  assert.equal(bikeStore.logo, 'https://bike.happybike.workers.dev/logo.svg');
+  assert.match(siteLogo, /viewBox="0 0 512 512"/);
+  assert.match(siteLogo, /<title[^>]*>歡樂自行車<\/title>/);
+  assert.ok(server.includes("['/logo.svg', ['public/logo.svg', 'image/svg+xml; charset=utf-8']]"));
   assert.ok(graph.some((entry) => entry['@type'] === 'BikeStore' && entry.telephone === '+886-2-2499-1585' && entry.image === 'https://bike.happybike.workers.dev/bike-fleet.png'));
   for (const [path, page, image] of [
     ['/', html, 'bike-fleet.png'],
